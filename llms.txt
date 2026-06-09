@@ -1,0 +1,98 @@
+# dynTools
+
+Ivan Jacob Agaloos Pesigan 2026-06-09
+
+## Description
+
+Utility functions for data preparation when fitting dynamic models.
+
+## Installation
+
+You can install the released version of `dynTools` from
+[GitHub](https://github.com/jeksterslab/dynTools) with:
+
+``` r
+
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("jeksterslab/dynTools")
+```
+
+## More Information
+
+See [GitHub Pages](https://jeksterslab.github.io/dynTools) for package
+documentation.
+
+## References
+
+R Core Team. (2023). *R: A language and environment for statistical
+computing*. R Foundation for Statistical Computing.
+<https://www.R-project.org/>
+
+# Package index
+
+## All functions
+
+- [`CheckDynData()`](https://github.com/jeksterslab/dynTools/reference/CheckDynData.md)
+  : Check Dynamic Modeling Data
+
+- [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md)
+  : Delete for NAs in Initial Row By ID
+
+- [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md)
+  : Summarize Time Intervals by ID
+
+- [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md)
+  : Detrend Observed Variables by ID
+
+- [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md)
+  : Create Elapsed Time by ID
+
+- [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md)
+  : Filter Dynamic Modeling Data by ID
+
+- [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md)
+  : Check for NAs in Initial Row By ID
+
+- [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md)
+  : Insert NAs for Missing Observations
+
+- [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md)
+  : Create Lagged Variables by ID
+
+- [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md)
+  : Make Clock Time
+
+- [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md)
+  : Regularize Time by ID
+
+- [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md)
+  : Replace Missing-Value Codes
+
+- [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md)
+  : Resolve Duplicate ID-Time Rows
+
+- [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md)
+  : Round Clock Time
+
+- [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md)
+  : Scale by ID
+
+- [`SubsetByID()`](https://github.com/jeksterslab/dynTools/reference/SubsetByID.md)
+  : Subset Data Set by ID
+
+- [`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md)
+  : Summarize Dynamic Modeling Data by ID
+
+- [`print(`*`<dynutillist>`*`)`](https://github.com/jeksterslab/dynTools/reference/print.dynutillist.md)
+  :
+
+  Print Method for Object of Class `dynutillist`
+
+# Articles
+
+### All vignettes
+
+- [dynTools: Dynamic Modeling
+  Utilities](https://github.com/jeksterslab/dynTools/articles/dynTools.md):
+- [dynTools:
+  Session](https://github.com/jeksterslab/dynTools/articles/session.md):
