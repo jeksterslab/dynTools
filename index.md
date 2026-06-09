@@ -24,6 +24,6 @@ documentation.
 
 ## References
 
-R Core Team. (2023). *R: A language and environment for statistical
+R Core Team. (2026). *R: A language and environment for statistical
 computing*. R Foundation for Statistical Computing.
 <https://www.R-project.org/>
