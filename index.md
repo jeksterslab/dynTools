@@ -13,8 +13,8 @@ You can install the released version of `dynTools` from
 
 ``` r
 
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("jeksterslab/dynTools")
+if (!require("pak")) install.packages("pak")
+pak::pkg_install("jeksterslab/dynTools")
 ```
 
 ## More Information
