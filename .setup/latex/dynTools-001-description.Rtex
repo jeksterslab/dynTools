@@ -87,8 +87,8 @@ with:
 
 %% begin.rcode
 % #| eval = FALSE
-% install.packages("remotes")
-% remotes::install_github("jeksterslab/dynTools")
+% if (!require("pak")) install.packages("pak")
+% pak::pkg_install("jeksterslab/dynTools")
 %% end.rcode
 
 \section*{More Information}

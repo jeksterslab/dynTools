@@ -45,8 +45,8 @@ from
 [GitHub](https://github.com/jeksterslab/dynTools) with:
 
 ```r
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("jeksterslab/dynTools")
+if (!require("pak")) install.packages("pak")
+pak::pkg_install("jeksterslab/dynTools")
 ```
 
 ## More Information
