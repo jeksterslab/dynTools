@@ -49,9 +49,9 @@ documentation.
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" data-line-spacing="2">
 
-<div id="ref-RCoreTeam-2023" class="csl-entry">
+<div id="ref-RCoreTeam-2026" class="csl-entry">
 
-R Core Team. (2023). *R: A language and environment for statistical
+R Core Team. (2026). *R: A language and environment for statistical
 computing*. R Foundation for Statistical Computing.
 <https://www.R-project.org/>
 
