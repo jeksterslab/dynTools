@@ -1,0 +1,112 @@
+## ---- test-dynTools-subset-by-id
+lapply(
+  X = 1,
+  FUN = function(i,
+                 text) {
+    message(text)
+
+    testthat::test_that(
+      paste(
+        text,
+        "SubsetByID",
+        "returns a dynutillist split by sorted IDs"
+      ),
+      {
+        data <- data.frame(
+          id = c(2L, 1L, 2L, 1L),
+          time = c(2L, 1L, 1L, 2L),
+          y = c(22, 11, 21, 12),
+          cov = c("d", "a", "c", "b"),
+          extra = 1:4
+        )
+
+        out <- SubsetByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          covariates = "cov"
+        )
+
+        testthat::expect_true(inherits(out, "dynutillist"))
+        testthat::expect_identical(names(out), c("1", "2"))
+        testthat::expect_identical(
+          attr(out, "args"),
+          list(
+            id = "id",
+            time = "time",
+            observed = "y",
+            covariates = "cov"
+          )
+        )
+        testthat::expect_identical(attr(out, "idx")$id, c(1L, 2L))
+        testthat::expect_identical(attr(out, "idx")$time, c(1L, 2L))
+
+        testthat::expect_identical(
+          out[["1"]],
+          data.frame(
+            id = c(1L, 1L),
+            time = c(1L, 2L),
+            y = c(11, 12),
+            cov = c("a", "b")
+          )
+        )
+        testthat::expect_identical(
+          out[["2"]],
+          data.frame(
+            id = c(2L, 2L),
+            time = c(1L, 2L),
+            y = c(21, 22),
+            cov = c("c", "d")
+          )
+        )
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "SubsetByID",
+        "handles empty data frames"
+      ),
+      {
+        data <- data.frame(
+          id = integer(0),
+          time = integer(0),
+          y = numeric(0)
+        )
+
+        out <- SubsetByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y"
+        )
+
+        testthat::expect_true(inherits(out, "dynutillist"))
+        testthat::expect_length(out, 0L)
+        testthat::expect_identical(attr(out, "idx")$id, integer(0))
+        testthat::expect_identical(attr(out, "idx")$time, integer(0))
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "SubsetByID",
+        "requires data to be a data frame"
+      ),
+      {
+        testthat::expect_error(
+          SubsetByID(
+            data = matrix(1:4, ncol = 2),
+            id = "id",
+            time = "time",
+            observed = "y"
+          )
+        )
+      }
+    )
+  },
+  text = "test-dynTools-subset-by-id"
+)
