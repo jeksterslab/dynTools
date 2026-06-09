@@ -17,6 +17,7 @@
 #' @return Returns a data frame.
 #'
 #' @examples
+#' if (requireNamespace("simStateSpace", quietly = TRUE)) {
 #' # prepare parameters
 #' set.seed(42)
 #' ## number of individuals
@@ -52,6 +53,7 @@
 #'   observed = paste0("y", 1:p),
 #'   delta_t = 0.10
 #' )
+#' }
 #'
 #' @family Dynamic Modeling Utility Functions
 #' @keywords dynTools data

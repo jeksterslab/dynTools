@@ -6,6 +6,7 @@
 #' @param ... further arguments.
 #'
 #' @examples
+#' if (requireNamespace("simStateSpace", quietly = TRUE)) {
 #' # prepare parameters
 #' set.seed(42)
 #' ## number of individuals
@@ -41,6 +42,7 @@
 #'   observed = paste0("y", 1:p)
 #' )
 #' print(out)
+#' }
 #'
 #' @keywords methods
 #' @export
