@@ -52,8 +52,7 @@
 <span>  covariates <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  obs_skip <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cov_skip <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ncores <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  cov_skip <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -111,15 +110,6 @@ of the names of the observed variables to skip centering/scaling.</p></dd>
 A vector of character strings
 of the names of the covariates to skip centering/scaling.</p></dd>
 
-
-<dt id="arg-ncores">ncores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
-<dd><p>Positive integer.
-Number of cores to use.
-If <code>ncores = NULL</code>,
-use a single core.
-Consider using multiple cores
-when number of individuals is large.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -138,6 +128,7 @@ when number of individuals is large.</p></dd>
 <code><a href="InsertNA.html">InsertNA()</a></code>,
 <code><a href="LagByID.html">LagByID()</a></code>,
 <code><a href="MakeClockTime.html">MakeClockTime()</a></code>,
+<code><a href="PlotByID.html">PlotByID()</a></code>,
 <code><a href="RegularizeTimeByID.html">RegularizeTimeByID()</a></code>,
 <code><a href="ReplaceMissingCode.html">ReplaceMissingCode()</a></code>,
 <code><a href="ResolveDuplicateIDTime.html">ResolveDuplicateIDTime()</a></code>,
@@ -152,68 +143,75 @@ when number of individuals is large.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"simStateSpace"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="co"># prepare parameters</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="co">## number of individuals</span></span></span>
-<span class="r-in"><span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
-<span class="r-in"><span>  <span class="co">## time points</span></span></span>
-<span class="r-in"><span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
-<span class="r-in"><span>  <span class="co">## dynamic structure</span></span></span>
-<span class="r-in"><span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></span>
-<span class="r-in"><span>  <span class="va">mu0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, times <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">sigma0</span> <span class="op">&lt;-</span> <span class="fl">0.001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">sigma0_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">sigma0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, times <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">beta</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">psi</span> <span class="op">&lt;-</span> <span class="fl">0.001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">psi_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">psi</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, each <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, times <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">13</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">20</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">11</span>, <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">26</span>, <span class="fl">24</span>, <span class="fl">22</span>, <span class="fl">20</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id time y1 y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    1  1  4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    2  2  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1    3  3  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1    4  4  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2    1 10 13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2    2 11 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2    3 12 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2    4 13 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   3    1 20 26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3    2 22 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3    3 24 22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3    4 26 20</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/simStateSpace" class="external-link">simStateSpace</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">ssm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/simStateSpace/reference/SimSSMVARFixed.html" class="external-link">SimSSMVARFixed</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    n <span class="op">=</span> <span class="va">n</span>,</span></span>
-<span class="r-in"><span>    time <span class="op">=</span> <span class="va">time</span>,</span></span>
-<span class="r-in"><span>    mu0 <span class="op">=</span> <span class="va">mu0</span>,</span></span>
-<span class="r-in"><span>    sigma0_l <span class="op">=</span> <span class="va">sigma0_l</span>,</span></span>
-<span class="r-in"><span>    alpha <span class="op">=</span> <span class="va">alpha</span>,</span></span>
-<span class="r-in"><span>    beta <span class="op">=</span> <span class="va">beta</span>,</span></span>
-<span class="r-in"><span>    psi_l <span class="op">=</span> <span class="va">psi_l</span>,</span></span>
-<span class="r-in"><span>    type <span class="op">=</span> <span class="fl">0</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">ssm</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">ScaleByID</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    data <span class="op">=</span> <span class="va">data</span>,</span></span>
-<span class="r-in"><span>    id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
-<span class="r-in"><span>    time <span class="op">=</span> <span class="st">"time"</span>,</span></span>
-<span class="r-in"><span>    observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id time         y1            y2          y3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    0 -0.4219779 -0.1290371363  0.99309366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    1  1.2344905 -1.5169034100  0.90297298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1    2  0.2223925  0.9902754892  0.18426649</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1    3  0.4080190  0.8211679034 -1.05686493</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1    4 -1.4429241 -0.1655028462 -1.02346820</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2    0  1.0222882  0.5627105814  0.20465854</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2    1  0.1118914  1.3400201575  1.27732733</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2    2 -1.4830830 -0.4223332895 -0.08709119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2    3  0.7584059 -0.1863264166  0.12294870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2    4 -0.4095025 -1.2940710328 -1.51784338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3    0  0.3176618 -1.5385111239 -1.50814893</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3    1  1.3877048 -0.1294458249 -0.02380892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  3    2  0.1836168  1.1973495717  1.19770254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  3    3 -1.2233483  0.4248368670 -0.17533785</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  3    4 -0.6656352  0.0457705102  0.50959317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  4    0 -0.9895304  1.4087083945  1.13479101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  4    1 -0.5026359 -0.2993291562  0.15926771</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  4    2  0.1917089 -0.3944157246 -1.51393066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  4    3  1.6212693  0.5128034087 -0.32060165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  4    4 -0.3208118 -1.2277669224  0.54047358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  5    0 -1.0963066 -0.8824085465 -0.51149142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  5    1  0.6438298 -1.0977846358  1.20934331</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  5    2  0.1921786  0.0004827523 -1.41402392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  5    3  1.2055059  1.1580769792  0.25820995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  5    4 -0.9452078  0.8216334509  0.45796209</span>
+<span class="r-in"><span><span class="fu">ScaleByID</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>,</span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="st">"time"</span>,</span></span>
+<span class="r-in"><span>  observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id time         y1         y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    1 -1.1618950  1.1618950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    2 -0.3872983  0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1    3  0.3872983 -0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1    4  1.1618950 -1.1618950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2    1 -1.1618950  1.1618950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2    2 -0.3872983  0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2    3  0.3872983 -0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2    4  1.1618950 -1.1618950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   3    1 -1.1618950  1.1618950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3    2 -0.3872983  0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3    3  0.3872983 -0.3872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3    4  1.1618950 -1.1618950</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ScaleByID</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>,</span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="st">"time"</span>,</span></span>
+<span class="r-in"><span>  observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id time   y1   y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    1 -1.5  1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    2 -0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1    3  0.5 -0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1    4  1.5 -1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2    1 -1.5  1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2    2 -0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2    3  0.5 -0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2    4  1.5 -1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   3    1 -3.0  3.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3    2 -1.0  1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  3    3  1.0 -1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  3    4  3.0 -3.0</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

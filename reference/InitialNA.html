@@ -47,7 +47,7 @@ for the initial row by ID.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">InitialNA</span><span class="op">(</span><span class="va">data</span>, <span class="va">id</span>, <span class="va">time</span>, <span class="va">observed</span>, covariates <span class="op">=</span> <span class="cn">NULL</span>, ncores <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">InitialNA</span><span class="op">(</span><span class="va">data</span>, <span class="va">id</span>, <span class="va">time</span>, <span class="va">observed</span>, covariates <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -86,15 +86,6 @@ of the names of the observed variables in the data.</p></dd>
 A vector of character strings
 of the names of the covariates in the data.</p></dd>
 
-
-<dt id="arg-ncores">ncores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
-<dd><p>Positive integer.
-Number of cores to use.
-If <code>ncores = NULL</code>,
-use a single core.
-Consider using multiple cores
-when number of individuals is large.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -113,6 +104,7 @@ where the initial row has any missing value.</p>
 <code><a href="InsertNA.html">InsertNA()</a></code>,
 <code><a href="LagByID.html">LagByID()</a></code>,
 <code><a href="MakeClockTime.html">MakeClockTime()</a></code>,
+<code><a href="PlotByID.html">PlotByID()</a></code>,
 <code><a href="RegularizeTimeByID.html">RegularizeTimeByID()</a></code>,
 <code><a href="ReplaceMissingCode.html">ReplaceMissingCode()</a></code>,
 <code><a href="ResolveDuplicateIDTime.html">ResolveDuplicateIDTime()</a></code>,
@@ -128,44 +120,32 @@ where the initial row has any missing value.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"simStateSpace"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="co"># prepare parameters</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="co">## number of individuals</span></span></span>
-<span class="r-in"><span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
-<span class="r-in"><span>  <span class="co">## time points</span></span></span>
-<span class="r-in"><span>  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
-<span class="r-in"><span>  <span class="co">## dynamic structure</span></span></span>
-<span class="r-in"><span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></span>
-<span class="r-in"><span>  <span class="va">mu0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, times <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">sigma0</span> <span class="op">&lt;-</span> <span class="fl">0.001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">sigma0_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">sigma0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, times <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">beta</span> <span class="op">&lt;-</span> <span class="fl">0.50</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">psi</span> <span class="op">&lt;-</span> <span class="fl">0.001</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">psi_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chol.html" class="external-link">chol</a></span><span class="op">(</span><span class="va">psi</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, times <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id time y1 y2 y3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1    1 NA NA  1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1    2 NA  2 NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1    3  3  3  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1    4  4  4  4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1    5  5  5  5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2    1 10 10 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2    2 11 11 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2    3 12 12 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2    4 13 13 13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2    5 14 14 14</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/simStateSpace" class="external-link">simStateSpace</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">ssm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/simStateSpace/reference/SimSSMVARFixed.html" class="external-link">SimSSMVARFixed</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    n <span class="op">=</span> <span class="va">n</span>,</span></span>
-<span class="r-in"><span>    time <span class="op">=</span> <span class="va">time</span>,</span></span>
-<span class="r-in"><span>    mu0 <span class="op">=</span> <span class="va">mu0</span>,</span></span>
-<span class="r-in"><span>    sigma0_l <span class="op">=</span> <span class="va">sigma0_l</span>,</span></span>
-<span class="r-in"><span>    alpha <span class="op">=</span> <span class="va">alpha</span>,</span></span>
-<span class="r-in"><span>    beta <span class="op">=</span> <span class="va">beta</span>,</span></span>
-<span class="r-in"><span>    psi_l <span class="op">=</span> <span class="va">psi_l</span>,</span></span>
-<span class="r-in"><span>    type <span class="op">=</span> <span class="fl">0</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">ssm</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="co"># Replace first row with NA</span></span></span>
-<span class="r-in"><span>  <span class="va">data</span><span class="op">[</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">p</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
-<span class="r-in"><span>  <span class="fu">InitialNA</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    data <span class="op">=</span> <span class="va">data</span>,</span></span>
-<span class="r-in"><span>    id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
-<span class="r-in"><span>    time <span class="op">=</span> <span class="st">"time"</span>,</span></span>
-<span class="r-in"><span>    observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fl">1</span><span class="op">:</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">InitialNA</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>,</span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
+<span class="r-in"><span>  time <span class="op">=</span> <span class="st">"time"</span>,</span></span>
+<span class="r-in"><span>  observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

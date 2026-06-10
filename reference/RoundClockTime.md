@@ -56,6 +56,7 @@ Other Dynamic Modeling Utility Functions:
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),

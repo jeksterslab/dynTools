@@ -6,7 +6,7 @@ ID.
 ## Usage
 
 ``` r
-InitialNA(data, id, time, observed, covariates = NULL, ncores = NULL)
+InitialNA(data, id, time, observed, covariates = NULL)
 ```
 
 ## Arguments
@@ -38,12 +38,6 @@ InitialNA(data, id, time, observed, covariates = NULL, ncores = NULL)
   Character vector. A vector of character strings of the names of the
   covariates in the data.
 
-- ncores:
-
-  Positive integer. Number of cores to use. If `ncores = NULL`, use a
-  single core. Consider using multiple cores when number of individuals
-  is large.
-
 ## Value
 
 Returns a vector of ID numbers where the initial row has any missing
@@ -61,6 +55,7 @@ Other Dynamic Modeling Utility Functions:
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
@@ -76,43 +71,31 @@ Ivan Jacob Agaloos Pesigan
 ## Examples
 
 ``` r
-if (requireNamespace("simStateSpace", quietly = TRUE)) {
-  # prepare parameters
-  set.seed(42)
-  ## number of individuals
-  n <- 5
-  ## time points
-  time <- 5
-  ## dynamic structure
-  p <- 3
-  mu0 <- rep(x = 0, times = p)
-  sigma0 <- 0.001 * diag(p)
-  sigma0_l <- t(chol(sigma0))
-  alpha <- rep(x = 0, times = p)
-  beta <- 0.50 * diag(p)
-  psi <- 0.001 * diag(p)
-  psi_l <- t(chol(psi))
+data <- data.frame(
+  id = rep(1:2, each = 5),
+  time = rep(1:5, times = 2),
+  y1 = c(NA, NA, 3, 4, 5, 10, 11, 12, 13, 14),
+  y2 = c(NA, 2, 3, 4, 5, 10, 11, 12, 13, 14),
+  y3 = c(1, NA, 3, 4, 5, 10, 11, 12, 13, 14)
+)
+data
+#>    id time y1 y2 y3
+#> 1   1    1 NA NA  1
+#> 2   1    2 NA  2 NA
+#> 3   1    3  3  3  3
+#> 4   1    4  4  4  4
+#> 5   1    5  5  5  5
+#> 6   2    1 10 10 10
+#> 7   2    2 11 11 11
+#> 8   2    3 12 12 12
+#> 9   2    4 13 13 13
+#> 10  2    5 14 14 14
 
-  library(simStateSpace)
-  ssm <- SimSSMVARFixed(
-    n = n,
-    time = time,
-    mu0 = mu0,
-    sigma0_l = sigma0_l,
-    alpha = alpha,
-    beta = beta,
-    psi_l = psi_l,
-    type = 0
-  )
-  data <- as.data.frame(ssm)
-  # Replace first row with NA
-  data[1, paste0("y", 1:p)] <- NA
-  InitialNA(
-    data = data,
-    id = "id",
-    time = "time",
-    observed = paste0("y", 1:p)
-  )
-}
+InitialNA(
+  data = data,
+  id = "id",
+  time = "time",
+  observed = paste0("y", 1:3)
+)
 #> [1] 1
 ```

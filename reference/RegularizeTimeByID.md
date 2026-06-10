@@ -76,6 +76,7 @@ Other Dynamic Modeling Utility Functions:
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
@@ -95,6 +96,13 @@ data <- data.frame(
   time = c(1, 3, 1, 2),
   y = c(10, 12, 20, 21)
 )
+data
+#>   id time  y
+#> 1  1    1 10
+#> 2  1    3 12
+#> 3  2    1 20
+#> 4  2    2 21
+
 RegularizeTimeByID(
   data = data,
   id = "id",

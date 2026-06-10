@@ -81,6 +81,7 @@ Other Dynamic Modeling Utility Functions:
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
@@ -108,6 +109,13 @@ data <- data.frame(
     tz = "UTC"
   )
 )
+data
+#>   id            datetime
+#> 1  1 2020-01-01 00:00:00
+#> 2  1 2020-01-02 00:00:00
+#> 3  2 2020-01-03 12:00:00
+#> 4  2 2020-01-04 00:00:00
+
 ElapsedTimeByID(
   data = data,
   id = "id",

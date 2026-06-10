@@ -62,6 +62,7 @@ Other Dynamic Modeling Utility Functions:
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
@@ -83,6 +84,15 @@ data <- data.frame(
   y1 = rnorm(6),
   y2 = rnorm(6)
 )
+data
+#>   id time         y1          y2
+#> 1  1    1  0.5429963  1.88850493
+#> 2  1    2 -0.9140748 -0.09744510
+#> 3  1    3  0.4681544 -0.93584735
+#> 4  2    1  0.3629513 -0.01595031
+#> 5  2    2 -1.3045435 -0.82678895
+#> 6  2    3  0.7377763 -1.51239965
+
 LagByID(
   data = data,
   id = "id",
@@ -90,11 +100,11 @@ LagByID(
   observed = c("y1", "y2"),
   lags = 1
 )
-#>   id time          y1         y2    lag1_y1    lag1_y2
-#> 1  1    1  0.33584812  0.6235182         NA         NA
-#> 2  1    2  1.03850610 -0.9535234  0.3358481  0.6235182
-#> 3  1    3  0.92072857 -0.5428288  1.0385061 -0.9535234
-#> 4  2    1  0.72087816  0.5809965         NA         NA
-#> 5  2    2 -1.04311894  0.7681787  0.7208782  0.5809965
-#> 6  2    3 -0.09018639  0.4637676 -1.0431189  0.7681787
+#>   id time         y1          y2    lag1_y1     lag1_y2
+#> 1  1    1  0.5429963  1.88850493         NA          NA
+#> 2  1    2 -0.9140748 -0.09744510  0.5429963  1.88850493
+#> 3  1    3  0.4681544 -0.93584735 -0.9140748 -0.09744510
+#> 4  2    1  0.3629513 -0.01595031         NA          NA
+#> 5  2    2 -1.3045435 -0.82678895  0.3629513 -0.01595031
+#> 6  2    3  0.7377763 -1.51239965 -1.3045435 -0.82678895
 ```

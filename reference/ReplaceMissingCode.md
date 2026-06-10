@@ -42,6 +42,7 @@ Other Dynamic Modeling Utility Functions:
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
+[`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
@@ -62,6 +63,12 @@ data <- data.frame(
   x = c("a", "-999", "c"),
   stringsAsFactors = FALSE
 )
+data
+#>   id    y    x
+#> 1  1    1    a
+#> 2  2 -999 -999
+#> 3  3    3    c
+
 ReplaceMissingCode(
   data = data,
   values = c(-999, "-999")

@@ -135,6 +135,7 @@ If <code>TRUE</code>, replace the original <code>time</code> variable. If <code>
 <code><a href="InsertNA.html">InsertNA()</a></code>,
 <code><a href="LagByID.html">LagByID()</a></code>,
 <code><a href="MakeClockTime.html">MakeClockTime()</a></code>,
+<code><a href="PlotByID.html">PlotByID()</a></code>,
 <code><a href="RegularizeTimeByID.html">RegularizeTimeByID()</a></code>,
 <code><a href="ReplaceMissingCode.html">ReplaceMissingCode()</a></code>,
 <code><a href="ResolveDuplicateIDTime.html">ResolveDuplicateIDTime()</a></code>,
@@ -162,6 +163,13 @@ If <code>TRUE</code>, replace the original <code>time</code> variable. If <code>
 <span class="r-in"><span>    tz <span class="op">=</span> <span class="st">"UTC"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id            datetime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1 2020-01-01 00:00:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1 2020-01-02 00:00:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2 2020-01-03 12:00:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2 2020-01-04 00:00:00</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ElapsedTimeByID</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">data</span>,</span></span>
 <span class="r-in"><span>  id <span class="op">=</span> <span class="st">"id"</span>,</span></span>
