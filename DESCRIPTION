@@ -10,7 +10,7 @@ Authors@R:
 Description: Utility functions for data preparation when fitting dynamic models.
 URL: https://github.com/jeksterslab/dynTools, https://jeksterslab.github.io/dynTools/
 BugReports: https://github.com/jeksterslab/dynTools/issues
-License: GPL (>= 3)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

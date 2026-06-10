@@ -6,7 +6,7 @@
 cff-version: 1.2.0
 message: 'To cite package "dynTools" in publications use:'
 type: software
-license: GPL-3.0-or-later
+license: MIT
 title: 'dynTools: Dynamic Modeling Utilities'
 version: 0.0.0.9000
 abstract: Utility functions for data preparation when fitting dynamic models.
