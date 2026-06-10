@@ -17,43 +17,21 @@
 #' @return Returns a data frame.
 #'
 #' @examples
-#' if (requireNamespace("simStateSpace", quietly = TRUE)) {
-#'   # prepare parameters
-#'   set.seed(42)
-#'   ## number of individuals
-#'   n <- 5
-#'   ## time points
-#'   time <- 5
-#'   ## dynamic structure
-#'   p <- 3
-#'   mu0 <- rep(x = 0, times = p)
-#'   sigma0 <- 0.001 * diag(p)
-#'   sigma0_l <- t(chol(sigma0))
-#'   alpha <- rep(x = 0, times = p)
-#'   beta <- 0.50 * diag(p)
-#'   psi <- 0.001 * diag(p)
-#'   psi_l <- t(chol(psi))
+#' data <- data.frame(
+#'   id = c(1, 1, 1, 2, 2, 2),
+#'   time = c(1, 2, 4, 1, 3, 4),
+#'   y1 = c(10, 11, 13, 20, 22, 23),
+#'   y2 = c(5, 6, 8, 15, 17, 18)
+#' )
+#' data
 #'
-#'   library(simStateSpace)
-#'   ssm <- SimSSMVARFixed(
-#'     n = n,
-#'     time = time,
-#'     mu0 = mu0,
-#'     sigma0_l = sigma0_l,
-#'     alpha = alpha,
-#'     beta = beta,
-#'     psi_l = psi_l,
-#'     type = 0
-#'   )
-#'   data <- as.data.frame(ssm)
-#'   InsertNA(
-#'     data = data,
-#'     id = "id",
-#'     time = "time",
-#'     observed = paste0("y", 1:p),
-#'     delta_t = 0.10
-#'   )
-#' }
+#' InsertNA(
+#'   data = data,
+#'   id = "id",
+#'   time = "time",
+#'   observed = c("y1", "y2"),
+#'   delta_t = 1
+#' )
 #'
 #' @family Dynamic Modeling Utility Functions
 #' @keywords dynTools data
@@ -63,8 +41,7 @@ InsertNA <- function(data,
                      time,
                      observed,
                      covariates = NULL,
-                     delta_t,
-                     ncores = NULL) {
+                     delta_t) {
   stopifnot(delta_t > 0)
 
   data <- .DynToolsSelectSort(

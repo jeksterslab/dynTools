@@ -47,6 +47,8 @@ data <- data.frame(
   time = c(1, 2, 3, 1, 3, 4),
   y = rnorm(6)
 )
+data
+
 DeltaTByID(
   data = data,
   id = "id",
@@ -66,6 +68,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},

@@ -9,7 +9,7 @@ lapply(
       paste(
         text,
         "SubsetByID",
-        "returns a dynutillist split by sorted IDs"
+        "returns a list split by sorted IDs"
       ),
       {
         data <- data.frame(
@@ -27,20 +27,6 @@ lapply(
           observed = "y",
           covariates = "cov"
         )
-
-        testthat::expect_true(inherits(out, "dynutillist"))
-        testthat::expect_identical(names(out), c("1", "2"))
-        testthat::expect_identical(
-          attr(out, "args"),
-          list(
-            id = "id",
-            time = "time",
-            observed = "y",
-            covariates = "cov"
-          )
-        )
-        testthat::expect_identical(attr(out, "idx")$id, c(1L, 2L))
-        testthat::expect_identical(attr(out, "idx")$time, c(1L, 2L))
 
         testthat::expect_identical(
           out[["1"]],
@@ -83,10 +69,7 @@ lapply(
           observed = "y"
         )
 
-        testthat::expect_true(inherits(out, "dynutillist"))
         testthat::expect_length(out, 0L)
-        testthat::expect_identical(attr(out, "idx")$id, integer(0))
-        testthat::expect_identical(attr(out, "idx")$time, integer(0))
       }
     )
 

@@ -28,6 +28,8 @@
 #'   y1 = c(NA, 1, 2),
 #'   y2 = c(NA, 1, 3)
 #' )
+#' data
+#'
 #' ResolveDuplicateIDTime(
 #'   data = data,
 #'   id = "id",

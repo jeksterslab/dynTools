@@ -60,6 +60,8 @@ data <- data.frame(
   time = c(1, 3, 1, 2),
   y = c(10, 12, 20, 21)
 )
+data
+
 RegularizeTimeByID(
   data = data,
   id = "id",
@@ -82,6 +84,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},

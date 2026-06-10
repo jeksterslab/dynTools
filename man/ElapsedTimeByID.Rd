@@ -72,6 +72,8 @@ data <- data.frame(
     tz = "UTC"
   )
 )
+data
+
 ElapsedTimeByID(
   data = data,
   id = "id",
@@ -92,6 +94,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},

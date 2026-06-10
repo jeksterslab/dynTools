@@ -20,6 +20,8 @@
 #'   y1 = rnorm(6),
 #'   y2 = rnorm(6)
 #' )
+#' data
+#'
 #' LagByID(
 #'   data = data,
 #'   id = "id",

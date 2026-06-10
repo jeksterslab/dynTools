@@ -22,6 +22,8 @@
 #'   time = c(1, 3, 1, 2),
 #'   y = c(10, 12, 20, 21)
 #' )
+#' data
+#'
 #' RegularizeTimeByID(
 #'   data = data,
 #'   id = "id",

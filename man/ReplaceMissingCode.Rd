@@ -31,6 +31,8 @@ data <- data.frame(
   x = c("a", "-999", "c"),
   stringsAsFactors = FALSE
 )
+data
+
 ReplaceMissingCode(
   data = data,
   values = c(-999, "-999")
@@ -49,6 +51,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},

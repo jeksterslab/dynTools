@@ -18,42 +18,36 @@
 #' @return Returns a data frame.
 #'
 #' @examples
-#' if (requireNamespace("simStateSpace", quietly = TRUE)) {
-#'   # prepare parameters
-#'   set.seed(42)
-#'   ## number of individuals
-#'   n <- 5
-#'   ## time points
-#'   time <- 5
-#'   ## dynamic structure
-#'   p <- 3
-#'   mu0 <- rep(x = 0, times = p)
-#'   sigma0 <- 0.001 * diag(p)
-#'   sigma0_l <- t(chol(sigma0))
-#'   alpha <- rep(x = 0, times = p)
-#'   beta <- 0.50 * diag(p)
-#'   psi <- 0.001 * diag(p)
-#'   psi_l <- t(chol(psi))
+#' data <- data.frame(
+#'   id = rep(1:3, each = 4),
+#'   time = rep(1:4, times = 3),
+#'   y1 = c(
+#'     1, 2, 3, 4,
+#'     10, 11, 12, 13,
+#'     20, 22, 24, 26
+#'   ),
+#'   y2 = c(
+#'     4, 3, 2, 1,
+#'     13, 12, 11, 10,
+#'     26, 24, 22, 20
+#'   )
+#' )
+#' data
 #'
-#'   library(simStateSpace)
-#'   ssm <- SimSSMVARFixed(
-#'     n = n,
-#'     time = time,
-#'     mu0 = mu0,
-#'     sigma0_l = sigma0_l,
-#'     alpha = alpha,
-#'     beta = beta,
-#'     psi_l = psi_l,
-#'     type = 0
-#'   )
-#'   data <- as.data.frame(ssm)
-#'   ScaleByID(
-#'     data = data,
-#'     id = "id",
-#'     time = "time",
-#'     observed = paste0("y", 1:p)
-#'   )
-#' }
+#' ScaleByID(
+#'   data = data,
+#'   id = "id",
+#'   time = "time",
+#'   observed = c("y1", "y2")
+#' )
+#'
+#' ScaleByID(
+#'   data = data,
+#'   id = "id",
+#'   time = "time",
+#'   observed = c("y1", "y2"),
+#'   scale = FALSE
+#' )
 #'
 #' @family Dynamic Modeling Utility Functions
 #' @keywords dynTools data
@@ -65,8 +59,7 @@ ScaleByID <- function(data,
                       covariates = NULL,
                       scale = TRUE,
                       obs_skip = NULL,
-                      cov_skip = NULL,
-                      ncores = NULL) {
+                      cov_skip = NULL) {
   data <- .DynToolsSelectSort(
     data = data,
     id = id,

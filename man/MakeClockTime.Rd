@@ -62,6 +62,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InitialNA]{InitialNA()}},
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},

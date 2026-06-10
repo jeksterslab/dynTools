@@ -23,6 +23,8 @@
 #'   time = rep(1:4, times = 2),
 #'   y = rep(1:4, times = 2)
 #' )
+#' data
+#'
 #' DetrendByID(
 #'   data = data,
 #'   id = "id",

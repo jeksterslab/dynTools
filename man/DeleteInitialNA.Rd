@@ -4,7 +4,7 @@
 \alias{DeleteInitialNA}
 \title{Delete for NAs in Initial Row By ID}
 \usage{
-DeleteInitialNA(data, id, time, observed, covariates = NULL, ncores = NULL)
+DeleteInitialNA(data, id, time, observed, covariates = NULL)
 }
 \arguments{
 \item{data}{Data frame.
@@ -29,13 +29,6 @@ of the names of the observed variables in the data.}
 \item{covariates}{Character vector.
 A vector of character strings
 of the names of the covariates in the data.}
-
-\item{ncores}{Positive integer.
-Number of cores to use.
-If \code{ncores = NULL},
-use a single core.
-Consider using multiple cores
-when number of individuals is large.}
 }
 \value{
 Returns a data frame.
@@ -46,44 +39,21 @@ This process is repeated until the first row per ID no longer has missing
 observations.
 }
 \examples{
-if (requireNamespace("simStateSpace", quietly = TRUE)) {
-  # prepare parameters
-  set.seed(42)
-  ## number of individuals
-  n <- 5
-  ## time points
-  time <- 5
-  ## dynamic structure
-  p <- 3
-  mu0 <- rep(x = 0, times = p)
-  sigma0 <- 0.001 * diag(p)
-  sigma0_l <- t(chol(sigma0))
-  alpha <- rep(x = 0, times = p)
-  beta <- 0.50 * diag(p)
-  psi <- 0.001 * diag(p)
-  psi_l <- t(chol(psi))
+data <- data.frame(
+  id = rep(1:2, each = 5),
+  time = rep(1:5, times = 2),
+  y1 = c(NA, NA, 3, 4, 5, 10, 11, 12, 13, 14),
+  y2 = c(NA, 2, 3, 4, 5, 10, 11, 12, 13, 14),
+  y3 = c(1, NA, 3, 4, 5, 10, 11, 12, 13, 14)
+)
+data
 
-  library(simStateSpace)
-  ssm <- SimSSMVARFixed(
-    n = n,
-    time = time,
-    mu0 = mu0,
-    sigma0_l = sigma0_l,
-    alpha = alpha,
-    beta = beta,
-    psi_l = psi_l,
-    type = 0
-  )
-  data <- as.data.frame(ssm)
-  # Replace first row with NA
-  data[1, paste0("y", 1:p)] <- NA
-  DeleteInitialNA(
-    data = data,
-    id = "id",
-    time = "time",
-    observed = paste0("y", 1:p)
-  )
-}
+DeleteInitialNA(
+  data = data,
+  id = "id",
+  time = "time",
+  observed = paste0("y", 1:3)
+)
 
 }
 \seealso{
@@ -97,6 +67,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
