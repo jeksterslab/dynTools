@@ -11,7 +11,7 @@ Description: Utility functions for data preparation when fitting dynamic models.
 URL: https://github.com/jeksterslab/dynTools,
         https://jeksterslab.github.io/dynTools/
 BugReports: https://github.com/jeksterslab/dynTools/issues
-License: GPL (>= 3)
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
@@ -19,7 +19,7 @@ Depends: R (>= 4.1.0)
 Suggests: knitr, rmarkdown, testthat
 Config/roxygen2/version: 8.0.0.9000
 NeedsCompilation: no
-Packaged: 2026-06-10 16:45:03 UTC; root
+Packaged: 2026-06-10 21:45:33 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0003-4818-8420>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
