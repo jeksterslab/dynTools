@@ -24,6 +24,8 @@
 #'   time = rep(1:3, times = 3),
 #'   y = c(1, 2, 3, NA, NA, 4, NA, NA, NA)
 #' )
+#' data
+#'
 #' FilterByID(
 #'   data = data,
 #'   id = "id",

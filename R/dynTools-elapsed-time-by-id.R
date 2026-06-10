@@ -38,6 +38,8 @@
 #'     tz = "UTC"
 #'   )
 #' )
+#' data
+#'
 #' ElapsedTimeByID(
 #'   data = data,
 #'   id = "id",

@@ -15,6 +15,8 @@
 #'   y1 = c(1, NA, 3, 4, 5, 6),
 #'   y2 = c(1, 2, 3, NA, NA, NA)
 #' )
+#' data
+#'
 #' SummaryByID(
 #'   data = data,
 #'   id = "id",

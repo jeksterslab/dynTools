@@ -50,6 +50,8 @@ data <- data.frame(
   y1 = rnorm(6),
   y2 = rnorm(6)
 )
+data
+
 LagByID(
   data = data,
   id = "id",
@@ -70,6 +72,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=InitialNA]{InitialNA()}},
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},
+\code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},

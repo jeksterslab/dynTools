@@ -22,6 +22,8 @@
 #'   x = c("a", "-999", "c"),
 #'   stringsAsFactors = FALSE
 #' )
+#' data
+#'
 #' ReplaceMissingCode(
 #'   data = data,
 #'   values = c(-999, "-999")

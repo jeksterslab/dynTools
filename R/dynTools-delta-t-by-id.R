@@ -28,6 +28,8 @@
 #'   time = c(1, 2, 3, 1, 3, 4),
 #'   y = rnorm(6)
 #' )
+#' data
+#'
 #' DeltaTByID(
 #'   data = data,
 #'   id = "id",
