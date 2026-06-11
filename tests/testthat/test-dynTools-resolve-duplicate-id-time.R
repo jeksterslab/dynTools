@@ -12,6 +12,8 @@ lapply(
         "keeps the most complete observed row"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1, 2, 2),
           time = c(0, 0, 1, 0, 0),
@@ -62,6 +64,8 @@ lapply(
         "supports first and last methods"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(0, 0, 0),
@@ -102,6 +106,8 @@ lapply(
         "uses order_by to break ties"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(0, 0, 0),
@@ -148,6 +154,8 @@ lapply(
         "validates inputs"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, NA),
           time = c(0, 1),

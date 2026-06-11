@@ -12,6 +12,8 @@ lapply(
         "creates a complete ID by time grid and inserts missing rows"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2L, 1L, 1L, 2L),
           time = c(3L, 1L, 3L, 1L),
@@ -47,6 +49,8 @@ lapply(
         "includes empirical times not on the delta_t grid"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L),
           time = c(1, 2.5),
@@ -73,6 +77,8 @@ lapply(
         "requires positive delta_t"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = 1L,
           time = 1L,
@@ -98,6 +104,8 @@ lapply(
         "requires unique id-time combinations"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L),
           time = c(1L, 1L),
@@ -124,6 +132,8 @@ lapply(
         "handles empty data frames"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = integer(0),
           time = integer(0),

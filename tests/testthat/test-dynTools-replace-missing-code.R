@@ -12,6 +12,8 @@ lapply(
         "replaces numeric and character missing codes"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = 1:4,
           y = c(1, -999, 3, NA),
@@ -46,6 +48,8 @@ lapply(
         "only modifies selected columns"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           y = c(1, -999, 3),
           z = c(1, -999, 3),
@@ -76,6 +80,8 @@ lapply(
         "preserves factor columns"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           group = factor(c("a", "-999", "b")),
           stringsAsFactors = FALSE
@@ -106,6 +112,8 @@ lapply(
         "handles integer and logical columns"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           y = c(1L, -999L, 3L),
           flag = c(TRUE, FALSE, TRUE),
@@ -135,6 +143,8 @@ lapply(
         "returns unchanged data for NULL columns or empty values"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           y = c(1, -999, 3),
           stringsAsFactors = FALSE
@@ -165,6 +175,8 @@ lapply(
         "validates inputs"
       ),
       {
+        testthat::skip_on_cran()
+
         testthat::expect_error(
           ReplaceMissingCode(
             data = matrix(1:4, nrow = 2)

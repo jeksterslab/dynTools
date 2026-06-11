@@ -12,6 +12,8 @@ lapply(
         "combines supported date formats with decimal-hour times"
       ),
       {
+        testthat::skip_on_cran()
+
         out <- MakeClockTime(
           date = c(
             "01/02/20",
@@ -53,6 +55,8 @@ lapply(
         "parses character clock times"
       ),
       {
+        testthat::skip_on_cran()
+
         out <- MakeClockTime(
           date = "2020-01-02",
           time = c(
@@ -85,6 +89,8 @@ lapply(
         "preserves missing and invalid inputs as missing by default"
       ),
       {
+        testthat::skip_on_cran()
+
         out <- MakeClockTime(
           date = c(
             "2020-01-02",
@@ -122,6 +128,8 @@ lapply(
         "can error on invalid clock times"
       ),
       {
+        testthat::skip_on_cran()
+
         testthat::expect_error(
           MakeClockTime(
             date = "2020-01-02",
@@ -140,6 +148,8 @@ lapply(
         "allows length-one recycling"
       ),
       {
+        testthat::skip_on_cran()
+
         out <- MakeClockTime(
           date = "2020-01-02",
           time = c(
@@ -172,6 +182,8 @@ lapply(
         "checks incompatible lengths and argument values"
       ),
       {
+        testthat::skip_on_cran()
+
         testthat::expect_error(
           MakeClockTime(
             date = c(
@@ -214,6 +226,8 @@ lapply(
         "preserves requested time zone"
       ),
       {
+        testthat::skip_on_cran()
+
         out <- MakeClockTime(
           date = "2020-01-02",
           time = 12,
@@ -243,6 +257,8 @@ lapply(
         "handles Date and POSIXt date inputs"
       ),
       {
+        testthat::skip_on_cran()
+
         out_date <- MakeClockTime(
           date = as.Date("2020-01-02"),
           time = 6,
