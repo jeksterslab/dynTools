@@ -17,6 +17,8 @@ lapply(
         "keeps from first complete row onward"
       ),
       {
+        testthat::skip_on_cran()
+
         start <- c(1L, 5L, 8L)
         end <- c(4L, 7L, 10L)
         ok <- c(

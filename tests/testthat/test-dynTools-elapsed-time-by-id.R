@@ -12,6 +12,8 @@ lapply(
         "creates elapsed POSIXct time by ID"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2, 1, 1, 2),
           datetime = as.POSIXct(
@@ -54,6 +56,8 @@ lapply(
         "converts numeric input units"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 2, 2),
           seconds = c(86400, 172800, 0, 43200),
@@ -84,6 +88,8 @@ lapply(
         "supports global origin"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 2, 2),
           time = c(10, 12, 20, 21),
@@ -112,6 +118,8 @@ lapply(
         "preserves missing times as missing elapsed values"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(1, NA, 3),
@@ -139,6 +147,8 @@ lapply(
         "checks output name collision and replacement"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1, 2),

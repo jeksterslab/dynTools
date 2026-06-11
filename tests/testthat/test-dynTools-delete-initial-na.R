@@ -12,6 +12,8 @@ lapply(
         "deletes leading incomplete rows by ID"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L),
           time = c(1L, 2L, 3L, 1L, 2L, 3L, 1L, 2L),
@@ -45,6 +47,8 @@ lapply(
         "leaves later missing rows after the first complete row"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L, 1L),
           time = c(1L, 2L, 3L),
@@ -69,6 +73,8 @@ lapply(
         "handles empty data frames"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = integer(0),
           time = integer(0),

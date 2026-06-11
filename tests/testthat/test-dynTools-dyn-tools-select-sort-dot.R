@@ -17,6 +17,8 @@ lapply(
         "selects requested variables and sorts rows"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           extra = letters[1:6],
           y = c(10, 11, 20, 21, 30, 31),
@@ -58,6 +60,8 @@ lapply(
         "works with covariates = NULL"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c("b", "a", "b", "a"),
           time = c(2L, 2L, 1L, 1L),
@@ -89,6 +93,8 @@ lapply(
         "removes duplicated variable requests"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L),
           time = c(2L, 1L),
@@ -115,6 +121,8 @@ lapply(
         "errors when requested variables are absent"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = 1L,
           time = 1L,

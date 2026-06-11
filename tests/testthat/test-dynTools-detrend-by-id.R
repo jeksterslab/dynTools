@@ -12,6 +12,8 @@ lapply(
         "appends linear residualized variables by ID"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = rep(1:2, each = 4),
           time = rep(1:4, times = 2),
@@ -44,6 +46,8 @@ lapply(
         "mean-centers by ID when degree is zero"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1, 2, 2, 2),
           time = c(1, 2, 3, 1, 2, 3),
@@ -75,6 +79,8 @@ lapply(
         "preserves missing observations as missing residuals"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(1, 2, 3),
@@ -107,6 +113,8 @@ lapply(
         "can replace observed variables"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = rep(1:2, each = 3),
           time = rep(1:3, times = 2),
@@ -139,6 +147,8 @@ lapply(
         "checks for residualized name collisions"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1, 2),

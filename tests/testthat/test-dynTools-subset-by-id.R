@@ -12,6 +12,8 @@ lapply(
         "returns a list split by sorted IDs"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2L, 1L, 2L, 1L),
           time = c(2L, 1L, 1L, 2L),
@@ -56,6 +58,8 @@ lapply(
         "handles empty data frames"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = integer(0),
           time = integer(0),
@@ -80,6 +84,8 @@ lapply(
         "requires data to be a data frame"
       ),
       {
+        testthat::skip_on_cran()
+
         testthat::expect_error(
           SubsetByID(
             data = matrix(1:4, ncol = 2),

@@ -12,6 +12,8 @@ lapply(
         "creates lags within ID and does not cross ID boundaries"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c("b", "a", "a", "b", "a"),
           time = c(2, 3, 1, 1, 2),
@@ -62,6 +64,8 @@ lapply(
         "validates lags and output names"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1, 2),

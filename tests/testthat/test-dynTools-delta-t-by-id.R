@@ -12,6 +12,8 @@ lapply(
         "summarizes within-ID time intervals"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2, 1, 1, 2, 1, 2),
           time = c(3, 4, 1, 4, 2, 1),
@@ -50,6 +52,8 @@ lapply(
         "detects regular time intervals"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = rep(1:2, each = 3),
           time = rep(1:3, times = 2),
@@ -78,6 +82,8 @@ lapply(
         "can use only id and time"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c("b", "a", "a", "b"),
           time = c(2, 1, 2, 4),

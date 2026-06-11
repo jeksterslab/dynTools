@@ -12,6 +12,8 @@ lapply(
         "accepts valid dynamic data"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = rep(1:2, each = 3),
           time = rep(1:3, times = 2),
@@ -40,6 +42,8 @@ lapply(
         "rejects malformed dynamic data"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(1, 1, 2),

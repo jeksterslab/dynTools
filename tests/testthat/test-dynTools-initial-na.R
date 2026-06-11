@@ -12,6 +12,8 @@ lapply(
         "returns IDs whose first row has missing values"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2L, 1L, 1L, 2L, 3L, 3L),
           time = c(1L, 2L, 1L, 2L, 1L, 2L),
@@ -46,6 +48,8 @@ lapply(
         "returns an empty ID vector when no initial rows are missing"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1L, 1L, 2L, 2L),
           time = c(1L, 2L, 1L, 2L),
@@ -70,6 +74,8 @@ lapply(
         "handles empty data frames"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = integer(0),
           time = integer(0),

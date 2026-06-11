@@ -12,6 +12,8 @@ lapply(
         "creates a global time grid"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2, 1, 2, 1),
           time = c(3, 1, 1, 2),
@@ -49,6 +51,8 @@ lapply(
         "creates ID-specific time grids"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(2, 1, 2, 1),
           time = c(3, 1, 1, 2),
@@ -83,6 +87,8 @@ lapply(
         "retains empirical times not on the grid"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1.0, 1.7),
@@ -111,6 +117,8 @@ lapply(
         "requires unique id-time combinations"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1, 1),

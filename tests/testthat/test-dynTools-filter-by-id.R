@@ -12,6 +12,8 @@ lapply(
         "removes IDs that do not meet data requirements"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(3, 1, 2, 1, 3, 1, 2),
           time = c(1, 1, 1, 2, 2, 3, 2),
@@ -47,6 +49,8 @@ lapply(
         "can remove IDs with initial missing values"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 2, 2),
           time = c(1, 2, 1, 2),
@@ -83,6 +87,8 @@ lapply(
         "validates filtering arguments"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1),
           time = c(1, 2),

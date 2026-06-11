@@ -11,6 +11,8 @@ lapply(
         "SummaryByID", "summarizes observed missingness and time by ID"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c("b", "a", "b", "a", "a"),
           time = c(2, 3, 1, 1, 2),
@@ -62,6 +64,8 @@ lapply(
         "reports duplicate times within ID"
       ),
       {
+        testthat::skip_on_cran()
+
         data <- data.frame(
           id = c(1, 1, 1),
           time = c(1, 1, 2),

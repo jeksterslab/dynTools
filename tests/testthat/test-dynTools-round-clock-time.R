@@ -12,6 +12,8 @@ lapply(
         "rounds POSIXct values to nearest hour"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.POSIXct(
           c(
             "2020-01-01 10:29:00",
@@ -49,6 +51,8 @@ lapply(
         "floors POSIXct values to hour"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.POSIXct(
           c(
             "2020-01-01 10:00:00",
@@ -84,6 +88,8 @@ lapply(
         "ceilings POSIXct values to hour"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.POSIXct(
           c(
             "2020-01-01 10:00:00",
@@ -121,6 +127,8 @@ lapply(
         "rounds POSIXct values to nearest minute"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.POSIXct(
           c(
             "2020-01-01 10:29:29",
@@ -158,6 +166,8 @@ lapply(
         "rounds numeric Unix seconds and returns POSIXct"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.numeric(
           as.POSIXct(
             c(
@@ -201,6 +211,8 @@ lapply(
         "floors and ceilings numeric Unix seconds"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.numeric(
           as.POSIXct(
             c(
@@ -261,6 +273,8 @@ lapply(
         "preserves Date values for day unit"
       ),
       {
+        testthat::skip_on_cran()
+
         x <- as.Date(
           c(
             "2020-01-01",
@@ -287,6 +301,8 @@ lapply(
         "checks invalid inputs"
       ),
       {
+        testthat::skip_on_cran()
+
         testthat::expect_error(
           RoundClockTime(
             x = letters,
