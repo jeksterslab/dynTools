@@ -2,18 +2,28 @@
 #'
 #' The function removes polynomial time trends from observed variables within
 #' each ID. Missing observed values are ignored when estimating the trend and
-#' remain missing in the residualized variables.
+#' remain missing in the detrended variables.
+#'
+#' If `keep_mean = TRUE`, the within-ID observed mean is added back after
+#' removing the fitted time trend. This removes temporal drift while preserving
+#' each ID's observed-variable level. If `keep_mean = FALSE`, the output is the
+#' ordinary residual from the within-ID polynomial trend model.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @inheritParams SubsetByID
 #' @param degree Non-negative integer.
-#'   Degree of the polynomial trend. Use `degree = 0` for mean centering by ID.
+#'   Degree of the polynomial trend. Use `degree = 0` for mean centering by ID
+#'   when `keep_mean = FALSE`. If `degree = 0` and `keep_mean = TRUE`, the
+#'   original observed values are returned.
 #' @param replace Logical.
-#'   If `TRUE`, replace observed variables with residualized variables. If
-#'   `FALSE`, append residualized variables to the data frame.
+#'   If `TRUE`, replace observed variables with detrended variables. If
+#'   `FALSE`, append detrended variables to the data frame.
+#' @param keep_mean Logical.
+#'   If `TRUE`, preserve the original within-ID mean after detrending.
+#'   If `FALSE`, return ordinary residuals from the within-ID trend model.
 #' @param prefix Character string.
-#'   Prefix for residualized variables when `replace = FALSE`.
+#'   Prefix for detrended variables when `replace = FALSE`.
 #'
 #' @return Returns a data frame.
 #'
@@ -30,7 +40,17 @@
 #'   id = "id",
 #'   time = "time",
 #'   observed = "y",
-#'   degree = 1
+#'   degree = 1,
+#'   keep_mean = TRUE
+#' )
+#'
+#' DetrendByID(
+#'   data = data,
+#'   id = "id",
+#'   time = "time",
+#'   observed = "y",
+#'   degree = 1,
+#'   keep_mean = FALSE
 #' )
 #'
 #' @family Dynamic Modeling Utility Functions
@@ -43,6 +63,7 @@ DetrendByID <- function(data,
                         covariates = NULL,
                         degree = 1L,
                         replace = FALSE,
+                        keep_mean = TRUE,
                         prefix = "detrend") {
   CheckDynData(
     data = data,
@@ -94,6 +115,17 @@ DetrendByID <- function(data,
     )
   }
 
+  if (
+    !is.logical(keep_mean) ||
+      length(keep_mean) != 1L ||
+      is.na(keep_mean)
+  ) {
+    stop(
+      "`keep_mean` must be `TRUE` or `FALSE`.",
+      call. = FALSE
+    )
+  }
+
   degree <- as.integer(degree)
 
   if (!replace) {
@@ -111,7 +143,7 @@ DetrendByID <- function(data,
     if (length(collision) > 0L) {
       stop(
         paste0(
-          "Residualized variable names already exist in `data`: ",
+          "Detrended variable names already exist in `data`: ",
           paste(collision, collapse = ", "),
           "."
         ),
@@ -142,10 +174,7 @@ DetrendByID <- function(data,
   start <- end - run$lengths + 1L
 
   for (var in observed) {
-    residualized <- rep(
-      x = NA_real_,
-      times = nrow(data)
-    )
+    detrended <- data[[var]]
 
     for (j in seq_along(start)) {
       index <- seq.int(
@@ -159,39 +188,58 @@ DetrendByID <- function(data,
       ok <- !is.na(y) & !is.na(times)
       n_ok <- sum(ok)
 
-      if (n_ok > degree) {
-        if (degree == 0L) {
-          x <- matrix(
-            data = 1,
-            nrow = n_ok,
-            ncol = 1L
-          )
-        } else {
-          x <- cbind(
-            1,
-            outer(
-              X = times[ok],
-              Y = seq_len(degree),
-              FUN = "^"
-            )
-          )
+      if (n_ok <= degree) {
+        next
+      }
+
+      if (degree > 0L) {
+        if (length(unique(times[ok])) <= degree) {
+          next
         }
 
-        fit <- stats::lm.fit(
-          x = x,
-          y = y[ok]
+        x <- cbind(
+          1,
+          outer(
+            X = times[ok],
+            Y = seq_len(degree),
+            FUN = "^"
+          )
         )
-
-        residualized[
-          index[ok]
-        ] <- fit$residuals
+      } else {
+        x <- matrix(
+          data = 1,
+          nrow = n_ok,
+          ncol = 1L
+        )
       }
+
+      if (qr(x)$rank < ncol(x)) {
+        next
+      }
+
+      fit <- stats::lm.fit(
+        x = x,
+        y = y[ok]
+      )
+
+      out <- fit$residuals
+
+      if (keep_mean) {
+        out <- out + mean(
+          x = y[ok],
+          na.rm = TRUE
+        )
+      }
+
+      detrended[
+        index[ok]
+      ] <- out
     }
 
     if (replace) {
-      data[[var]] <- residualized
+      data[[var]] <- detrended
     } else {
-      data[[paste0(prefix, "_", var)]] <- residualized
+      data[[paste0(prefix, "_", var)]] <- detrended
     }
   }
 
