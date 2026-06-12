@@ -12,6 +12,7 @@ DetrendByID(
   covariates = NULL,
   degree = 1L,
   replace = FALSE,
+  keep_mean = TRUE,
   prefix = "detrend"
 )
 }
@@ -40,14 +41,20 @@ A vector of character strings
 of the names of the covariates in the data.}
 
 \item{degree}{Non-negative integer.
-Degree of the polynomial trend. Use \code{degree = 0} for mean centering by ID.}
+Degree of the polynomial trend. Use \code{degree = 0} for mean centering by ID
+when \code{keep_mean = FALSE}. If \code{degree = 0} and \code{keep_mean = TRUE}, the
+original observed values are returned.}
 
 \item{replace}{Logical.
-If \code{TRUE}, replace observed variables with residualized variables. If
-\code{FALSE}, append residualized variables to the data frame.}
+If \code{TRUE}, replace observed variables with detrended variables. If
+\code{FALSE}, append detrended variables to the data frame.}
+
+\item{keep_mean}{Logical.
+If \code{TRUE}, preserve the original within-ID mean after detrending.
+If \code{FALSE}, return ordinary residuals from the within-ID trend model.}
 
 \item{prefix}{Character string.
-Prefix for residualized variables when \code{replace = FALSE}.}
+Prefix for detrended variables when \code{replace = FALSE}.}
 }
 \value{
 Returns a data frame.
@@ -55,7 +62,13 @@ Returns a data frame.
 \description{
 The function removes polynomial time trends from observed variables within
 each ID. Missing observed values are ignored when estimating the trend and
-remain missing in the residualized variables.
+remain missing in the detrended variables.
+}
+\details{
+If \code{keep_mean = TRUE}, the within-ID observed mean is added back after
+removing the fitted time trend. This removes temporal drift while preserving
+each ID's observed-variable level. If \code{keep_mean = FALSE}, the output is the
+ordinary residual from the within-ID polynomial trend model.
 }
 \examples{
 data <- data.frame(
@@ -70,7 +83,17 @@ DetrendByID(
   id = "id",
   time = "time",
   observed = "y",
-  degree = 1
+  degree = 1,
+  keep_mean = TRUE
+)
+
+DetrendByID(
+  data = data,
+  id = "id",
+  time = "time",
+  observed = "y",
+  degree = 1,
+  keep_mean = FALSE
 )
 
 }
