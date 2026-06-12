@@ -180,7 +180,8 @@ lapply(
       paste(
         text,
         "DetrendByID",
-        "preserves missing observations as missing residuals when keep_mean is false"
+        "preserves missing observations as missing residuals",
+        "when keep_mean is false"
       ),
       {
         testthat::skip_on_cran()
