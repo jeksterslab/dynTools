@@ -2,7 +2,7 @@
 
 The function removes polynomial time trends from observed variables
 within each ID. Missing observed values are ignored when estimating the
-trend and remain missing in the residualized variables.
+trend and remain missing in the detrended variables.
 
 ## Usage
 
@@ -15,6 +15,7 @@ DetrendByID(
   covariates = NULL,
   degree = 1L,
   replace = FALSE,
+  keep_mean = TRUE,
   prefix = "detrend"
 )
 ```
@@ -51,22 +52,36 @@ DetrendByID(
 - degree:
 
   Non-negative integer. Degree of the polynomial trend. Use `degree = 0`
-  for mean centering by ID.
+  for mean centering by ID when `keep_mean = FALSE`. If `degree = 0` and
+  `keep_mean = TRUE`, the original observed values are returned.
 
 - replace:
 
-  Logical. If `TRUE`, replace observed variables with residualized
-  variables. If `FALSE`, append residualized variables to the data
-  frame.
+  Logical. If `TRUE`, replace observed variables with detrended
+  variables. If `FALSE`, append detrended variables to the data frame.
+
+- keep_mean:
+
+  Logical. If `TRUE`, preserve the original within-ID mean after
+  detrending. If `FALSE`, return ordinary residuals from the within-ID
+  trend model.
 
 - prefix:
 
-  Character string. Prefix for residualized variables when
+  Character string. Prefix for detrended variables when
   `replace = FALSE`.
 
 ## Value
 
 Returns a data frame.
+
+## Details
+
+If `keep_mean = TRUE`, the within-ID observed mean is added back after
+removing the fitted time trend. This removes temporal drift while
+preserving each ID's observed-variable level. If `keep_mean = FALSE`,
+the output is the ordinary residual from the within-ID polynomial trend
+model.
 
 ## See also
 
@@ -117,7 +132,26 @@ DetrendByID(
   id = "id",
   time = "time",
   observed = "y",
-  degree = 1
+  degree = 1,
+  keep_mean = TRUE
+)
+#>   id time y detrend_y
+#> 1  1    1 1       2.5
+#> 2  1    2 2       2.5
+#> 3  1    3 3       2.5
+#> 4  1    4 4       2.5
+#> 5  2    1 1       2.5
+#> 6  2    2 2       2.5
+#> 7  2    3 3       2.5
+#> 8  2    4 4       2.5
+
+DetrendByID(
+  data = data,
+  id = "id",
+  time = "time",
+  observed = "y",
+  degree = 1,
+  keep_mean = FALSE
 )
 #>   id time y detrend_y
 #> 1  1    1 1         0
