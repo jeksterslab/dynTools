@@ -83,33 +83,80 @@ RegularizeTimeByID <- function(data,
     return(data)
   }
 
-  key_data <- paste(
-    data[[id]],
-    data[[time]],
-    sep = "\r"
+  time_tolerance <- max(
+    sqrt(.Machine$double.eps) * max(1, abs(delta_t)),
+    1000 * .Machine$double.eps * max(
+      1,
+      abs(data[[time]]),
+      na.rm = TRUE
+    )
   )
 
-  if (anyDuplicated(key_data)) {
-    stop(
-      "`RegularizeTimeByID()` requires unique `id`-`time` combinations.",
-      call. = FALSE
+  make_grid <- function(from, to, by, tolerance) {
+    n_steps <- floor(
+      x = (to - from) / by + tolerance / by
+    )
+
+    out <- from + seq.int(
+      from = 0L,
+      to = n_steps
+    ) * by
+
+    out[
+      out <= to + tolerance
+    ]
+  }
+
+  canonicalize_time <- function(x, origin, by, tolerance) {
+    k <- round(
+      x = (x - origin) / by
+    )
+
+    x_grid <- origin + k * by
+
+    near_grid <- abs(x - x_grid) <= tolerance
+
+    x[near_grid] <- x_grid[near_grid]
+
+    x
+  }
+
+  make_key <- function(id_value, time_value) {
+    paste(
+      as.character(id_value),
+      sprintf("%.17g", time_value),
+      sep = "\r"
     )
   }
 
   ids <- unique(data[[id]])
 
+  time_match <- data[[time]]
+
   if (grid == "global") {
     times <- data[[time]]
+    origin <- min(times)
+    endpoint <- max(times)
+
+    grid_times <- make_grid(
+      from = origin,
+      to = endpoint,
+      by = delta_t,
+      tolerance = time_tolerance
+    )
+
+    time_match <- canonicalize_time(
+      x = times,
+      origin = origin,
+      by = delta_t,
+      tolerance = time_tolerance
+    )
 
     new_times <- sort(
       unique(
         c(
-          seq(
-            from = min(times),
-            to = max(times),
-            by = delta_t
-          ),
-          times
+          grid_times,
+          time_match
         )
       )
     )
@@ -152,16 +199,28 @@ RegularizeTimeByID <- function(data,
       )
 
       times <- data[[time]][index]
+      origin <- min(times)
+      endpoint <- max(times)
+
+      grid_times <- make_grid(
+        from = origin,
+        to = endpoint,
+        by = delta_t,
+        tolerance = time_tolerance
+      )
+
+      time_match[index] <- canonicalize_time(
+        x = times,
+        origin = origin,
+        by = delta_t,
+        tolerance = time_tolerance
+      )
 
       new_times <- sort(
         unique(
           c(
-            seq(
-              from = min(times),
-              to = max(times),
-              by = delta_t
-            ),
-            times
+            grid_times,
+            time_match[index]
           )
         )
       )
@@ -190,21 +249,54 @@ RegularizeTimeByID <- function(data,
     )
   }
 
-  key_out <- paste(
-    out[[id]],
-    out[[time]],
-    sep = "\r"
+  key_data <- make_key(
+    id_value = data[[id]],
+    time_value = time_match
   )
+
+  if (anyDuplicated(key_data)) {
+    stop(
+      paste(
+        "`RegularizeTimeByID()` found duplicate or near-duplicate",
+        "`id`-`time` combinations after applying the `delta_t` grid."
+      ),
+      call. = FALSE
+    )
+  }
+
+  key_out <- make_key(
+    id_value = out[[id]],
+    time_value = out[[time]]
+  )
+
+  if (anyDuplicated(key_out)) {
+    stop(
+      "`RegularizeTimeByID()` created duplicate `id`-`time` rows.",
+      call. = FALSE
+    )
+  }
 
   pos <- match(
     x = key_data,
     table = key_out
   )
 
+  value_vars <- setdiff(
+    x = names(data),
+    y = c(
+      id,
+      time
+    )
+  )
+
   out[
     pos,
-    names(data)
-  ] <- data
+    value_vars
+  ] <- data[
+    ,
+    value_vars,
+    drop = FALSE
+  ]
 
   rownames(out) <- NULL
   out
