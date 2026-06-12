@@ -8,7 +8,8 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "SummaryByID", "summarizes observed missingness and time by ID"
+        "SummaryByID",
+        "summarizes observed missingness and time by ID"
       ),
       {
         testthat::skip_on_cran()
