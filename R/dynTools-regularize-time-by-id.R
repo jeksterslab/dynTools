@@ -394,7 +394,10 @@ RegularizeTimeByID <- function(data,
 
   if (anyDuplicated(key_out)) {
     stop(
-      "`RegularizeTimeByID()` created duplicate `id`-`time` rows.",
+      paste(
+        "`RegularizeTimeByID()`",
+        "created duplicate `id`-`time` rows."
+      ),
       call. = FALSE
     )
   }
@@ -406,7 +409,10 @@ RegularizeTimeByID <- function(data,
 
   if (any(is.na(pos))) {
     stop(
-      "`RegularizeTimeByID()` could not match all observations to the time grid.",
+      paste(
+        "`RegularizeTimeByID()`",
+        "could not match all observations to the time grid."
+      ),
       call. = FALSE
     )
   }
