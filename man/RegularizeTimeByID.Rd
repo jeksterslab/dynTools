@@ -11,7 +11,8 @@ RegularizeTimeByID(
   observed,
   covariates = NULL,
   delta_t,
-  grid = c("global", "by_id")
+  grid = c("global", "by_id"),
+  method = c("preserve", "snap")
 )
 }
 \arguments{
@@ -45,6 +46,14 @@ Time interval.}
 If \code{grid = "global"}, use one time grid from the global minimum to the
 global maximum time value. If \code{grid = "by_id"}, use an ID-specific time
 grid from each ID's minimum to maximum time value.}
+
+\item{method}{Character string.
+If \code{method = "preserve"}, complete the regular grid but preserve observed
+off-grid time values. If \code{method = "snap"}, snap observed time values to
+the nearest grid point so the output contains only regular grid times.
+When multiple rows for the same ID snap to the same grid point, the row
+closest to the grid point is kept; ties are broken by the largest number
+of non-missing observed/covariate values and then by original order.}
 }
 \value{
 Returns a data frame.
@@ -53,6 +62,10 @@ Returns a data frame.
 The function inserts rows with missing values so that time follows a regular
 grid. A global grid uses the same time sequence for every ID. An ID-specific
 grid uses each ID's own minimum and maximum observed time values.
+If \code{method = "preserve"}, the function completes the regular grid while
+retaining empirical off-grid time values. If \code{method = "snap"}, empirical
+time values are snapped to the nearest grid point and the returned data use
+only grid time values.
 }
 \examples{
 data <- data.frame(
@@ -69,6 +82,20 @@ RegularizeTimeByID(
   observed = "y",
   delta_t = 1,
   grid = "by_id"
+)
+
+RegularizeTimeByID(
+  data = data.frame(
+    id = c(1, 1),
+    time = c(1.0, 1.7),
+    y = c(10, 17)
+  ),
+  id = "id",
+  time = "time",
+  observed = "y",
+  delta_t = 0.5,
+  grid = "by_id",
+  method = "snap"
 )
 
 }

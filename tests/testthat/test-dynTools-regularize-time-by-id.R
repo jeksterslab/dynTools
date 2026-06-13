@@ -84,7 +84,7 @@ lapply(
       paste(
         text,
         "RegularizeTimeByID",
-        "retains empirical times not on the grid"
+        "preserves empirical times not on the grid"
       ),
       {
         testthat::skip_on_cran()
@@ -102,11 +102,123 @@ lapply(
           time = "time",
           observed = "y",
           delta_t = 0.5,
-          grid = "by_id"
+          grid = "by_id",
+          method = "preserve"
         )
 
         testthat::expect_identical(out$time, c(1.0, 1.5, 1.7))
         testthat::expect_identical(out$y, c(10, NA, 17))
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "RegularizeTimeByID",
+        "snaps empirical times to the grid"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1, 1),
+          time = c(1.0, 1.7),
+          y = c(10, 17),
+          stringsAsFactors = FALSE
+        )
+
+        out <- RegularizeTimeByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          delta_t = 0.5,
+          grid = "by_id",
+          method = "snap"
+        )
+
+        expected <- data.frame(
+          id = c(1, 1),
+          time = c(1.0, 1.5),
+          y = c(10, 17),
+          stringsAsFactors = FALSE
+        )
+
+        testthat::expect_identical(out, expected)
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "RegularizeTimeByID",
+        "snaps upward when observations are closer to the next grid point"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1, 1),
+          time = c(1.0, 1.9),
+          y = c(10, 19),
+          stringsAsFactors = FALSE
+        )
+
+        out <- RegularizeTimeByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          delta_t = 0.5,
+          grid = "by_id",
+          method = "snap"
+        )
+
+        expected <- data.frame(
+          id = c(1, 1, 1),
+          time = c(1.0, 1.5, 2.0),
+          y = c(10, NA, 19),
+          stringsAsFactors = FALSE
+        )
+
+        testthat::expect_identical(out, expected)
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "RegularizeTimeByID",
+        "resolves duplicate rows created by snapping"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1, 1, 1),
+          time = c(1.0, 1.24, 1.26),
+          y = c(10, 124, 126),
+          stringsAsFactors = FALSE
+        )
+
+        out <- RegularizeTimeByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          delta_t = 0.5,
+          grid = "by_id",
+          method = "snap"
+        )
+
+        expected <- data.frame(
+          id = c(1, 1),
+          time = c(1.0, 1.5),
+          y = c(10, 126),
+          stringsAsFactors = FALSE
+        )
+
+        testthat::expect_identical(out, expected)
       }
     )
 
