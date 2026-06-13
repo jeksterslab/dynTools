@@ -21,3 +21,4 @@ Suggests:
     knitr,
     rmarkdown,
     testthat
+Config/roxygen2/version: 8.0.0.9000

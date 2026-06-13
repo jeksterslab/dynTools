@@ -369,8 +369,7 @@ RegularizeTimeByID <- function(data,
     )
 
     data <- data[
-      ord,
-      ,
+      ord, ,
       drop = FALSE
     ]
 
@@ -380,8 +379,7 @@ RegularizeTimeByID <- function(data,
     keep <- !duplicated(key_data)
 
     data <- data[
-      keep,
-      ,
+      keep, ,
       drop = FALSE
     ]
 
