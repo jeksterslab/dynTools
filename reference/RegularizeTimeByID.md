@@ -3,7 +3,10 @@
 The function inserts rows with missing values so that time follows a
 regular grid. A global grid uses the same time sequence for every ID. An
 ID-specific grid uses each ID's own minimum and maximum observed time
-values.
+values. If `method = "preserve"`, the function completes the regular
+grid while retaining empirical off-grid time values. If
+`method = "snap"`, empirical time values are snapped to the nearest grid
+point and the returned data use only grid time values.
 
 ## Usage
 
@@ -15,7 +18,8 @@ RegularizeTimeByID(
   observed,
   covariates = NULL,
   delta_t,
-  grid = c("global", "by_id")
+  grid = c("global", "by_id"),
+  method = c("preserve", "snap")
 )
 ```
 
@@ -58,6 +62,16 @@ RegularizeTimeByID(
   global minimum to the global maximum time value. If `grid = "by_id"`,
   use an ID-specific time grid from each ID's minimum to maximum time
   value.
+
+- method:
+
+  Character string. If `method = "preserve"`, complete the regular grid
+  but preserve observed off-grid time values. If `method = "snap"`, snap
+  observed time values to the nearest grid point so the output contains
+  only regular grid times. When multiple rows for the same ID snap to
+  the same grid point, the row closest to the grid point is kept; ties
+  are broken by the largest number of non-missing observed/covariate
+  values and then by original order.
 
 ## Value
 
@@ -117,4 +131,21 @@ RegularizeTimeByID(
 #> 3  1    3 12
 #> 4  2    1 20
 #> 5  2    2 21
+
+RegularizeTimeByID(
+  data = data.frame(
+    id = c(1, 1),
+    time = c(1.0, 1.7),
+    y = c(10, 17)
+  ),
+  id = "id",
+  time = "time",
+  observed = "y",
+  delta_t = 0.5,
+  grid = "by_id",
+  method = "snap"
+)
+#>   id time  y
+#> 1  1  1.0 10
+#> 2  1  1.5 17
 ```
