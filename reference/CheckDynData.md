@@ -76,6 +76,7 @@ Returns `TRUE` invisibly if all checks pass.
 ## See also
 
 Other Dynamic Modeling Utility Functions:
+[`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md),
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),

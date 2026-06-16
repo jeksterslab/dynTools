@@ -87,6 +87,7 @@ model.
 
 Other Dynamic Modeling Utility Functions:
 [`CheckDynData()`](https://github.com/jeksterslab/dynTools/reference/CheckDynData.md),
+[`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md),
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

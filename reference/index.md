@@ -4,6 +4,8 @@
 
 - [`CheckDynData()`](https://github.com/jeksterslab/dynTools/reference/CheckDynData.md)
   : Check Dynamic Modeling Data
+- [`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md)
+  : Combine Data Sets by ID and Time
 - [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md)
   : Delete for NAs in Initial Row By ID
 - [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md)

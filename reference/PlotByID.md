@@ -133,6 +133,7 @@ Invisibly returns the IDs that were plotted.
 
 Other Dynamic Modeling Utility Functions:
 [`CheckDynData()`](https://github.com/jeksterslab/dynTools/reference/CheckDynData.md),
+[`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md),
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
