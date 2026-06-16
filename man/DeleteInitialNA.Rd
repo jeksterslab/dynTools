@@ -59,6 +59,7 @@ DeleteInitialNA(
 \seealso{
 Other Dynamic Modeling Utility Functions:
 \code{\link[=CheckDynData]{CheckDynData()}},
+\code{\link[=CombineByIDTime]{CombineByIDTime()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
