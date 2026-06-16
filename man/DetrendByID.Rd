@@ -100,6 +100,7 @@ DetrendByID(
 \seealso{
 Other Dynamic Modeling Utility Functions:
 \code{\link[=CheckDynData]{CheckDynData()}},
+\code{\link[=CombineByIDTime]{CombineByIDTime()}},
 \code{\link[=DeleteInitialNA]{DeleteInitialNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
