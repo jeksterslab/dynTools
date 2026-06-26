@@ -1,22 +1,14 @@
-# Filter Dynamic Modeling Data by ID
+# Get Observed Initial Means and Covariances
 
-The function removes IDs that do not satisfy minimum data requirements.
+The function extracts the first observed time point for each ID and
+computes the sample mean vector and sample covariance matrix of the
+observed variables across IDs. The resulting mean vector and covariance
+matrix can be used as fixed initial conditions in dynamic models.
 
 ## Usage
 
 ``` r
-FilterByID(
-  data,
-  id,
-  time,
-  observed,
-  covariates = NULL,
-  min_rows = 2L,
-  min_complete = 2L,
-  max_prop_missing = 1,
-  allow_initial_na = TRUE,
-  allow_all_missing = FALSE
-)
+GetObservedInitial(data, id, time, observed, ridge = 1e-06)
 ```
 
 ## Arguments
@@ -43,37 +35,48 @@ FilterByID(
   Character vector. A vector of character strings of the names of the
   observed variables in the data.
 
-- covariates:
+- ridge:
 
-  Character vector. A vector of character strings of the names of the
-  covariates in the data.
-
-- min_rows:
-
-  Non-negative integer. Minimum number of rows required per ID.
-
-- min_complete:
-
-  Non-negative integer. Minimum number of complete observed rows
-  required per ID.
-
-- max_prop_missing:
-
-  Numeric. Maximum allowed proportion of missing values across observed
-  variables.
-
-- allow_initial_na:
-
-  Logical. If `FALSE`, remove IDs where the initial row contains missing
-  values.
-
-- allow_all_missing:
-
-  Logical. If `FALSE`, remove IDs where all observed values are missing.
+  Positive numeric. Small value added to the diagonal of the covariance
+  matrix if the estimated covariance matrix is not positive definite.
 
 ## Value
 
-Returns a data frame.
+Returns a list with the following elements:
+
+- `data`:
+
+  Data frame containing the first observed time point for each ID and
+  the selected observed variables.
+
+- `mean`:
+
+  Numeric vector of observed-variable means computed from the first
+  observed time point across IDs.
+
+- `cov`:
+
+  Observed-variable covariance matrix computed from complete cases of
+  the first observed time point across IDs.
+
+- `n`:
+
+  Number of IDs with a first observed row.
+
+- `n_complete`:
+
+  Number of IDs with complete data on all selected observed variables at
+  the first observed time point.
+
+## Details
+
+Rows are sorted by ID and time before selecting the first row for each
+ID. Missing observed values are ignored when computing the mean vector.
+The covariance matrix is computed using complete cases of the selected
+first-time observations.
+
+If the covariance matrix is not positive definite, a small ridge value
+is added to the diagonal.
 
 ## See also
 
@@ -84,7 +87,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
-[`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
+[`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
@@ -106,31 +109,47 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = rep(1:3, each = 3),
-  time = rep(1:3, times = 3),
-  y = c(1, 2, 3, NA, NA, 4, NA, NA, NA)
+  id = rep(1:3, each = 4),
+  time = rep(1:4, times = 3),
+  y1 = c(1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6),
+  y2 = c(4, 3, 2, 1, 5, 4, 3, 2, 6, 5, 4, 3)
 )
 data
-#>   id time  y
-#> 1  1    1  1
-#> 2  1    2  2
-#> 3  1    3  3
-#> 4  2    1 NA
-#> 5  2    2 NA
-#> 6  2    3  4
-#> 7  3    1 NA
-#> 8  3    2 NA
-#> 9  3    3 NA
+#>    id time y1 y2
+#> 1   1    1  1  4
+#> 2   1    2  2  3
+#> 3   1    3  3  2
+#> 4   1    4  4  1
+#> 5   2    1  2  5
+#> 6   2    2  3  4
+#> 7   2    3  4  3
+#> 8   2    4  5  2
+#> 9   3    1  3  6
+#> 10  3    2  4  5
+#> 11  3    3  5  4
+#> 12  3    4  6  3
 
-FilterByID(
+init <- GetObservedInitial(
   data = data,
   id = "id",
   time = "time",
-  observed = "y",
-  min_complete = 2
+  observed = c("y1", "y2")
 )
-#>   id time y
-#> 1  1    1 1
-#> 2  1    2 2
-#> 3  1    3 3
+
+init$data
+#>   y1 y2
+#> 1  1  4
+#> 5  2  5
+#> 9  3  6
+init$mean
+#> y1 y2 
+#>  2  5 
+init$cov
+#>          y1       y2
+#> y1 1.000001 1.000000
+#> y2 1.000000 1.000001
+init$n
+#> [1] 3
+init$n_complete
+#> [1] 3
 ```

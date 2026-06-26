@@ -80,6 +80,7 @@ Other Dynamic Modeling Utility Functions:
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
 [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
+[`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),

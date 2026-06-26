@@ -16,7 +16,9 @@ DetrendByID(
   degree = 1L,
   replace = FALSE,
   keep_mean = TRUE,
-  prefix = "detrend"
+  prefix = "detrend",
+  warn_skipped = TRUE,
+  drop_skipped_ids = TRUE
 )
 ```
 
@@ -71,6 +73,17 @@ DetrendByID(
   Character string. Prefix for detrended variables when
   `replace = FALSE`.
 
+- warn_skipped:
+
+  Logical. If `TRUE`, warn when one or more ID-variable combinations
+  cannot be detrended because of too few usable observations, too few
+  unique time values, or a rank-deficient trend design.
+
+- drop_skipped_ids:
+
+  Logical. If `TRUE`, remove all rows for IDs with at least one observed
+  variable that cannot be detrended.
+
 ## Value
 
 Returns a data frame.
@@ -92,6 +105,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
 [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
+[`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),

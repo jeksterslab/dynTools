@@ -16,6 +16,8 @@
   : Create Elapsed Time by ID
 - [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md)
   : Filter Dynamic Modeling Data by ID
+- [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md)
+  : Get Observed Initial Means and Covariances
 - [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md)
   : Check for NAs in Initial Row By ID
 - [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md)

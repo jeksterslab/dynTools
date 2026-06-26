@@ -59,7 +59,9 @@ remain missing in the detrended variables.</p>
 <span>  degree <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  replace <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  keep_mean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="st">"detrend"</span></span>
+<span>  prefix <span class="op">=</span> <span class="st">"detrend"</span>,</span>
+<span>  warn_skipped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  drop_skipped_ids <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -123,6 +125,19 @@ If <code>FALSE</code>, return ordinary residuals from the within-ID trend model.
 <dd><p>Character string.
 Prefix for detrended variables when <code>replace = FALSE</code>.</p></dd>
 
+
+<dt id="arg-warn-skipped">warn_skipped<a class="anchor" aria-label="anchor" href="#arg-warn-skipped"></a></dt>
+<dd><p>Logical.
+If <code>TRUE</code>, warn when one or more ID-variable combinations cannot be
+detrended because of too few usable observations, too few unique time
+values, or a rank-deficient trend design.</p></dd>
+
+
+<dt id="arg-drop-skipped-ids">drop_skipped_ids<a class="anchor" aria-label="anchor" href="#arg-drop-skipped-ids"></a></dt>
+<dd><p>Logical.
+If <code>TRUE</code>, remove all rows for IDs with at least one observed variable
+that cannot be detrended.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -144,6 +159,7 @@ ordinary residual from the within-ID polynomial trend model.</p>
 <code><a href="DeltaTByID.html">DeltaTByID()</a></code>,
 <code><a href="ElapsedTimeByID.html">ElapsedTimeByID()</a></code>,
 <code><a href="FilterByID.html">FilterByID()</a></code>,
+<code><a href="GetObservedInitial.html">GetObservedInitial()</a></code>,
 <code><a href="InitialNA.html">InitialNA()</a></code>,
 <code><a href="InsertNA.html">InsertNA()</a></code>,
 <code><a href="LagByID.html">LagByID()</a></code>,
