@@ -322,8 +322,7 @@ DetrendByID <- function(data,
     skipped_ids <- unique(skipped$id)
 
     data <- data[
-      !data[[id]] %in% skipped_ids,
-      ,
+      !data[[id]] %in% skipped_ids, ,
       drop = FALSE
     ]
 

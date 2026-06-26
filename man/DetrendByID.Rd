@@ -13,7 +13,9 @@ DetrendByID(
   degree = 1L,
   replace = FALSE,
   keep_mean = TRUE,
-  prefix = "detrend"
+  prefix = "detrend",
+  warn_skipped = TRUE,
+  drop_skipped_ids = TRUE
 )
 }
 \arguments{
@@ -55,6 +57,15 @@ If \code{FALSE}, return ordinary residuals from the within-ID trend model.}
 
 \item{prefix}{Character string.
 Prefix for detrended variables when \code{replace = FALSE}.}
+
+\item{warn_skipped}{Logical.
+If \code{TRUE}, warn when one or more ID-variable combinations cannot be
+detrended because of too few usable observations, too few unique time
+values, or a rank-deficient trend design.}
+
+\item{drop_skipped_ids}{Logical.
+If \code{TRUE}, remove all rows for IDs with at least one observed variable
+that cannot be detrended.}
 }
 \value{
 Returns a data frame.
@@ -105,6 +116,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
 \code{\link[=FilterByID]{FilterByID()}},
+\code{\link[=GetObservedInitial]{GetObservedInitial()}},
 \code{\link[=InitialNA]{InitialNA()}},
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},

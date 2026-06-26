@@ -91,6 +91,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
 \code{\link[=FilterByID]{FilterByID()}},
+\code{\link[=GetObservedInitial]{GetObservedInitial()}},
 \code{\link[=InitialNA]{InitialNA()}},
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
