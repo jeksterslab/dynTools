@@ -36,7 +36,9 @@ lapply(
           time = "time",
           observed = "y",
           degree = 1,
-          replace = FALSE
+          replace = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_true("detrend_y" %in% names(out))
@@ -71,7 +73,9 @@ lapply(
           observed = "y",
           degree = 1,
           replace = FALSE,
-          keep_mean = FALSE
+          keep_mean = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_true("detrend_y" %in% names(out))
@@ -106,7 +110,9 @@ lapply(
           observed = "y",
           degree = 0,
           replace = FALSE,
-          keep_mean = TRUE
+          keep_mean = TRUE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_equal(
@@ -140,7 +146,9 @@ lapply(
           observed = "y",
           degree = 0,
           replace = FALSE,
-          keep_mean = FALSE
+          keep_mean = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_equal(
@@ -173,7 +181,9 @@ lapply(
           time = "time",
           observed = "y",
           degree = 1,
-          replace = FALSE
+          replace = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_equal(
@@ -209,7 +219,9 @@ lapply(
           observed = "y",
           degree = 1,
           replace = FALSE,
-          keep_mean = FALSE
+          keep_mean = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_equal(
@@ -243,7 +255,9 @@ lapply(
           time = "time",
           observed = "y",
           degree = 1,
-          replace = TRUE
+          replace = TRUE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_false("detrend_y" %in% names(out))
@@ -278,7 +292,9 @@ lapply(
           observed = "y",
           degree = 1,
           replace = TRUE,
-          keep_mean = FALSE
+          keep_mean = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_false("detrend_y" %in% names(out))
@@ -312,7 +328,9 @@ lapply(
           time = "time",
           observed = "y",
           degree = 1,
-          replace = FALSE
+          replace = FALSE,
+          warn_skipped = FALSE,
+          drop_skipped_ids = FALSE
         )
 
         testthat::expect_equal(
@@ -346,7 +364,9 @@ lapply(
             id = "id",
             time = "time",
             observed = "y",
-            replace = FALSE
+            replace = FALSE,
+            warn_skipped = FALSE,
+            drop_skipped_ids = FALSE
           ),
           "already exist"
         )
@@ -375,7 +395,9 @@ lapply(
             id = "id",
             time = "time",
             observed = "y",
-            keep_mean = NA
+            keep_mean = NA,
+            warn_skipped = FALSE,
+            drop_skipped_ids = FALSE
           ),
           "`keep_mean` must be `TRUE` or `FALSE`",
           fixed = TRUE

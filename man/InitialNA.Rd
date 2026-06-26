@@ -65,6 +65,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DetrendByID]{DetrendByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
 \code{\link[=FilterByID]{FilterByID()}},
+\code{\link[=GetObservedInitial]{GetObservedInitial()}},
 \code{\link[=InsertNA]{InsertNA()}},
 \code{\link[=LagByID]{LagByID()}},
 \code{\link[=MakeClockTime]{MakeClockTime()}},

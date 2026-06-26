@@ -24,6 +24,13 @@
 #'   If `FALSE`, return ordinary residuals from the within-ID trend model.
 #' @param prefix Character string.
 #'   Prefix for detrended variables when `replace = FALSE`.
+#' @param warn_skipped Logical.
+#'   If `TRUE`, warn when one or more ID-variable combinations cannot be
+#'   detrended because of too few usable observations, too few unique time
+#'   values, or a rank-deficient trend design.
+#' @param drop_skipped_ids Logical.
+#'   If `TRUE`, remove all rows for IDs with at least one observed variable
+#'   that cannot be detrended.
 #'
 #' @return Returns a data frame.
 #'
@@ -64,7 +71,9 @@ DetrendByID <- function(data,
                         degree = 1L,
                         replace = FALSE,
                         keep_mean = TRUE,
-                        prefix = "detrend") {
+                        prefix = "detrend",
+                        warn_skipped = TRUE,
+                        drop_skipped_ids = TRUE) {
   CheckDynData(
     data = data,
     id = id,
@@ -126,6 +135,28 @@ DetrendByID <- function(data,
     )
   }
 
+  if (
+    !is.logical(warn_skipped) ||
+      length(warn_skipped) != 1L ||
+      is.na(warn_skipped)
+  ) {
+    stop(
+      "`warn_skipped` must be `TRUE` or `FALSE`.",
+      call. = FALSE
+    )
+  }
+
+  if (
+    !is.logical(drop_skipped_ids) ||
+      length(drop_skipped_ids) != 1L ||
+      is.na(drop_skipped_ids)
+  ) {
+    stop(
+      "`drop_skipped_ids` must be `TRUE` or `FALSE`.",
+      call. = FALSE
+    )
+  }
+
   degree <- as.integer(degree)
 
   if (!replace) {
@@ -166,12 +197,153 @@ DetrendByID <- function(data,
         data[[paste0(prefix, "_", var)]] <- numeric(0)
       }
     }
+
+    attr(data, "detrend_skipped") <- data.frame(
+      id = data[[id]][FALSE],
+      variable = character(0L),
+      n_ok = integer(0L),
+      n_unique_time = integer(0L),
+      reason = character(0L),
+      stringsAsFactors = FALSE
+    )
+
     return(data)
   }
 
   run <- rle(data[[id]])
   end <- cumsum(run$lengths)
   start <- end - run$lengths + 1L
+
+  skipped <- vector(
+    mode = "list",
+    length = length(observed) * length(start)
+  )
+  skipped_count <- 0L
+
+  for (var in observed) {
+    for (j in seq_along(start)) {
+      index <- seq.int(
+        from = start[j],
+        to = end[j]
+      )
+
+      y <- data[[var]][index]
+      times <- data[[time]][index]
+
+      ok <- !is.na(y) & !is.na(times)
+      n_ok <- sum(ok)
+      n_unique_time <- length(unique(times[ok]))
+
+      reason <- NULL
+
+      if (n_ok <= degree) {
+        reason <- "too few non-missing values"
+      } else if (
+        degree > 0L &&
+          n_unique_time <= degree
+      ) {
+        reason <- "too few unique time values"
+      } else {
+        if (degree > 0L) {
+          x <- cbind(
+            1,
+            outer(
+              X = times[ok],
+              Y = seq_len(degree),
+              FUN = "^"
+            )
+          )
+        } else {
+          x <- matrix(
+            data = 1,
+            nrow = n_ok,
+            ncol = 1L
+          )
+        }
+
+        if (qr(x)$rank < ncol(x)) {
+          reason <- "rank-deficient trend design"
+        }
+      }
+
+      if (!is.null(reason)) {
+        skipped_count <- skipped_count + 1L
+
+        skipped[[skipped_count]] <- data.frame(
+          id = data[[id]][start[j]],
+          variable = var,
+          n_ok = n_ok,
+          n_unique_time = n_unique_time,
+          reason = reason,
+          stringsAsFactors = FALSE
+        )
+      }
+    }
+  }
+
+  if (skipped_count > 0L) {
+    skipped <- do.call(
+      what = rbind,
+      args = skipped[seq_len(skipped_count)]
+    )
+  } else {
+    skipped <- data.frame(
+      id = data[[id]][FALSE],
+      variable = character(0L),
+      n_ok = integer(0L),
+      n_unique_time = integer(0L),
+      reason = character(0L),
+      stringsAsFactors = FALSE
+    )
+  }
+
+  if (
+    nrow(skipped) > 0L &&
+      warn_skipped
+  ) {
+    skipped_ids <- unique(skipped$id)
+
+    warning(
+      paste0(
+        "Some ID-variable combinations could not be detrended. ",
+        "Affected IDs: ",
+        paste(skipped_ids, collapse = ", "),
+        ". ",
+        "Inspect `attr(x, \"detrend_skipped\")` for details."
+      ),
+      call. = FALSE
+    )
+  }
+
+  if (
+    nrow(skipped) > 0L &&
+      drop_skipped_ids
+  ) {
+    skipped_ids <- unique(skipped$id)
+
+    data <- data[
+      !data[[id]] %in% skipped_ids, ,
+      drop = FALSE
+    ]
+
+    rownames(data) <- NULL
+
+    if (nrow(data) == 0L) {
+      if (!replace) {
+        for (var in observed) {
+          data[[paste0(prefix, "_", var)]] <- numeric(0)
+        }
+      }
+
+      attr(data, "detrend_skipped") <- skipped
+
+      return(data)
+    }
+
+    run <- rle(data[[id]])
+    end <- cumsum(run$lengths)
+    start <- end - run$lengths + 1L
+  }
 
   for (var in observed) {
     detrended <- data[[var]]
@@ -244,5 +416,8 @@ DetrendByID <- function(data,
   }
 
   rownames(data) <- NULL
+
+  attr(data, "detrend_skipped") <- skipped
+
   data
 }
