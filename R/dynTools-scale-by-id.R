@@ -163,6 +163,13 @@ ScaleByID <- function(data,
       ]
     }
 
+    centered <- as.data.frame(
+      centered,
+      optional = TRUE
+    )
+
+    names(centered) <- varnames
+
     data[
       ,
       varnames

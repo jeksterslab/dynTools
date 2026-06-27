@@ -70,13 +70,14 @@ GetObservedInitial <- function(data,
   first_idx <- !duplicated(data_ord[[id]])
 
   init_data <- data_ord[first_idx, observed, drop = FALSE]
+  rownames(init_data) <- NULL
 
   init_mean <- colMeans(
     init_data,
     na.rm = TRUE
   )
 
-  init_cov <- cov(
+  init_cov <- stats::cov(
     init_data,
     use = "complete.obs"
   )
@@ -93,6 +94,6 @@ GetObservedInitial <- function(data,
     mean = init_mean,
     cov = init_cov,
     n = nrow(init_data),
-    n_complete = sum(complete.cases(init_data))
+    n_complete = sum(stats::complete.cases(init_data))
   )
 }
