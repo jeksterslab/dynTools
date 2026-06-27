@@ -18,7 +18,8 @@ lapply(
       paste(
         text,
         "FilterObservedRows",
-        "keeps rows with at least one observed value by default and sorts output"
+        "keeps rows with at least one observed value",
+        "by default and sorts output"
       ),
       {
         testthat::skip_on_cran()

@@ -397,7 +397,10 @@ lapply(
             id = "id",
             observed = "y"
           ),
-          "Supply either `date` and `clock_time`, or an existing `time` variable.",
+          paste(
+            "Supply either `date` and `clock_time`",
+            "or an existing `time` variable."
+          ),
           fixed = TRUE
         )
 
@@ -431,7 +434,10 @@ lapply(
             observed = "y",
             regularize = TRUE
           ),
-          "`delta_t` must be a positive finite number when `regularize = TRUE`.",
+          paste(
+            "`delta_t` must be a positive finite number",
+            "when `regularize = TRUE`."
+          ),
           fixed = TRUE
         )
 

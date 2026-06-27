@@ -137,7 +137,8 @@
 #'   `FALSE`, return only the processed data.
 #'
 #' @return If `return_list = TRUE`, returns a list with elements `data`,
-#' `diagnostics`, `final_diagnostics`, `drop_id`, `flagged_id`, `manual_drop_id`,
+#' `diagnostics`, `final_diagnostics`, `drop_id`,
+#' `flagged_id`, `manual_drop_id`,
 #' and `call`. If `return_list = FALSE`, returns the processed data frame.
 #'
 #' @examples

@@ -272,11 +272,10 @@ FlagDiagnosticsByID <- function(x,
 
   x$flag_any <- x$priority_score > 0L
 
-  x$drop_sensitivity_candidate <-
-    x$flag_low_observed_rows |
-      x$flag_low_complete_rows |
-      x$flag_low_sd |
-      x$priority_score >= drop_score_cut
+  x$drop_sensitivity_candidate <- x$flag_low_observed_rows |
+    x$flag_low_complete_rows |
+    x$flag_low_sd |
+    x$priority_score >= drop_score_cut
 
   x$flag_reason <- vapply(
     X = seq_len(nrow(x)),

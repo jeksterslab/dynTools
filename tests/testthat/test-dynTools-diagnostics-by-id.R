@@ -358,7 +358,10 @@ lapply(
             observed = "y",
             posix_unit = "months"
           ),
-          "`posix_unit` must be one of 'auto', 'secs', 'mins', 'hours', 'days', or 'weeks'.",
+          paste(
+            "`posix_unit` must be one of",
+            "'auto', 'secs', 'mins', 'hours', 'days', or 'weeks'."
+          ),
           fixed = TRUE
         )
       }

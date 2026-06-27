@@ -212,7 +212,14 @@ lapply(
 
         testthat::expect_error(
           GetDropID(
-            x = x[, setdiff(names(x), "drop_sensitivity_candidate"), drop = FALSE],
+            x = x[
+              ,
+              setdiff(
+                names(x),
+                "drop_sensitivity_candidate"
+              ),
+              drop = FALSE
+            ],
             flagged_only = TRUE
           ),
           "`x` must contain a `drop_sensitivity_candidate` column.",

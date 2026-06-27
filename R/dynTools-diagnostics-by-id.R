@@ -189,9 +189,21 @@ DiagnosticsByID <- function(data,
       n_duplicate_id_time = sum(duplicated(key)),
       min_time = suppressWarnings(min(time_i, na.rm = TRUE)),
       max_time = suppressWarnings(max(time_i, na.rm = TRUE)),
-      max_obs_gap = if (length(gap) > 0L) max(gap, na.rm = TRUE) else NA_real_,
-      median_obs_gap = if (length(gap) > 0L) stats::median(gap, na.rm = TRUE) else NA_real_,
-      mean_obs_gap = if (length(gap) > 0L) mean(gap, na.rm = TRUE) else NA_real_,
+      max_obs_gap = if (length(gap) > 0L) {
+        max(gap, na.rm = TRUE)
+      } else {
+        NA_real_
+      },
+      median_obs_gap = if (length(gap) > 0L) {
+        stats::median(gap, na.rm = TRUE)
+      } else {
+        NA_real_
+      },
+      mean_obs_gap = if (length(gap) > 0L) {
+        mean(gap, na.rm = TRUE)
+      } else {
+        NA_real_
+      },
       stringsAsFactors = FALSE
     )
 
@@ -232,9 +244,21 @@ DiagnosticsByID <- function(data,
     finite_sd <- sd_values[is.finite(sd_values)]
     finite_abs <- max_abs_values[is.finite(max_abs_values)]
 
-    min_sd <- if (length(finite_sd) > 0L) min(finite_sd) else NA_real_
-    median_sd <- if (length(finite_sd) > 0L) stats::median(finite_sd) else NA_real_
-    max_abs_any <- if (length(finite_abs) > 0L) max(finite_abs) else NA_real_
+    min_sd <- if (length(finite_sd) > 0L) {
+      min(finite_sd)
+    } else {
+      NA_real_
+    }
+    median_sd <- if (length(finite_sd) > 0L) {
+      stats::median(finite_sd)
+    } else {
+      NA_real_
+    }
+    max_abs_any <- if (length(finite_abs) > 0L) {
+      max(finite_abs)
+    } else {
+      NA_real_
+    }
 
     min_sd_variable <- if (length(finite_sd) > 0L) {
       names(finite_sd)[which.min(finite_sd)]
