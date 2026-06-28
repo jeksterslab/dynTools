@@ -1,33 +1,29 @@
-# Replace Missing-Value Codes
+# Get Sensitivity-Drop IDs From Diagnostics
 
-The function replaces user-specified missing-value codes with `NA` in a
-data frame. The replacement is applied column by column and preserves
-the original column classes whenever possible.
+The function extracts IDs marked as sensitivity-drop candidates by
+[`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md).
 
 ## Usage
 
 ``` r
-ReplaceMissingCode(data, values = c(-999, "-999"), columns = names(data))
+GetDropID(x, flagged_only = TRUE)
 ```
 
 ## Arguments
 
-- data:
+- x:
 
-  Data frame.
+  Data frame returned by
+  [`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md).
 
-- values:
+- flagged_only:
 
-  Vector. Values to replace with `NA`.
-
-- columns:
-
-  Character vector. Names of the columns where replacement should be
-  applied. If `NULL`, no columns are modified.
+  Logical. If `TRUE`, return IDs marked as sensitivity-drop candidates.
+  If `FALSE`, return all flagged IDs.
 
 ## Value
 
-Returns a data frame.
+Returns a vector of IDs.
 
 ## See also
 
@@ -43,7 +39,6 @@ Other Dynamic Modeling Utility Functions:
 [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
 [`FilterObservedRows()`](https://github.com/jeksterslab/dynTools/reference/FilterObservedRows.md),
 [`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md),
-[`GetDropID()`](https://github.com/jeksterslab/dynTools/reference/GetDropID.md),
 [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
 [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
@@ -52,6 +47,7 @@ Other Dynamic Modeling Utility Functions:
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
+[`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
 [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md),
@@ -68,23 +64,25 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = 1:3,
-  y = c(1, -999, 3),
-  x = c("a", "-999", "c"),
-  stringsAsFactors = FALSE
+  id = c(1, 1, 1, 2, 2, 2),
+  time = c(1, 2, 3, 1, 2, 3),
+  y1 = c(1, NA, 3, 1, 1, 1),
+  y2 = c(NA, NA, 4, 2, 2, 2)
 )
-data
-#>   id    y    x
-#> 1  1    1    a
-#> 2  2 -999 -999
-#> 3  3    3    c
 
-ReplaceMissingCode(
+diagnostics <- DiagnosticsByID(
   data = data,
-  values = c(-999, "-999")
+  id = "id",
+  time = "time",
+  observed = c("y1", "y2")
 )
-#>   id  y    x
-#> 1  1  1    a
-#> 2  2 NA <NA>
-#> 3  3  3    c
+
+flagged <- FlagDiagnosticsByID(
+  x = diagnostics,
+  min_observed_rows = 3,
+  min_sd = 0.05
+)
+
+GetDropID(flagged)
+#> [1] 1 2
 ```

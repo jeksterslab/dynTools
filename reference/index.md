@@ -12,10 +12,20 @@
   : Summarize Time Intervals by ID
 - [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md)
   : Detrend Observed Variables by ID
+- [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md)
+  : ID-Level Diagnostics for Dynamic Modeling Data
+- [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md)
+  : Drop IDs From a Data Frame
 - [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md)
   : Create Elapsed Time by ID
 - [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md)
   : Filter Dynamic Modeling Data by ID
+- [`FilterObservedRows()`](https://github.com/jeksterslab/dynTools/reference/FilterObservedRows.md)
+  : Remove Rows With Too Few Observed Values
+- [`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md)
+  : Flag Potentially Problematic IDs
+- [`GetDropID()`](https://github.com/jeksterslab/dynTools/reference/GetDropID.md)
+  : Get Sensitivity-Drop IDs From Diagnostics
 - [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md)
   : Get Observed Initial Means and Covariances
 - [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md)
@@ -28,6 +38,8 @@
   : Make Clock Time
 - [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md)
   : Plot Observed Variables by ID
+- [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md)
+  : Preprocess Intensive Longitudinal Data for Dynamic Modeling
 - [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md)
   : Regularize Time by ID
 - [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md)
@@ -38,7 +50,11 @@
   : Round Clock Time
 - [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md)
   : Scale by ID
+- [`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md)
+  : Screen IDs Using Dynamic-Data Diagnostics
 - [`SubsetByID()`](https://github.com/jeksterslab/dynTools/reference/SubsetByID.md)
   : Subset Data Set by ID
 - [`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md)
   : Summarize Dynamic Modeling Data by ID
+- [`TrimInitialRowsByID()`](https://github.com/jeksterslab/dynTools/reference/TrimInitialRowsByID.md)
+  : Trim Leading Rows With Too Few Observed Values by ID

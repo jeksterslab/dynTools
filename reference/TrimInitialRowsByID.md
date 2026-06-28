@@ -1,29 +1,59 @@
-# Replace Missing-Value Codes
+# Trim Leading Rows With Too Few Observed Values by ID
 
-The function replaces user-specified missing-value codes with `NA` in a
-data frame. The replacement is applied column by column and preserves
-the original column classes whenever possible.
+The function removes leading rows within each ID until the first
+retained row has at least `min_nonmissing` non-missing observed
+variables. This is useful before creating an elapsed-time variable when
+leading records contain no usable measurements. Unlike
+[`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
+the default does not require the first retained row to be complete on
+all selected variables.
 
 ## Usage
 
 ``` r
-ReplaceMissingCode(data, values = c(-999, "-999"), columns = names(data))
+TrimInitialRowsByID(
+  data,
+  id,
+  time,
+  observed,
+  covariates = NULL,
+  min_nonmissing = 1L
+)
 ```
 
 ## Arguments
 
 - data:
 
-  Data frame.
+  Data frame. A data frame object of data for potentially multiple
+  subjects that contain a column of subject ID numbers (i.e., an ID
+  variable), a column indicating subject-specific measurement occasions
+  (i.e., a TIME variable), at least one column of observed values.
 
-- values:
+- id:
 
-  Vector. Values to replace with `NA`.
+  Character string. A character string of the name of the ID variable in
+  the data.
 
-- columns:
+- time:
 
-  Character vector. Names of the columns where replacement should be
-  applied. If `NULL`, no columns are modified.
+  Character string. A character string of the name of the TIME variable
+  in the data.
+
+- observed:
+
+  Character vector. A vector of character strings of the names of the
+  observed variables in the data.
+
+- covariates:
+
+  Character vector. A vector of character strings of the names of the
+  covariates in the data.
+
+- min_nonmissing:
+
+  Positive integer. Minimum number of non-missing observed variables
+  required in the first retained row for each ID.
 
 ## Value
 
@@ -52,13 +82,13 @@ Other Dynamic Modeling Utility Functions:
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
+[`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
 [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md),
 [`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md),
 [`SubsetByID()`](https://github.com/jeksterslab/dynTools/reference/SubsetByID.md),
-[`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md),
-[`TrimInitialRowsByID()`](https://github.com/jeksterslab/dynTools/reference/TrimInitialRowsByID.md)
+[`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md)
 
 ## Author
 
@@ -68,23 +98,24 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = 1:3,
-  y = c(1, -999, 3),
-  x = c("a", "-999", "c"),
-  stringsAsFactors = FALSE
+  id = rep(1:2, each = 4),
+  time = rep(1:4, times = 2),
+  y1 = c(NA, 1, 2, 3, NA, NA, 1, 2),
+  y2 = c(NA, NA, 2, 3, NA, 1, 1, 2)
 )
-data
-#>   id    y    x
-#> 1  1    1    a
-#> 2  2 -999 -999
-#> 3  3    3    c
 
-ReplaceMissingCode(
+TrimInitialRowsByID(
   data = data,
-  values = c(-999, "-999")
+  id = "id",
+  time = "time",
+  observed = c("y1", "y2"),
+  min_nonmissing = 1
 )
-#>   id  y    x
-#> 1  1  1    a
-#> 2  2 NA <NA>
-#> 3  3  3    c
+#>   id time y1 y2
+#> 1  1    2  1 NA
+#> 2  1    3  2  2
+#> 3  1    4  3  3
+#> 4  2    2 NA  1
+#> 5  2    3  1  1
+#> 6  2    4  2  2
 ```

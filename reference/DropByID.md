@@ -1,13 +1,13 @@
-# Replace Missing-Value Codes
+# Drop IDs From a Data Frame
 
-The function replaces user-specified missing-value codes with `NA` in a
-data frame. The replacement is applied column by column and preserves
-the original column classes whenever possible.
+The function removes rows belonging to one or more IDs. It is a small
+convenience wrapper used after ID-level diagnostics identify IDs for
+exclusion or sensitivity analysis.
 
 ## Usage
 
 ``` r
-ReplaceMissingCode(data, values = c(-999, "-999"), columns = names(data))
+DropByID(data, id, drop = NULL)
 ```
 
 ## Arguments
@@ -16,14 +16,14 @@ ReplaceMissingCode(data, values = c(-999, "-999"), columns = names(data))
 
   Data frame.
 
-- values:
+- id:
 
-  Vector. Values to replace with `NA`.
+  Character string. Name of the ID variable.
 
-- columns:
+- drop:
 
-  Character vector. Names of the columns where replacement should be
-  applied. If `NULL`, no columns are modified.
+  Vector. ID values to remove. If `NULL` or empty, `data` is returned
+  unchanged.
 
 ## Value
 
@@ -38,7 +38,6 @@ Other Dynamic Modeling Utility Functions:
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
-[`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
 [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
 [`FilterObservedRows()`](https://github.com/jeksterslab/dynTools/reference/FilterObservedRows.md),
@@ -52,6 +51,7 @@ Other Dynamic Modeling Utility Functions:
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
+[`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
 [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md),
@@ -68,23 +68,16 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = 1:3,
-  y = c(1, -999, 3),
-  x = c("a", "-999", "c"),
-  stringsAsFactors = FALSE
+  id = c(1, 1, 2, 2, 3, 3),
+  y = 1:6
 )
-data
-#>   id    y    x
-#> 1  1    1    a
-#> 2  2 -999 -999
-#> 3  3    3    c
 
-ReplaceMissingCode(
+DropByID(
   data = data,
-  values = c(-999, "-999")
+  id = "id",
+  drop = c(2, 3)
 )
-#>   id  y    x
-#> 1  1  1    a
-#> 2  2 NA <NA>
-#> 3  3  3    c
+#>   id y
+#> 1  1 1
+#> 2  1 2
 ```

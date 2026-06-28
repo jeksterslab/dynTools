@@ -1,29 +1,62 @@
-# Replace Missing-Value Codes
+# Remove Rows With Too Few Observed Values
 
-The function replaces user-specified missing-value codes with `NA` in a
-data frame. The replacement is applied column by column and preserves
-the original column classes whenever possible.
+The function removes rows with fewer than a requested number of
+non-missing observed variables. This is useful after regularizing or
+padding intensive longitudinal data, where many rows may contain no
+observed measurements but retain an ID and time value.
 
 ## Usage
 
 ``` r
-ReplaceMissingCode(data, values = c(-999, "-999"), columns = names(data))
+FilterObservedRows(
+  data,
+  id,
+  time,
+  observed,
+  covariates = NULL,
+  min_nonmissing = 1L,
+  min_rows_by_id = NULL
+)
 ```
 
 ## Arguments
 
 - data:
 
-  Data frame.
+  Data frame. A data frame object of data for potentially multiple
+  subjects that contain a column of subject ID numbers (i.e., an ID
+  variable), a column indicating subject-specific measurement occasions
+  (i.e., a TIME variable), at least one column of observed values.
 
-- values:
+- id:
 
-  Vector. Values to replace with `NA`.
+  Character string. A character string of the name of the ID variable in
+  the data.
 
-- columns:
+- time:
 
-  Character vector. Names of the columns where replacement should be
-  applied. If `NULL`, no columns are modified.
+  Character string. A character string of the name of the TIME variable
+  in the data.
+
+- observed:
+
+  Character vector. A vector of character strings of the names of the
+  observed variables in the data.
+
+- covariates:
+
+  Character vector. A vector of character strings of the names of the
+  covariates in the data.
+
+- min_nonmissing:
+
+  Positive integer. Minimum number of non-missing observed variables
+  required to retain a row.
+
+- min_rows_by_id:
+
+  `NULL` or positive integer. If not `NULL`, IDs with fewer than
+  `min_rows_by_id` retained rows are removed after row filtering.
 
 ## Value
 
@@ -41,7 +74,6 @@ Other Dynamic Modeling Utility Functions:
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
 [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md),
-[`FilterObservedRows()`](https://github.com/jeksterslab/dynTools/reference/FilterObservedRows.md),
 [`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md),
 [`GetDropID()`](https://github.com/jeksterslab/dynTools/reference/GetDropID.md),
 [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
@@ -52,6 +84,7 @@ Other Dynamic Modeling Utility Functions:
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
+[`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
 [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md),
@@ -68,23 +101,20 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = 1:3,
-  y = c(1, -999, 3),
-  x = c("a", "-999", "c"),
-  stringsAsFactors = FALSE
+  id = c(1, 1, 1, 2, 2),
+  time = c(1, 2, 3, 1, 2),
+  y1 = c(1, NA, 3, NA, 2),
+  y2 = c(NA, NA, 4, NA, 3)
 )
-data
-#>   id    y    x
-#> 1  1    1    a
-#> 2  2 -999 -999
-#> 3  3    3    c
 
-ReplaceMissingCode(
+FilterObservedRows(
   data = data,
-  values = c(-999, "-999")
+  id = "id",
+  time = "time",
+  observed = c("y1", "y2")
 )
-#>   id  y    x
-#> 1  1  1    a
-#> 2  2 NA <NA>
-#> 3  3  3    c
+#>   id time y1 y2
+#> 1  1    1  1 NA
+#> 2  1    3  3  4
+#> 3  2    2  2  3
 ```
