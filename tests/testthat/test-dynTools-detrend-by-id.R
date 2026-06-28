@@ -404,6 +404,129 @@ lapply(
         )
       }
     )
+
+    testthat::test_that(
+      paste(
+        text,
+        "DetrendByID",
+        "handles all combinations of warn_skipped and drop_skipped_ids"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(
+            rep(1, 3),
+            rep(2, 3)
+          ),
+          time = c(
+            1, 2, 3,
+            1, 1, 1
+          ),
+          y = c(
+            3, 5, 7,
+            10, 20, 30
+          ),
+          stringsAsFactors = FALSE
+        )
+
+        settings <- expand.grid(
+          warn_skipped = c(FALSE, TRUE),
+          drop_skipped_ids = c(FALSE, TRUE)
+        )
+
+        for (i in seq_len(nrow(settings))) {
+          warn_skipped <- settings$warn_skipped[i]
+          drop_skipped_ids <- settings$drop_skipped_ids[i]
+
+          expr <- quote(
+            DetrendByID(
+              data = data,
+              id = "id",
+              time = "time",
+              observed = "y",
+              degree = 1,
+              replace = FALSE,
+              warn_skipped = warn_skipped,
+              drop_skipped_ids = drop_skipped_ids
+            )
+          )
+
+          if (warn_skipped) {
+            out <- testthat::expect_warning(
+              eval(expr),
+              "could not be detrended"
+            )
+          } else {
+            out <- testthat::expect_warning(
+              eval(expr),
+              NA
+            )
+          }
+
+          skipped <- attr(
+            x = out,
+            which = "detrend_skipped"
+          )
+
+          testthat::expect_s3_class(
+            skipped,
+            "data.frame"
+          )
+          testthat::expect_equal(
+            nrow(skipped),
+            1L
+          )
+          testthat::expect_equal(
+            skipped$id,
+            2
+          )
+          testthat::expect_equal(
+            skipped$variable,
+            "y"
+          )
+          testthat::expect_equal(
+            skipped$reason,
+            "too few unique time values"
+          )
+
+          if (drop_skipped_ids) {
+            testthat::expect_equal(
+              unique(out$id),
+              1
+            )
+            testthat::expect_equal(
+              nrow(out),
+              3L
+            )
+            testthat::expect_equal(
+              out$detrend_y,
+              rep(5, 3),
+              tolerance = 1e-12
+            )
+          } else {
+            testthat::expect_equal(
+              unique(out$id),
+              c(1, 2)
+            )
+            testthat::expect_equal(
+              nrow(out),
+              6L
+            )
+            testthat::expect_equal(
+              out$detrend_y[out$id == 1],
+              rep(5, 3),
+              tolerance = 1e-12
+            )
+            testthat::expect_equal(
+              out$detrend_y[out$id == 2],
+              data$y[data$id == 2],
+              tolerance = 1e-12
+            )
+          }
+        }
+      }
+    )
   },
   text = "test-dynTools-detrend-by-id"
 )
