@@ -244,7 +244,8 @@ If \code{TRUE}, return a list with data, diagnostics, and dropped IDs. If
 }
 \value{
 If \code{return_list = TRUE}, returns a list with elements \code{data},
-\code{diagnostics}, \code{final_diagnostics}, \code{drop_id}, \code{flagged_id}, \code{manual_drop_id},
+\code{diagnostics}, \code{final_diagnostics}, \code{drop_id},
+\code{flagged_id}, \code{manual_drop_id},
 and \code{call}. If \code{return_list = FALSE}, returns the processed data frame.
 }
 \description{

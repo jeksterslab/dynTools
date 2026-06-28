@@ -398,7 +398,7 @@ lapply(
             observed = "y"
           ),
           paste(
-            "Supply either `date` and `clock_time`",
+            "Supply either `date` and `clock_time`,",
             "or an existing `time` variable."
           ),
           fixed = TRUE
