@@ -221,7 +221,7 @@ installed.packages()[, c("Package", "Version")]
 #> credentials       "credentials"       "2.0.3"     
 #> crosstalk         "crosstalk"         "1.2.2"     
 #> cTMed             "cTMed"             "1.0.9.9000"
-#> ctsem             "ctsem"             "3.10.6"    
+#> ctsem             "ctsem"             "3.11.0"    
 #> curl              "curl"              "7.1.0"     
 #> data.table        "data.table"        "1.18.4"    
 #> DBI               "DBI"               "1.3.0"     
@@ -236,7 +236,7 @@ installed.packages()[, c("Package", "Version")]
 #> diffobj           "diffobj"           "0.3.6"     
 #> digest            "digest"            "0.6.39"    
 #> dir.expiry        "dir.expiry"        "1.20.0"    
-#> distributional    "distributional"    "0.8.0"     
+#> distributional    "distributional"    "0.8.1"     
 #> distro            "distro"            "0.1.1"     
 #> doBy              "doBy"              "4.7.1"     
 #> docopt            "docopt"            "0.7.2"     
@@ -244,7 +244,7 @@ installed.packages()[, c("Package", "Version")]
 #> dplyr             "dplyr"             "1.2.1"     
 #> DT                "DT"                "0.34.0"    
 #> dtplyr            "dtplyr"            "1.3.3"     
-#> duckdb            "duckdb"            "1.5.4"     
+#> duckdb            "duckdb"            "1.5.4.1"   
 #> dynr              "dynr"              "0.1.16-114"
 #> dynTools          "dynTools"          "0.0.0.9000"
 #> dynUtils          "dynUtils"          "0.9.2"     
@@ -312,7 +312,7 @@ installed.packages()[, c("Package", "Version")]
 #> httr2             "httr2"             "1.2.3"     
 #> ids               "ids"               "1.0.1"     
 #> ifaTools          "ifaTools"          "0.23"      
-#> igraph            "igraph"            "2.3.2"     
+#> igraph            "igraph"            "2.3.3"     
 #> infer             "infer"             "1.1.0"     
 #> ini               "ini"               "0.3.1"     
 #> inline            "inline"            "0.3.21"    
@@ -333,7 +333,7 @@ installed.packages()[, c("Package", "Version")]
 #> languageserver    "languageserver"    "0.3.18"    
 #> later             "later"             "1.4.8"     
 #> latex2exp         "latex2exp"         "0.9.8"     
-#> lava              "lava"              "1.9.1"     
+#> lava              "lava"              "1.9.2"     
 #> lavaan            "lavaan"            "0.6-21"    
 #> lazyeval          "lazyeval"          "0.2.3"     
 #> lbfgs             "lbfgs"             "1.2.1.2"   
@@ -347,7 +347,7 @@ installed.packages()[, c("Package", "Version")]
 #> lmtest            "lmtest"            "0.9-40"    
 #> locfit            "locfit"            "1.5-9.12"  
 #> longMI            "longMI"            "1.0.0"     
-#> loo               "loo"               "2.9.0"     
+#> loo               "loo"               "2.10.0"    
 #> lubridate         "lubridate"         "1.9.5"     
 #> magick            "magick"            "2.9.1"     
 #> magrittr          "magrittr"          "2.0.5"     
@@ -384,9 +384,9 @@ installed.packages()[, c("Package", "Version")]
 #> ordinal           "ordinal"           "2025.12-29"
 #> otel              "otel"              "0.2.0"     
 #> pak               "pak"               "0.10.0"    
-#> pan               "pan"               "1.9"       
+#> pan               "pan"               "2.0"       
 #> pander            "pander"            "0.6.6"     
-#> parallelly        "parallelly"        "1.47.0"    
+#> parallelly        "parallelly"        "1.48.0"    
 #> parsnip           "parsnip"           "1.6.0"     
 #> patchwork         "patchwork"         "1.3.2"     
 #> pbapply           "pbapply"           "1.7-4"     
@@ -586,30 +586,29 @@ installed.packages()[, c("Package", "Version")]
     #> CPU op-mode(s):                          32-bit, 64-bit
     #> Address sizes:                           48 bits physical, 48 bits virtual
     #> Byte Order:                              Little Endian
-    #> CPU(s):                                  32
-    #> On-line CPU(s) list:                     0-31
+    #> CPU(s):                                  4
+    #> On-line CPU(s) list:                     0-3
     #> Vendor ID:                               AuthenticAMD
-    #> Model name:                              AMD Ryzen 9 9955HX 16-Core Processor
-    #> CPU family:                              26
-    #> Model:                                   68
+    #> Model name:                              AMD EPYC 7763 64-Core Processor
+    #> CPU family:                              25
+    #> Model:                                   1
     #> Thread(s) per core:                      2
-    #> Core(s) per socket:                      16
+    #> Core(s) per socket:                      2
     #> Socket(s):                               1
-    #> Stepping:                                0
-    #> Frequency boost:                         enabled
-    #> CPU(s) scaling MHz:                      59%
-    #> CPU max MHz:                             5060.9761
-    #> CPU min MHz:                             1219.5129
-    #> BogoMIPS:                                4990.76
-    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk avx_vnni avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid bus_lock_detect movdiri movdir64b overflow_recov succor smca fsrm avx512_vp2intersect flush_l1d amd_lbr_pmc_freeze
+    #> Stepping:                                1
+    #> BogoMIPS:                                4890.85
+    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm
     #> Virtualization:                          AMD-V
-    #> L1d cache:                               768 KiB (16 instances)
-    #> L1i cache:                               512 KiB (16 instances)
-    #> L2 cache:                                16 MiB (16 instances)
-    #> L3 cache:                                64 MiB (2 instances)
+    #> Hypervisor vendor:                       Microsoft
+    #> Virtualization type:                     full
+    #> L1d cache:                               64 KiB (2 instances)
+    #> L1i cache:                               64 KiB (2 instances)
+    #> L2 cache:                                1 MiB (2 instances)
+    #> L3 cache:                                32 MiB (1 instance)
     #> NUMA node(s):                            1
-    #> NUMA node0 CPU(s):                       0-31
+    #> NUMA node0 CPU(s):                       0-3
     #> Vulnerability Gather data sampling:      Not affected
+    #> Vulnerability Ghostwrite:                Not affected
     #> Vulnerability Indirect target selection: Not affected
     #> Vulnerability Itlb multihit:             Not affected
     #> Vulnerability L1tf:                      Not affected
@@ -619,18 +618,18 @@ installed.packages()[, c("Package", "Version")]
     #> Vulnerability Old microcode:             Not affected
     #> Vulnerability Reg file data sampling:    Not affected
     #> Vulnerability Retbleed:                  Not affected
-    #> Vulnerability Spec rstack overflow:      Mitigation; IBPB on VMEXIT only
-    #> Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+    #> Vulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode
+    #> Vulnerability Spec store bypass:         Vulnerable
     #> Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-    #> Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP always-on; PBRSB-eIBRS Not affected; BHI Not affected
+    #> Vulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
     #> Vulnerability Srbds:                     Not affected
-    #> Vulnerability Tsa:                       Not affected
+    #> Vulnerability Tsa:                       Vulnerable: No microcode
     #> Vulnerability Tsx async abort:           Not affected
-    #> Vulnerability Vmscape:                   Mitigation; IBPB on VMEXIT
+    #> Vulnerability Vmscape:                   Not affected
 
 ## Memory
 
     #>                total        used        free      shared  buff/cache   available
-    #> Mem:            44Gi       6.4Gi        25Gi        92Mi        13Gi        38Gi
-    #> Swap:           22Gi          0B        22Gi
-    #> Total:          66Gi       6.4Gi        47Gi
+    #> Mem:            15Gi       1.5Gi       1.1Gi        47Mi        13Gi        14Gi
+    #> Swap:          3.0Gi       4.0Ki       3.0Gi
+    #> Total:          18Gi       1.5Gi       4.1Gi

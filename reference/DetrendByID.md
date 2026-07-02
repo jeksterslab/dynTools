@@ -104,6 +104,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
+[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
@@ -120,6 +121,7 @@ Other Dynamic Modeling Utility Functions:
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
 [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
 [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md),
+[`ResolveCloseTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ResolveCloseTimeByID.md),
 [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md),
 [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md),
 [`ScaleByID()`](https://github.com/jeksterslab/dynTools/reference/ScaleByID.md),
@@ -177,13 +179,13 @@ DetrendByID(
   degree = 1,
   keep_mean = FALSE
 )
-#>   id time y     detrend_y
-#> 1  1    1 1 -2.537558e-17
-#> 2  1    2 2  4.229263e-17
-#> 3  1    3 3 -8.458526e-18
-#> 4  1    4 4 -8.458526e-18
-#> 5  2    1 1 -2.537558e-17
-#> 6  2    2 2  4.229263e-17
-#> 7  2    3 3 -8.458526e-18
-#> 8  2    4 4 -8.458526e-18
+#>   id time y detrend_y
+#> 1  1    1 1         0
+#> 2  1    2 2         0
+#> 3  1    3 3         0
+#> 4  1    4 4         0
+#> 5  2    1 1         0
+#> 6  2    2 2         0
+#> 7  2    3 3         0
+#> 8  2    4 4         0
 ```

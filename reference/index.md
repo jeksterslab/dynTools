@@ -14,6 +14,8 @@
   : Summarize Time Intervals by ID
 - [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md)
   : Detrend Observed Variables by ID
+- [`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md)
+  : Diagnose Detrended Variables by ID
 - [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md)
   : ID-Level Diagnostics for Dynamic Modeling Data
 - [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md)
@@ -46,6 +48,8 @@
   : Regularize Time by ID
 - [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md)
   : Replace Missing-Value Codes
+- [`ResolveCloseTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ResolveCloseTimeByID.md)
+  : Resolve Close Time Points by ID
 - [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md)
   : Resolve Duplicate ID-Time Rows
 - [`RoundClockTime()`](https://github.com/jeksterslab/dynTools/reference/RoundClockTime.md)

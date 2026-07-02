@@ -1,15 +1,24 @@
-# Insert NAs for Missing Observations
+# Diagnose Detrended Variables by ID
 
-The function creates a sequence of time values. It starts with the
-smallest time value as the starting point and the largest time value as
-the endpoint. The sequence is incremented by `delta_t`. This new
-sequence is combined with the existing empirical time values. For any
-specific time value where there are no observations, NAs are inserted.
+The function computes post-detrending diagnostics by ID for observed
+variables. It is intended to be used after detrending and before
+within-ID scaling. The function reports within-ID variability,
+missingness, non-finite values, and the largest standardized value that
+would be produced by within-ID scaling.
 
 ## Usage
 
 ``` r
-InsertNA(data, id, time, observed, covariates = NULL, delta_t)
+DiagnoseDetrendByID(
+  data,
+  id,
+  time,
+  observed,
+  sd_min = 0.1,
+  z_cut = 6,
+  min_n = 3L,
+  flagged_only = FALSE
+)
 ```
 
 ## Arguments
@@ -36,18 +45,35 @@ InsertNA(data, id, time, observed, covariates = NULL, delta_t)
   Character vector. A vector of character strings of the names of the
   observed variables in the data.
 
-- covariates:
+- sd_min:
 
-  Character vector. A vector of character strings of the names of the
-  covariates in the data.
+  Numeric scalar or `NULL`. Minimum acceptable within-ID standard
+  deviation after detrending. If `NULL`, low-SD flagging is skipped.
 
-- delta_t:
+- z_cut:
 
-  Positive number. Time interval.
+  Numeric scalar. Absolute standardized-value threshold used to flag
+  potentially extreme values after within-ID scaling.
+
+- min_n:
+
+  Positive integer. Minimum number of finite observations required
+  within each ID-variable combination.
+
+- flagged_only:
+
+  Logical. If `TRUE`, return only flagged ID-variable combinations. If
+  `FALSE`, return all ID-variable combinations.
 
 ## Value
 
-Returns a data frame.
+Returns a data frame with one row per ID-variable combination.
+
+## Details
+
+This is useful for identifying ID-variable combinations that may produce
+very large standardized values because of outlying detrended
+observations or very small within-ID variability.
 
 ## See also
 
@@ -58,7 +84,6 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
@@ -69,6 +94,7 @@ Other Dynamic Modeling Utility Functions:
 [`GetDropID()`](https://github.com/jeksterslab/dynTools/reference/GetDropID.md),
 [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md),
 [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md),
+[`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md),
 [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md),
 [`MakeClockTime()`](https://github.com/jeksterslab/dynTools/reference/MakeClockTime.md),
 [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md),
@@ -91,34 +117,37 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = c(1, 1, 1, 2, 2, 2),
-  time = c(1, 2, 4, 1, 3, 4),
-  y1 = c(10, 11, 13, 20, 22, 23),
-  y2 = c(5, 6, 8, 15, 17, 18)
+  id = rep(1:2, each = 5),
+  time = rep(1:5, times = 2),
+  y1 = c(1, 2, 3, 4, 20, 2, 2, 2, 2, 2),
+  y2 = c(5, 4, 3, 2, 1, 1, 1, 1, 1, 2)
 )
-data
-#>   id time y1 y2
-#> 1  1    1 10  5
-#> 2  1    2 11  6
-#> 3  1    4 13  8
-#> 4  2    1 20 15
-#> 5  2    3 22 17
-#> 6  2    4 23 18
 
-InsertNA(
+DiagnoseDetrendByID(
   data = data,
   id = "id",
   time = "time",
   observed = c("y1", "y2"),
-  delta_t = 1
+  z_cut = 3
 )
-#>   id time y1 y2
-#> 1  1    1 10  5
-#> 2  1    2 11  6
-#> 3  1    3 NA NA
-#> 4  1    4 13  8
-#> 5  2    1 20 15
-#> 6  2    2 NA NA
-#> 7  2    3 22 17
-#> 8  2    4 23 18
+#>   id variable n_total n_finite n_missing n_na n_nan n_inf mean        sd min
+#> 1  1       y1       5        5         0    0     0     0  6.0 7.9056942   1
+#> 2  1       y2       5        5         0    0     0     0  3.0 1.5811388   1
+#> 3  2       y1       5        5         0    0     0     0  2.0 0.0000000   2
+#> 4  2       y2       5        5         0    0     0     0  1.2 0.4472136   1
+#>   max range max_abs min_z_after_scaling max_z_after_scaling
+#> 1  20    19      20          -0.6324555            1.770875
+#> 2   5     4       5          -1.2649111            1.264911
+#> 3   2     0       2           0.0000000            0.000000
+#> 4   2     1       2          -0.4472136            1.788854
+#>   max_abs_z_after_scaling time_max_abs_z value_max_abs_z row_max_abs_z
+#> 1                1.770875              5              20             5
+#> 2                1.264911              1               5             1
+#> 3                0.000000              1               2             6
+#> 4                1.788854              5               2            10
+#>   flag_low_n flag_nonfinite flag_zero_sd flag_low_sd flag_extreme_z  flag
+#> 1      FALSE          FALSE        FALSE       FALSE          FALSE FALSE
+#> 2      FALSE          FALSE        FALSE       FALSE          FALSE FALSE
+#> 3      FALSE          FALSE         TRUE       FALSE          FALSE  TRUE
+#> 4      FALSE          FALSE        FALSE       FALSE          FALSE FALSE
 ```
