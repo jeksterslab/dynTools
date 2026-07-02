@@ -72,6 +72,7 @@ CombineByIDTime(
 Other Dynamic Modeling Utility Functions:
 \code{\link[=CheckDynData]{CheckDynData()}},
 \code{\link[=DeleteInitialNA]{DeleteInitialNA()}},
+\code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},

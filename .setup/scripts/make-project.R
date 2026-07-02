@@ -77,9 +77,9 @@ Sys.setenv(
 )
 installed <- installed.packages()
 pkg_installed <- installed[, "Package"]
-if (!("remotes" %in% pkg_installed)) {
+if (!("pak" %in% pkg_installed)) {
   install.packages(
-    "remotes",
+    "pak",
     repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/latest"),
     lib = dot_library_folder,
     quiet = TRUE

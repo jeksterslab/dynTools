@@ -3,6 +3,7 @@
 export(CheckDynData)
 export(CombineByIDTime)
 export(DeleteInitialNA)
+export(DeleteObservedAllNA)
 export(DeltaTByID)
 export(DetrendByID)
 export(DiagnosticsByID)
