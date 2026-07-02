@@ -17,7 +17,8 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "RegularizeTimeSmallestDeltaTByID regularizes time by global smallest delta_t"
+        "RegularizeTimeDeltaTByID",
+        "regularizes time by global smallest delta_t"
       ),
       {
         data <- data.frame(
@@ -26,7 +27,7 @@ lapply(
           y = c(1, 2, 3, 10, 11, 12)
         )
 
-        result <- RegularizeTimeSmallestDeltaTByID(
+        result <- RegularizeTimeDeltaTByID(
           data = data,
           id = "id",
           time = "time"
@@ -57,7 +58,8 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "SmallestDeltaTByID computes the global smallest positive delta_t"
+        "SmallestDeltaTByID",
+        "computes the global smallest positive delta_t"
       ),
       {
         data <- data.frame(
@@ -80,7 +82,8 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "RegularizeTimeSmallestDeltaTByID checks duplicate ID-time rows"
+        "RegularizeTimeDeltaTByID",
+        "checks duplicate ID-time rows"
       ),
       {
         data <- data.frame(
@@ -90,7 +93,7 @@ lapply(
         )
 
         testthat::expect_error(
-          RegularizeTimeSmallestDeltaTByID(
+          RegularizeTimeDeltaTByID(
             data = data,
             id = "id",
             time = "time"
@@ -104,7 +107,8 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "SmallestDeltaTByID errors when no positive delta_t exists"
+        "SmallestDeltaTByID",
+        "errors when no positive delta_t exists"
       ),
       {
         data <- data.frame(

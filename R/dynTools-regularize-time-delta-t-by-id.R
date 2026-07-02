@@ -27,17 +27,17 @@
 #'   time = c(0, 2, 4, 0, 1, 2),
 #'   y = c(1, 2, 3, 10, 11, 12)
 #' )
-#' RegularizeTimeSmallestDeltaTByID(
+#' RegularizeTimeDeltaTByID(
 #'   data = data,
 #'   id = "id",
 #'   time = "time"
 #' )
 #'
 #' @export
-RegularizeTimeSmallestDeltaTByID <- function(data,
-                                             id,
-                                             time,
-                                             tol = sqrt(.Machine$double.eps)) {
+RegularizeTimeDeltaTByID <- function(data,
+                                     id,
+                                     time,
+                                     tol = sqrt(.Machine$double.eps)) {
   if (!is.data.frame(data)) {
     stop("`data` must be a data frame.")
   }
