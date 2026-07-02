@@ -36,9 +36,9 @@ sessionInfo()
 #> [1] dynTools_0.0.0.9000
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] compiler_4.6.1    cli_3.6.6         tools_4.6.1       otel_0.2.0       
-#>  [5] rstudioapi_0.19.0 rProject_0.0.25   knitr_1.51        xfun_0.59        
-#>  [9] rlang_1.2.0       evaluate_1.0.5
+#> [1] compiler_4.6.1  cli_3.6.6       tools_4.6.1     otel_0.2.0     
+#> [5] rProject_0.0.25 knitr_1.51      xfun_0.59       rlang_1.2.0    
+#> [9] evaluate_1.0.5
 ```
 
 ## Packages
@@ -213,7 +213,6 @@ installed.packages()[, c("Package", "Version")]
 #> colorspace        "colorspace"        "2.1-2"     
 #> commonmark        "commonmark"        "2.0.0"     
 #> conflicted        "conflicted"        "1.2.0"     
-#> coro              "coro"              "1.1.0"     
 #> corpcor           "corpcor"           "1.6.10"    
 #> covr              "covr"              "3.6.5"     
 #> cowplot           "cowplot"           "1.2.0"     
@@ -223,7 +222,6 @@ installed.packages()[, c("Package", "Version")]
 #> crosstalk         "crosstalk"         "1.2.2"     
 #> cTMed             "cTMed"             "1.0.9.9000"
 #> ctsem             "ctsem"             "3.10.6"    
-#> cuda12.8          "cuda12.8"          "1.0.9"     
 #> curl              "curl"              "7.1.0"     
 #> data.table        "data.table"        "1.18.4"    
 #> DBI               "DBI"               "1.3.0"     
@@ -351,7 +349,6 @@ installed.packages()[, c("Package", "Version")]
 #> longMI            "longMI"            "1.0.0"     
 #> loo               "loo"               "2.9.0"     
 #> lubridate         "lubridate"         "1.9.5"     
-#> luz               "luz"               "0.5.2"     
 #> magick            "magick"            "2.9.1"     
 #> magrittr          "magrittr"          "2.0.5"     
 #> markdown          "markdown"          "2.0"       
@@ -482,7 +479,6 @@ installed.packages()[, c("Package", "Version")]
 #> rvest             "rvest"             "1.0.5"     
 #> Ryacas            "Ryacas"            "1.1.6"     
 #> S7                "S7"                "0.2.2"     
-#> safetensors       "safetensors"       "0.2.1"     
 #> sass              "sass"              "0.4.10"    
 #> scales            "scales"            "1.4.0"     
 #> selectr           "selectr"           "0.6-0"     
@@ -523,7 +519,6 @@ installed.packages()[, c("Package", "Version")]
 #> timechange        "timechange"        "0.4.0"     
 #> timeDate          "timeDate"          "4052.112"  
 #> tinytex           "tinytex"           "0.60.1"    
-#> torch             "torch"             "0.17.0"    
 #> tune              "tune"              "2.1.0"     
 #> tzdb              "tzdb"              "0.5.0"     
 #> ucminf            "ucminf"            "1.2.3"     
@@ -552,7 +547,6 @@ installed.packages()[, c("Package", "Version")]
 #> xtable            "xtable"            "1.8-8"     
 #> yaml              "yaml"              "2.3.12"    
 #> yardstick         "yardstick"         "1.4.0"     
-#> zeallot           "zeallot"           "0.2.0"     
 #> zip               "zip"               "3.0.0"     
 #> zoo               "zoo"               "1.8-15"    
 #> base              "base"              "4.6.1"     
@@ -590,53 +584,52 @@ installed.packages()[, c("Package", "Version")]
 
     #> Architecture:                            x86_64
     #> CPU op-mode(s):                          32-bit, 64-bit
-    #> Address sizes:                           48 bits physical, 48 bits virtual
+    #> Address sizes:                           39 bits physical, 48 bits virtual
     #> Byte Order:                              Little Endian
-    #> CPU(s):                                  32
-    #> On-line CPU(s) list:                     0-31
-    #> Vendor ID:                               AuthenticAMD
-    #> Model name:                              AMD Ryzen 9 9955HX 16-Core Processor
-    #> CPU family:                              26
-    #> Model:                                   68
+    #> CPU(s):                                  8
+    #> On-line CPU(s) list:                     0-7
+    #> Vendor ID:                               GenuineIntel
+    #> Model name:                              Intel(R) Core(TM) i5-8365U CPU @ 1.60GHz
+    #> CPU family:                              6
+    #> Model:                                   142
     #> Thread(s) per core:                      2
-    #> Core(s) per socket:                      16
+    #> Core(s) per socket:                      4
     #> Socket(s):                               1
-    #> Stepping:                                0
-    #> Frequency boost:                         enabled
-    #> CPU(s) scaling MHz:                      61%
-    #> CPU max MHz:                             5060.9761
-    #> CPU min MHz:                             1219.5129
-    #> BogoMIPS:                                4990.76
-    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk avx_vnni avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid bus_lock_detect movdiri movdir64b overflow_recov succor smca fsrm avx512_vp2intersect flush_l1d amd_lbr_pmc_freeze
-    #> Virtualization:                          AMD-V
-    #> L1d cache:                               768 KiB (16 instances)
-    #> L1i cache:                               512 KiB (16 instances)
-    #> L2 cache:                                16 MiB (16 instances)
-    #> L3 cache:                                64 MiB (2 instances)
+    #> Stepping:                                12
+    #> CPU(s) scaling MHz:                      74%
+    #> CPU max MHz:                             4100.0000
+    #> CPU min MHz:                             400.0000
+    #> BogoMIPS:                                3799.90
+    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi md_clear flush_l1d arch_capabilities
+    #> Virtualization:                          VT-x
+    #> L1d cache:                               128 KiB (4 instances)
+    #> L1i cache:                               128 KiB (4 instances)
+    #> L2 cache:                                1 MiB (4 instances)
+    #> L3 cache:                                6 MiB (1 instance)
     #> NUMA node(s):                            1
-    #> NUMA node0 CPU(s):                       0-31
-    #> Vulnerability Gather data sampling:      Not affected
-    #> Vulnerability Indirect target selection: Not affected
-    #> Vulnerability Itlb multihit:             Not affected
+    #> NUMA node0 CPU(s):                       0-7
+    #> Vulnerability Gather data sampling:      Mitigation; Microcode
+    #> Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks
+    #> Vulnerability Itlb multihit:             KVM: Mitigation: Split huge pages
     #> Vulnerability L1tf:                      Not affected
     #> Vulnerability Mds:                       Not affected
     #> Vulnerability Meltdown:                  Not affected
-    #> Vulnerability Mmio stale data:           Not affected
+    #> Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable
     #> Vulnerability Old microcode:             Not affected
     #> Vulnerability Reg file data sampling:    Not affected
-    #> Vulnerability Retbleed:                  Not affected
-    #> Vulnerability Spec rstack overflow:      Mitigation; IBPB on VMEXIT only
+    #> Vulnerability Retbleed:                  Mitigation; Enhanced IBRS
+    #> Vulnerability Spec rstack overflow:      Not affected
     #> Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
     #> Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-    #> Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP always-on; PBRSB-eIBRS Not affected; BHI Not affected
-    #> Vulnerability Srbds:                     Not affected
+    #> Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+    #> Vulnerability Srbds:                     Mitigation; Microcode
     #> Vulnerability Tsa:                       Not affected
-    #> Vulnerability Tsx async abort:           Not affected
-    #> Vulnerability Vmscape:                   Mitigation; IBPB on VMEXIT
+    #> Vulnerability Tsx async abort:           Mitigation; TSX disabled
+    #> Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace
 
 ## Memory
 
     #>                total        used        free      shared  buff/cache   available
-    #> Mem:            44Gi       6.6Gi        26Gi       175Mi        11Gi        37Gi
-    #> Swap:           22Gi          0B        22Gi
-    #> Total:          66Gi       6.6Gi        49Gi
+    #> Mem:            15Gi       4.3Gi       3.4Gi       1.2Gi       9.0Gi        10Gi
+    #> Swap:          7.8Gi          0B       7.8Gi
+    #> Total:          22Gi       4.3Gi        11Gi

@@ -44,6 +44,8 @@
   : Preprocess Intensive Longitudinal Data for Dynamic Modeling
 - [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md)
   : Regularize Time by ID
+- [`RegularizeTimeSmallestDeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeSmallestDeltaTByID.md)
+  : Regularize Time By ID
 - [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md)
   : Replace Missing-Value Codes
 - [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md)
@@ -54,6 +56,8 @@
   : Scale by ID
 - [`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md)
   : Screen IDs Using Dynamic-Data Diagnostics
+- [`SmallestDeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/SmallestDeltaTByID.md)
+  : Smallest Global Delta Time By ID
 - [`SubsetByID()`](https://github.com/jeksterslab/dynTools/reference/SubsetByID.md)
   : Subset Data Set by ID
 - [`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md)
