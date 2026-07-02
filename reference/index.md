@@ -8,6 +8,8 @@
   : Combine Data Sets by ID and Time
 - [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md)
   : Delete for NAs in Initial Row By ID
+- [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md)
+  : Delete Rows With All Observed Variables Missing
 - [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md)
   : Summarize Time Intervals by ID
 - [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md)

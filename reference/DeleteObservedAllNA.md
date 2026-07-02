@@ -1,15 +1,11 @@
-# Combine Data Sets by ID and Time
+# Delete Rows With All Observed Variables Missing
 
-The function appends observed variables from one data set to another
-data set using exact `id`-`time` matches. Rows in `data` define the
-output `id`-`time` structure. If an `id`-`time` row in `data` is not
-present in `append_data`, missing values are inserted for the appended
-observed variables.
+The function removes rows where all observed variables are missing.
 
 ## Usage
 
 ``` r
-CombineByIDTime(data, append_data, id, time, observed, covariates = NULL)
+DeleteObservedAllNA(data, id, time, observed, covariates = NULL)
 ```
 
 ## Arguments
@@ -20,11 +16,6 @@ CombineByIDTime(data, append_data, id, time, observed, covariates = NULL)
   subjects that contain a column of subject ID numbers (i.e., an ID
   variable), a column indicating subject-specific measurement occasions
   (i.e., a TIME variable), at least one column of observed values.
-
-- append_data:
-
-  Data frame. A data frame object containing the `id` and `time` columns
-  and the observed variables to append to `data`.
 
 - id:
 
@@ -50,12 +41,17 @@ CombineByIDTime(data, append_data, id, time, observed, covariates = NULL)
 
 Returns a data frame.
 
+## Details
+
+Covariates are retained in the returned data, but they are not used to
+decide whether a row should be deleted.
+
 ## See also
 
 Other Dynamic Modeling Utility Functions:
 [`CheckDynData()`](https://github.com/jeksterslab/dynTools/reference/CheckDynData.md),
+[`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md),
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
-[`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
@@ -90,31 +86,38 @@ Ivan Jacob Agaloos Pesigan
 
 ``` r
 data <- data.frame(
-  id = c(1, 1, 1, 2, 2, 2),
-  time = c(1, 2, 3, 1, 2, 3),
-  cov = c(10, 10, 10, 20, 20, 20)
+  id = rep(1:2, each = 5),
+  time = rep(1:5, times = 2),
+  y1 = c(NA, NA, 3, 4, 5, NA, 11, 12, 13, 14),
+  y2 = c(NA, 2, 3, 4, 5, NA, 11, 12, 13, 14),
+  y3 = c(NA, NA, 3, 4, 5, NA, 11, 12, 13, 14)
 )
+data
+#>    id time y1 y2 y3
+#> 1   1    1 NA NA NA
+#> 2   1    2 NA  2 NA
+#> 3   1    3  3  3  3
+#> 4   1    4  4  4  4
+#> 5   1    5  5  5  5
+#> 6   2    1 NA NA NA
+#> 7   2    2 11 11 11
+#> 8   2    3 12 12 12
+#> 9   2    4 13 13 13
+#> 10  2    5 14 14 14
 
-append_data <- data.frame(
-  id = c(1, 1, 2),
-  time = c(1, 3, 2),
-  y1 = c(11, 13, 22),
-  y2 = c(101, 103, 202)
-)
-
-CombineByIDTime(
+DeleteObservedAllNA(
   data = data,
-  append_data = append_data,
   id = "id",
   time = "time",
-  observed = c("y1", "y2"),
-  covariates = "cov"
+  observed = paste0("y", 1:3)
 )
-#>   id time cov y1  y2
-#> 1  1    1  10 11 101
-#> 2  1    2  10 NA  NA
-#> 3  1    3  10 13 103
-#> 4  2    1  20 NA  NA
-#> 5  2    2  20 22 202
-#> 6  2    3  20 NA  NA
+#>   id time y1 y2 y3
+#> 1  1    2 NA  2 NA
+#> 2  1    3  3  3  3
+#> 3  1    4  4  4  4
+#> 4  1    5  5  5  5
+#> 5  2    2 11 11 11
+#> 6  2    3 12 12 12
+#> 7  2    4 13 13 13
+#> 8  2    5 14 14 14
 ```

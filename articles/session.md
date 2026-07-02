@@ -36,7 +36,7 @@ sessionInfo()
 #> [1] dynTools_0.0.0.9000
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] compiler_4.6.1    cli_3.6.6.9000    tools_4.6.1       otel_0.2.0       
+#>  [1] compiler_4.6.1    cli_3.6.6         tools_4.6.1       otel_0.2.0       
 #>  [5] rstudioapi_0.19.0 rProject_0.0.25   knitr_1.51        xfun_0.59        
 #>  [9] rlang_1.2.0       evaluate_1.0.5
 ```
@@ -47,7 +47,126 @@ sessionInfo()
 
 installed.packages()[, c("Package", "Version")]
 #>                   Package             Version     
+#> askpass           "askpass"           "1.2.1"     
+#> backports         "backports"         "1.5.1"     
+#> base64enc         "base64enc"         "0.1-6"     
+#> bibtex            "bibtex"            "0.5.2"     
+#> BiocManager       "BiocManager"       "1.30.27"   
+#> brew              "brew"              "1.0-10"    
+#> brio              "brio"              "1.1.5"     
+#> bslib             "bslib"             "0.11.0"    
+#> cachem            "cachem"            "1.1.0"     
+#> callr             "callr"             "3.8.0"     
+#> cffr              "cffr"              "1.4.1"     
+#> cli               "cli"               "3.6.6"     
+#> clipr             "clipr"             "0.8.1"     
+#> commonmark        "commonmark"        "2.0.0"     
+#> covr              "covr"              "3.6.5"     
+#> crayon            "crayon"            "1.5.3"     
+#> credentials       "credentials"       "2.0.3"     
+#> curl              "curl"              "7.1.0"     
+#> desc              "desc"              "1.4.3"     
+#> devtools          "devtools"          "2.5.2.9000"
+#> diffobj           "diffobj"           "0.3.6"     
+#> digest            "digest"            "0.6.39"    
+#> distro            "distro"            "0.1.1"     
+#> downlit           "downlit"           "0.4.5"     
 #> dynTools          "dynTools"          "0.0.0.9000"
+#> ellipsis          "ellipsis"          "0.3.3"     
+#> evaluate          "evaluate"          "1.0.5"     
+#> fansi             "fansi"             "1.0.7"     
+#> fastmap           "fastmap"           "1.2.0"     
+#> fontawesome       "fontawesome"       "0.5.3"     
+#> fs                "fs"                "2.1.0"     
+#> generics          "generics"          "0.1.4"     
+#> gert              "gert"              "2.3.1"     
+#> gh                "gh"                "1.6.0"     
+#> gitcreds          "gitcreds"          "0.1.2"     
+#> glue              "glue"              "1.8.1"     
+#> highr             "highr"             "0.12"      
+#> htmltools         "htmltools"         "0.5.9"     
+#> htmlwidgets       "htmlwidgets"       "1.6.4"     
+#> httpuv            "httpuv"            "1.6.17"    
+#> httr              "httr"              "1.4.8"     
+#> httr2             "httr2"             "1.2.3"     
+#> ini               "ini"               "0.3.1"     
+#> jquerylib         "jquerylib"         "0.1.4"     
+#> jsonlite          "jsonlite"          "2.0.0"     
+#> jsonvalidate      "jsonvalidate"      "1.5.0"     
+#> knitr             "knitr"             "1.51"      
+#> later             "later"             "1.4.8"     
+#> lifecycle         "lifecycle"         "1.0.5"     
+#> lintr             "lintr"             "3.3.0-1"   
+#> lubridate         "lubridate"         "1.9.5"     
+#> magrittr          "magrittr"          "2.0.5"     
+#> memoise           "memoise"           "2.0.1"     
+#> mime              "mime"              "0.13"      
+#> miniUI            "miniUI"            "0.1.2"     
+#> openssl           "openssl"           "2.4.2"     
+#> otel              "otel"              "0.2.0"     
+#> pak               "pak"               "0.10.0"    
+#> pillar            "pillar"            "1.11.1"    
+#> pkgbuild          "pkgbuild"          "1.4.8"     
+#> pkgconfig         "pkgconfig"         "2.0.3"     
+#> pkgdown           "pkgdown"           "2.2.0"     
+#> pkgload           "pkgload"           "1.5.3"     
+#> plyr              "plyr"              "1.8.9"     
+#> praise            "praise"            "1.0.0"     
+#> prettyunits       "prettyunits"       "1.2.0"     
+#> processx          "processx"          "3.9.0"     
+#> profvis           "profvis"           "0.4.0"     
+#> promises          "promises"          "1.5.0"     
+#> ps                "ps"                "1.9.3"     
+#> purrr             "purrr"             "1.2.2"     
+#> quarto            "quarto"            "1.5.1"     
+#> R.cache           "R.cache"           "0.17.0"    
+#> R.methodsS3       "R.methodsS3"       "1.8.2"     
+#> R.oo              "R.oo"              "1.27.1"    
+#> R.utils           "R.utils"           "2.13.0"    
+#> R6                "R6"                "2.6.1"     
+#> ragg              "ragg"              "1.5.2"     
+#> rappdirs          "rappdirs"          "0.3.4"     
+#> rcmdcheck         "rcmdcheck"         "1.4.0"     
+#> Rcpp              "Rcpp"              "1.1.1-1.1" 
+#> RefManageR        "RefManageR"        "1.4.0"     
+#> remotes           "remotes"           "2.5.0"     
+#> rex               "rex"               "1.2.2"     
+#> rlang             "rlang"             "1.2.0"     
+#> rmarkdown         "rmarkdown"         "2.31"      
+#> roxygen2          "roxygen2"          "8.0.0"     
+#> rProject          "rProject"          "0.0.25"    
+#> rprojroot         "rprojroot"         "2.1.1"     
+#> rstudioapi        "rstudioapi"        "0.19.0"    
+#> rversions         "rversions"         "3.0.0"     
+#> sass              "sass"              "0.4.10"    
+#> sessioninfo       "sessioninfo"       "1.2.4"     
+#> shiny             "shiny"             "1.14.0"    
+#> sourcetools       "sourcetools"       "0.1.7-2"   
+#> stringi           "stringi"           "1.8.7"     
+#> stringr           "stringr"           "1.6.0"     
+#> styler            "styler"            "1.11.0"    
+#> sys               "sys"               "3.4.3"     
+#> systemfonts       "systemfonts"       "1.3.2"     
+#> testthat          "testthat"          "3.3.2"     
+#> textshaping       "textshaping"       "1.0.5"     
+#> tibble            "tibble"            "3.3.1"     
+#> timechange        "timechange"        "0.4.0"     
+#> tinytex           "tinytex"           "0.60.1"    
+#> urlchecker        "urlchecker"        "1.0.1"     
+#> usethis           "usethis"           "3.2.1"     
+#> utf8              "utf8"              "1.2.6"     
+#> V8                "V8"                "8.2.0"     
+#> vctrs             "vctrs"             "0.7.3"     
+#> waldo             "waldo"             "0.6.2"     
+#> whisker           "whisker"           "0.4.1"     
+#> withr             "withr"             "3.0.3"     
+#> xfun              "xfun"              "0.59"      
+#> xml2              "xml2"              "1.6.0"     
+#> xmlparsedata      "xmlparsedata"      "1.0.5"     
+#> xopen             "xopen"             "1.0.1"     
+#> xtable            "xtable"            "1.8-8"     
+#> yaml              "yaml"              "2.3.12"    
+#> zip               "zip"               "3.0.0"     
 #> abind             "abind"             "1.4-8"     
 #> Amelia            "Amelia"            "1.8.3"     
 #> arm               "arm"               "1.15-3"    
@@ -471,52 +590,53 @@ installed.packages()[, c("Package", "Version")]
 
     #> Architecture:                            x86_64
     #> CPU op-mode(s):                          32-bit, 64-bit
-    #> Address sizes:                           46 bits physical, 48 bits virtual
+    #> Address sizes:                           48 bits physical, 48 bits virtual
     #> Byte Order:                              Little Endian
-    #> CPU(s):                                  8
-    #> On-line CPU(s) list:                     0-7
-    #> Vendor ID:                               GenuineIntel
-    #> Model name:                              Intel(R) Xeon(R) CPU E5-1620 v2 @ 3.70GHz
-    #> CPU family:                              6
-    #> Model:                                   62
+    #> CPU(s):                                  32
+    #> On-line CPU(s) list:                     0-31
+    #> Vendor ID:                               AuthenticAMD
+    #> Model name:                              AMD Ryzen 9 9955HX 16-Core Processor
+    #> CPU family:                              26
+    #> Model:                                   68
     #> Thread(s) per core:                      2
-    #> Core(s) per socket:                      4
+    #> Core(s) per socket:                      16
     #> Socket(s):                               1
-    #> Stepping:                                4
-    #> CPU(s) scaling MHz:                      94%
-    #> CPU max MHz:                             3900.0000
-    #> CPU min MHz:                             1200.0000
-    #> BogoMIPS:                                7382.13
-    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm cpuid_fault epb pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid fsgsbase smep erms xsaveopt dtherm ida arat pln pts vnmi md_clear flush_l1d
-    #> Virtualization:                          VT-x
-    #> L1d cache:                               128 KiB (4 instances)
-    #> L1i cache:                               128 KiB (4 instances)
-    #> L2 cache:                                1 MiB (4 instances)
-    #> L3 cache:                                10 MiB (1 instance)
+    #> Stepping:                                0
+    #> Frequency boost:                         enabled
+    #> CPU(s) scaling MHz:                      61%
+    #> CPU max MHz:                             5060.9761
+    #> CPU min MHz:                             1219.5129
+    #> BogoMIPS:                                4990.76
+    #> Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl xtopology nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local user_shstk avx_vnni avx512_bf16 clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid bus_lock_detect movdiri movdir64b overflow_recov succor smca fsrm avx512_vp2intersect flush_l1d amd_lbr_pmc_freeze
+    #> Virtualization:                          AMD-V
+    #> L1d cache:                               768 KiB (16 instances)
+    #> L1i cache:                               512 KiB (16 instances)
+    #> L2 cache:                                16 MiB (16 instances)
+    #> L3 cache:                                64 MiB (2 instances)
     #> NUMA node(s):                            1
-    #> NUMA node0 CPU(s):                       0-7
+    #> NUMA node0 CPU(s):                       0-31
     #> Vulnerability Gather data sampling:      Not affected
     #> Vulnerability Indirect target selection: Not affected
-    #> Vulnerability Itlb multihit:             KVM: Mitigation: Split huge pages
-    #> Vulnerability L1tf:                      Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
-    #> Vulnerability Mds:                       Mitigation; Clear CPU buffers; SMT vulnerable
-    #> Vulnerability Meltdown:                  Mitigation; PTI
+    #> Vulnerability Itlb multihit:             Not affected
+    #> Vulnerability L1tf:                      Not affected
+    #> Vulnerability Mds:                       Not affected
+    #> Vulnerability Meltdown:                  Not affected
     #> Vulnerability Mmio stale data:           Not affected
     #> Vulnerability Old microcode:             Not affected
     #> Vulnerability Reg file data sampling:    Not affected
     #> Vulnerability Retbleed:                  Not affected
-    #> Vulnerability Spec rstack overflow:      Not affected
+    #> Vulnerability Spec rstack overflow:      Mitigation; IBPB on VMEXIT only
     #> Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
     #> Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-    #> Vulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP conditional; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+    #> Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; STIBP always-on; PBRSB-eIBRS Not affected; BHI Not affected
     #> Vulnerability Srbds:                     Not affected
     #> Vulnerability Tsa:                       Not affected
     #> Vulnerability Tsx async abort:           Not affected
-    #> Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace
+    #> Vulnerability Vmscape:                   Mitigation; IBPB on VMEXIT
 
 ## Memory
 
     #>                total        used        free      shared  buff/cache   available
-    #> Mem:            23Gi       3.4Gi        16Gi       110Mi       3.7Gi        19Gi
-    #> Swap:           11Gi          0B        11Gi
-    #> Total:          34Gi       3.4Gi        28Gi
+    #> Mem:            44Gi       6.6Gi        26Gi       175Mi        11Gi        37Gi
+    #> Swap:           22Gi          0B        22Gi
+    #> Total:          66Gi       6.6Gi        49Gi
