@@ -20,6 +20,8 @@
   : Drop IDs From a Data Frame
 - [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md)
   : Create Elapsed Time by ID
+- [`ElapsedTimeByIDCT()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByIDCT.md)
+  : Create CT-Scaled Elapsed Time by ID
 - [`FilterByID()`](https://github.com/jeksterslab/dynTools/reference/FilterByID.md)
   : Filter Dynamic Modeling Data by ID
 - [`FilterObservedRows()`](https://github.com/jeksterslab/dynTools/reference/FilterObservedRows.md)
@@ -40,12 +42,8 @@
   : Make Clock Time
 - [`PlotByID()`](https://github.com/jeksterslab/dynTools/reference/PlotByID.md)
   : Plot Observed Variables by ID
-- [`PreprocessDynData()`](https://github.com/jeksterslab/dynTools/reference/PreprocessDynData.md)
-  : Preprocess Intensive Longitudinal Data for Dynamic Modeling
 - [`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md)
   : Regularize Time by ID
-- [`RegularizeTimeSmallestDeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeSmallestDeltaTByID.md)
-  : Regularize Time By ID
 - [`ReplaceMissingCode()`](https://github.com/jeksterslab/dynTools/reference/ReplaceMissingCode.md)
   : Replace Missing-Value Codes
 - [`ResolveDuplicateIDTime()`](https://github.com/jeksterslab/dynTools/reference/ResolveDuplicateIDTime.md)
@@ -56,8 +54,6 @@
   : Scale by ID
 - [`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md)
   : Screen IDs Using Dynamic-Data Diagnostics
-- [`SmallestDeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/SmallestDeltaTByID.md)
-  : Smallest Global Delta Time By ID
 - [`SubsetByID()`](https://github.com/jeksterslab/dynTools/reference/SubsetByID.md)
   : Subset Data Set by ID
 - [`SummaryByID()`](https://github.com/jeksterslab/dynTools/reference/SummaryByID.md)
