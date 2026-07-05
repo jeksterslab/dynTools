@@ -36,6 +36,19 @@ DeleteObservedAllNA <- function(data,
                                 time,
                                 observed,
                                 covariates = NULL) {
+  CheckDynData(
+    data = data,
+    id = id,
+    time = time,
+    observed = observed,
+    covariates = covariates,
+    require_unique = FALSE,
+    require_numeric_time = FALSE,
+    require_numeric_observed = FALSE,
+    require_numeric_covariates = FALSE,
+    min_rows = 1L
+  )
+
   data <- .DynToolsSelectSort(
     data = data,
     id = id,

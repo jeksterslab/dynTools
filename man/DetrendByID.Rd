@@ -115,7 +115,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteInitialNA]{DeleteInitialNA()}},
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},

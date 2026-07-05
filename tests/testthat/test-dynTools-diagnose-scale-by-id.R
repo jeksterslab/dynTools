@@ -1,4 +1,4 @@
-## ---- test-dynTools-diagnose-detrend-by-id
+## ---- test-dynTools-diagnose-scale-by-id
 lapply(
   X = 1,
   FUN = function(i,
@@ -17,7 +17,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "returns one row per ID-variable combination"
       ),
       {
@@ -31,7 +31,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -63,7 +63,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "computes within-ID diagnostics and projected z values"
       ),
       {
@@ -76,7 +76,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -145,7 +145,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "flags zero and low within-ID standard deviations"
       ),
       {
@@ -158,7 +158,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -187,7 +187,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "flags extreme projected standardized values"
       ),
       {
@@ -200,7 +200,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -233,7 +233,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "can return only flagged ID-variable combinations"
       ),
       {
@@ -246,7 +246,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -274,7 +274,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "counts missing and non-finite observed values"
       ),
       {
@@ -287,7 +287,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -328,7 +328,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "flags ID-variable combinations with too few finite values"
       ),
       {
@@ -341,7 +341,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -362,7 +362,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "allows sd_min to be NULL"
       ),
       {
@@ -375,7 +375,7 @@ lapply(
           stringsAsFactors = FALSE
         )
 
-        out <- DiagnoseDetrendByID(
+        out <- DiagnoseScaleByID(
           data = data,
           id = "id",
           time = "time",
@@ -392,7 +392,7 @@ lapply(
     testthat::test_that(
       paste(
         text,
-        "DiagnoseDetrendByID",
+        "DiagnoseScaleByID",
         "checks input arguments"
       ),
       {
@@ -406,7 +406,7 @@ lapply(
         )
 
         testthat::expect_error(
-          DiagnoseDetrendByID(
+          DiagnoseScaleByID(
             data = data,
             id = "id",
             time = "time",
@@ -418,7 +418,7 @@ lapply(
         )
 
         testthat::expect_error(
-          DiagnoseDetrendByID(
+          DiagnoseScaleByID(
             data = data,
             id = "id",
             time = "time",
@@ -430,7 +430,7 @@ lapply(
         )
 
         testthat::expect_error(
-          DiagnoseDetrendByID(
+          DiagnoseScaleByID(
             data = data,
             id = "id",
             time = "time",
@@ -442,7 +442,7 @@ lapply(
         )
 
         testthat::expect_error(
-          DiagnoseDetrendByID(
+          DiagnoseScaleByID(
             data = data,
             id = "id",
             time = "time",
@@ -455,5 +455,5 @@ lapply(
       }
     )
   },
-  text = "test-dynTools-diagnose-detrend-by-id"
+  text = "test-dynTools-diagnose-scale-by-id"
 )

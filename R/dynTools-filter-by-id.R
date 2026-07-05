@@ -1,6 +1,9 @@
 #' Filter Dynamic Modeling Data by ID
 #'
-#' The function removes IDs that do not satisfy minimum data requirements.
+#' The function removes IDs that do not satisfy simple minimum data
+#' requirements. For diagnostic screening and sensitivity-analysis decisions,
+#' prefer [DiagnosticsByID()], [FlagDiagnosticsByID()], [GetDropID()], and
+#' [ScreenByID()].
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -12,7 +15,9 @@
 #' @param max_prop_missing Numeric.
 #'   Maximum allowed proportion of missing values across observed variables.
 #' @param allow_initial_na Logical.
-#'   If `FALSE`, remove IDs where the initial row contains missing values.
+#'   If `FALSE`, remove IDs where the initial row contains missing observed
+#'   values. Covariates are not used to determine whether the initial row has
+#'   missing values.
 #' @param allow_all_missing Logical.
 #'   If `FALSE`, remove IDs where all observed values are missing.
 #'

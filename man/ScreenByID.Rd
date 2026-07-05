@@ -56,7 +56,7 @@ Values to temporarily treat as missing when computing diagnostics.
 The input data are not modified.}
 
 \item{min_nonmissing}{Positive integer.
-Minimum number of non-missing observed variables required for a row to count
+Minimum number of finite observed variables required for a row to count
 as an observed row.}
 
 \item{extreme_cut}{Numeric vector.
@@ -90,8 +90,9 @@ Maximum tolerated observed-row time gap in the units used by
 Maximum tolerated median observed-row time gap in the units used by
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}}.}
 
-\item{min_sd}{Non-negative number.
-Minimum tolerated within-ID standard deviation across observed variables.}
+\item{min_sd}{\code{NULL} or non-negative number.
+Minimum tolerated within-ID standard deviation across observed variables.
+If \code{NULL}, low-SD flagging is skipped.}
 
 \item{flag_extreme_cut}{Positive number.
 Absolute-value cutoff used by \code{\link[=FlagDiagnosticsByID]{FlagDiagnosticsByID()}}. This value is added
@@ -147,7 +148,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},

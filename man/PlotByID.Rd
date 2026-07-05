@@ -88,7 +88,8 @@ Limits for the x-axis.}
 
 \item{ylim}{Optional numeric vector of length 2.
 Limits for the y-axis.
-If \code{NULL}, limits are computed separately for each observed variable.}
+If \code{NULL}, limits are computed separately for each observed variable
+using finite observed values only.}
 
 \item{legend}{Logical.
 If \code{TRUE}, add a legend identifying IDs.}
@@ -105,7 +106,9 @@ Invisibly returns the IDs that were plotted.
 }
 \description{
 The function creates one time-series plot for each observed variable.
-Within each plot, trajectories are overlaid by ID.
+Within each plot, trajectories are overlaid by ID. Non-finite observed
+values, such as \code{NaN}, \code{Inf}, and \code{-Inf}, are treated as missing for
+plotting.
 }
 \examples{
 data <- data.frame(
@@ -160,7 +163,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},

@@ -4,6 +4,13 @@ lapply(
   FUN = function(i, text) {
     message(text)
 
+    if (!identical(Sys.getenv("NOT_CRAN"), "true") && !interactive()) {
+      message("CRAN: tests skipped.")
+      # nolint start
+      return(invisible(NULL))
+      # nolint end
+    }
+
     testthat::test_that(
       paste(
         text,

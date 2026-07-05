@@ -24,14 +24,35 @@ lapply(
         testthat::skip_on_cran()
 
         x <- data.frame(
-          id = 1:8,
-          n_observed_rows = c(40, 20, 40, 40, 40, 40, 40, 20),
-          n_complete_rows = c(35, 35, 10, 35, 35, 35, 35, 10),
-          prop_all_missing = c(0.10, 0.10, 0.10, 0.99, 0.10, 0.10, 0.10, 0.99),
-          max_obs_gap = c(2, 2, 2, 2, 10, 2, 2, 10),
-          median_obs_gap = c(1, 1, 1, 1, 1, 7, 1, 7),
-          min_sd = c(0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.01, 0.01),
-          n_abs_gt6_total = c(0, 0, 0, 0, 0, 0, 1, 1),
+          id = 1:10,
+          n_observed_rows = c(
+            40, 20, 40, 40, 40, 40, 40, 20, 40, 40
+          ),
+          n_complete_rows = c(
+            35, 35, 10, 35, 35, 35, 35, 10, 35, 35
+          ),
+          prop_all_missing = c(
+            0.10, 0.10, 0.10, 0.99, 0.10,
+            0.10, 0.10, 0.99, 0.10, 0.10
+          ),
+          max_obs_gap = c(
+            2, 2, 2, 2, 10, 2, 2, 10, 2, 2
+          ),
+          median_obs_gap = c(
+            1, 1, 1, 1, 1, 7, 1, 7, 1, 1
+          ),
+          min_sd = c(
+            0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.01, 0.01, 0.10, 0.10
+          ),
+          n_duplicate_id_time = c(
+            0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+          ),
+          n_nonfinite_total = c(
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 2
+          ),
+          n_abs_gt6_total = c(
+            0, 0, 0, 0, 0, 0, 1, 1, 0, 0
+          ),
           stringsAsFactors = FALSE
         )
 
@@ -49,52 +70,62 @@ lapply(
 
         testthat::expect_equal(
           out$flag_low_observed_rows,
-          c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+          c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$flag_low_complete_rows,
-          c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE)
+          c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$flag_mostly_all_missing,
-          c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE)
+          c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$flag_large_gap,
-          c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE)
+          c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$flag_large_median_gap,
-          c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE)
+          c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$flag_low_sd,
-          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE)
+          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE)
+        )
+
+        testthat::expect_equal(
+          out$flag_duplicate_id_time,
+          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE)
+        )
+
+        testthat::expect_equal(
+          out$flag_nonfinite,
+          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
         )
 
         testthat::expect_equal(
           out$flag_extreme,
-          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE)
+          c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
           out$priority_score,
-          c(0, 1, 1, 1, 1, 1, 2, 7)
+          c(0, 1, 1, 1, 1, 1, 2, 7, 1, 1)
         )
 
         testthat::expect_equal(
           out$flag_any,
-          c(FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+          c(FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
         )
 
         testthat::expect_equal(
           out$drop_sensitivity_candidate,
-          c(FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE)
+          c(FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE)
         )
 
         testthat::expect_equal(
@@ -118,7 +149,9 @@ lapply(
                 "extreme_abs_gt_6"
               ),
               collapse = ";"
-            )
+            ),
+            "duplicate_id_time",
+            "nonfinite_observed"
           )
         )
       }
@@ -140,7 +173,9 @@ lapply(
           prop_all_missing = c(1, 1),
           max_obs_gap = c(100, 100),
           median_obs_gap = c(100, 100),
-          min_sd = c(0.10, 0.10),
+          min_sd = c(0.00, 0.00),
+          n_duplicate_id_time = c(0, 0),
+          n_nonfinite_total = c(0, 0),
           n_abs_gt6_total = c(0, 0),
           stringsAsFactors = FALSE
         )
@@ -152,7 +187,7 @@ lapply(
           max_prop_all_missing = NULL,
           max_gap = NULL,
           max_median_gap = NULL,
-          min_sd = 0.05,
+          min_sd = NULL,
           extreme_cut = 6
         )
 
@@ -170,6 +205,18 @@ lapply(
         )
         testthat::expect_equal(
           out$flag_large_median_gap,
+          c(FALSE, FALSE)
+        )
+        testthat::expect_equal(
+          out$flag_low_sd,
+          c(FALSE, FALSE)
+        )
+        testthat::expect_equal(
+          out$flag_duplicate_id_time,
+          c(FALSE, FALSE)
+        )
+        testthat::expect_equal(
+          out$flag_nonfinite,
           c(FALSE, FALSE)
         )
         testthat::expect_equal(
@@ -208,6 +255,8 @@ lapply(
           max_obs_gap = 1,
           median_obs_gap = 1,
           min_sd = 0.10,
+          n_duplicate_id_time = 0,
+          n_nonfinite_total = 0,
           n_abs_gt6_total = 0,
           stringsAsFactors = FALSE
         )
@@ -225,6 +274,24 @@ lapply(
             x = x[, setdiff(names(x), "min_sd"), drop = FALSE]
           ),
           "The following required columns are missing from `x`: min_sd.",
+          fixed = TRUE
+        )
+
+        testthat::expect_error(
+          FlagDiagnosticsByID(
+            x = x[
+              ,
+              setdiff(
+                x = names(x),
+                y = c("n_duplicate_id_time", "n_nonfinite_total")
+              ),
+              drop = FALSE
+            ]
+          ),
+          paste(
+            "The following required columns are missing from `x`:",
+            "n_duplicate_id_time, n_nonfinite_total."
+          ),
           fixed = TRUE
         )
 
@@ -255,6 +322,8 @@ lapply(
           max_obs_gap = 1,
           median_obs_gap = 1,
           min_sd = 0.10,
+          n_duplicate_id_time = 0,
+          n_nonfinite_total = 0,
           n_abs_gt6_total = 0,
           stringsAsFactors = FALSE
         )
@@ -309,7 +378,7 @@ lapply(
             x = x,
             min_sd = -0.01
           ),
-          "`min_sd` must be a non-negative number.",
+          "`min_sd` must be `NULL` or a non-negative number.",
           fixed = TRUE
         )
 

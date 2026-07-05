@@ -51,7 +51,9 @@ Minimum number of complete observed rows required per ID.}
 Maximum allowed proportion of missing values across observed variables.}
 
 \item{allow_initial_na}{Logical.
-If \code{FALSE}, remove IDs where the initial row contains missing values.}
+If \code{FALSE}, remove IDs where the initial row contains missing observed
+values. Covariates are not used to determine whether the initial row has
+missing values.}
 
 \item{allow_all_missing}{Logical.
 If \code{FALSE}, remove IDs where all observed values are missing.}
@@ -60,7 +62,10 @@ If \code{FALSE}, remove IDs where all observed values are missing.}
 Returns a data frame.
 }
 \description{
-The function removes IDs that do not satisfy minimum data requirements.
+The function removes IDs that do not satisfy simple minimum data
+requirements. For diagnostic screening and sensitivity-analysis decisions,
+prefer \code{\link[=DiagnosticsByID]{DiagnosticsByID()}}, \code{\link[=FlagDiagnosticsByID]{FlagDiagnosticsByID()}}, \code{\link[=GetDropID]{GetDropID()}}, and
+\code{\link[=ScreenByID]{ScreenByID()}}.
 }
 \examples{
 data <- data.frame(
@@ -87,7 +92,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},

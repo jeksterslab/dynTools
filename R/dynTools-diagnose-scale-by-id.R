@@ -1,20 +1,14 @@
-#' Diagnose Detrended Variables by ID
+#' Diagnose Scaling by ID
 #'
-#' The function computes post-detrending diagnostics by ID for observed
-#' variables. It is intended to be used after detrending and before within-ID
-#' scaling. The function reports within-ID variability, missingness, non-finite
-#' values, and the largest standardized value that would be produced by
-#' within-ID scaling.
-#'
-#' This is useful for identifying ID-variable combinations that may produce
-#' very large standardized values because of outlying detrended observations or
-#' very small within-ID variability.
+#' The function computes ID-variable-level diagnostics before within-ID
+#' scaling. It reports within-ID variability, missingness, non-finite values,
+#' and the largest standardized value that would be produced by scaling.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @inheritParams SubsetByID
 #' @param sd_min Numeric scalar or `NULL`.
-#'   Minimum acceptable within-ID standard deviation after detrending.
+#'   Minimum acceptable within-ID standard deviation before within-ID scaling.
 #'   If `NULL`, low-SD flagging is skipped.
 #' @param z_cut Numeric scalar.
 #'   Absolute standardized-value threshold used to flag potentially extreme
@@ -36,7 +30,7 @@
 #'   y2 = c(5, 4, 3, 2, 1, 1, 1, 1, 1, 2)
 #' )
 #'
-#' DiagnoseDetrendByID(
+#' DiagnoseScaleByID(
 #'   data = data,
 #'   id = "id",
 #'   time = "time",
@@ -47,14 +41,14 @@
 #' @family Dynamic Modeling Utility Functions
 #' @keywords dynTools data
 #' @export
-DiagnoseDetrendByID <- function(data,
-                                id,
-                                time,
-                                observed,
-                                sd_min = 0.10,
-                                z_cut = 6,
-                                min_n = 3L,
-                                flagged_only = FALSE) {
+DiagnoseScaleByID <- function(data,
+                              id,
+                              time,
+                              observed,
+                              sd_min = 0.10,
+                              z_cut = 6,
+                              min_n = 3L,
+                              flagged_only = FALSE) {
   CheckDynData(
     data = data,
     id = id,

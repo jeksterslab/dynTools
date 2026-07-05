@@ -47,7 +47,7 @@ Values to temporarily treat as missing when computing diagnostics.
 The input data are not modified.}
 
 \item{min_nonmissing}{Positive integer.
-Minimum number of non-missing observed variables required for a row to count
+Minimum number of finite observed variables required for a row to count
 as an observed row.}
 
 \item{extreme_cut}{Numeric vector.
@@ -69,9 +69,10 @@ Returns a data frame with one row per ID.
 }
 \description{
 The function computes ID-level diagnostics for intensive longitudinal data.
-Diagnostics include the number of observed rows, number of complete rows,
-proportion of all-missing observed rows, duplicate ID-time rows, time gaps,
-within-ID standard deviations, and counts of extreme observed values.
+Diagnostics include the number of finite observed rows, number of complete
+rows, proportion of rows with no finite observed values, duplicate ID-time
+rows, time gaps, non-finite observed values, within-ID standard deviations,
+and counts of extreme observed values.
 }
 \examples{
 data <- data.frame(
@@ -97,7 +98,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
 \code{\link[=ElapsedTimeByIDCT]{ElapsedTimeByIDCT()}},

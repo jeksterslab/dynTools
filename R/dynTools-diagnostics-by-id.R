@@ -1,9 +1,10 @@
 #' ID-Level Diagnostics for Dynamic Modeling Data
 #'
 #' The function computes ID-level diagnostics for intensive longitudinal data.
-#' Diagnostics include the number of observed rows, number of complete rows,
-#' proportion of all-missing observed rows, duplicate ID-time rows, time gaps,
-#' within-ID standard deviations, and counts of extreme observed values.
+#' Diagnostics include the number of finite observed rows, number of complete
+#' rows, proportion of rows with no finite observed values, duplicate ID-time
+#' rows, time gaps, non-finite observed values, within-ID standard deviations,
+#' and counts of extreme observed values.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -12,7 +13,7 @@
 #' Values to temporarily treat as missing when computing diagnostics.
 #' The input data are not modified.
 #' @param min_nonmissing Positive integer.
-#' Minimum number of non-missing observed variables required for a row to count
+#' Minimum number of finite observed variables required for a row to count
 #' as an observed row.
 #' @param extreme_cut Numeric vector.
 #' Absolute-value cutoffs used to count extreme values.
@@ -165,10 +166,18 @@ DiagnosticsByID <- function(data,
 
   for (i in seq_along(ids)) {
     dat_i <- data[data[[id]] == ids[i], , drop = FALSE]
-    obs_mat <- !is.na(dat_i[observed])
-    n_nonmissing <- rowSums(obs_mat)
-    observed_row <- n_nonmissing >= min_nonmissing
-    complete_row <- n_nonmissing == length(observed)
+    obs_values <- as.matrix(
+      dat_i[
+        observed
+      ]
+    )
+    finite_mat <- is.finite(obs_values)
+    nan_mat <- is.nan(obs_values)
+    inf_mat <- is.infinite(obs_values)
+    nonfinite_mat <- nan_mat | inf_mat
+    n_finite_row <- rowSums(finite_mat)
+    observed_row <- n_finite_row >= min_nonmissing
+    complete_row <- n_finite_row == length(observed)
 
     time_i <- dat_i[[time]]
     time_obs <- time_i[observed_row]
@@ -185,8 +194,11 @@ DiagnosticsByID <- function(data,
       n_rows = nrow(dat_i),
       n_observed_rows = sum(observed_row),
       n_complete_rows = sum(complete_row),
-      prop_all_missing = mean(n_nonmissing == 0L),
+      prop_all_missing = mean(n_finite_row == 0L),
       n_duplicate_id_time = sum(duplicated(key)),
+      n_nan_total = sum(nan_mat),
+      n_inf_total = sum(inf_mat),
+      n_nonfinite_total = sum(nonfinite_mat),
       min_time = suppressWarnings(min(time_i, na.rm = TRUE)),
       max_time = suppressWarnings(max(time_i, na.rm = TRUE)),
       max_obs_gap = if (length(gap) > 0L) {
@@ -215,10 +227,18 @@ DiagnosticsByID <- function(data,
 
     for (var in observed) {
       x <- dat_i[[var]]
-      x_ok <- x[!is.na(x)]
-      n_ok <- length(x_ok)
-      sd_x <- if (n_ok >= 2L) stats::sd(x_ok) else NA_real_
-      max_abs_x <- if (n_ok > 0L) max(abs(x_ok), na.rm = TRUE) else NA_real_
+      x_finite <- x[is.finite(x)]
+      n_nonmissing_x <- sum(!is.na(x))
+      n_finite_x <- length(x_finite)
+      n_nan_x <- sum(is.nan(x))
+      n_inf_x <- sum(is.infinite(x))
+      n_nonfinite_x <- n_nan_x + n_inf_x
+      sd_x <- if (n_finite_x >= 2L) stats::sd(x_finite) else NA_real_
+      max_abs_x <- if (n_finite_x > 0L) {
+        max(abs(x_finite), na.rm = TRUE)
+      } else {
+        NA_real_
+      }
 
       sd_values[var] <- sd_x
       max_abs_values[var] <- max_abs_x
@@ -226,13 +246,17 @@ DiagnosticsByID <- function(data,
       prefix <- .DynToolsSafeName(var)
 
       var_i[[paste0("miss_", prefix)]] <- mean(is.na(x))
-      var_i[[paste0("n_", prefix)]] <- n_ok
+      var_i[[paste0("n_", prefix)]] <- n_nonmissing_x
+      var_i[[paste0("n_finite_", prefix)]] <- n_finite_x
+      var_i[[paste0("n_nan_", prefix)]] <- n_nan_x
+      var_i[[paste0("n_inf_", prefix)]] <- n_inf_x
+      var_i[[paste0("n_nonfinite_", prefix)]] <- n_nonfinite_x
       var_i[[paste0("sd_", prefix)]] <- sd_x
       var_i[[paste0("maxabs_", prefix)]] <- max_abs_x
 
       for (cut in extreme_cut) {
         var_i[[paste0("n_abs_gt", .DynToolsSafeCut(cut), "_", prefix)]] <-
-          sum(abs(x_ok) > cut, na.rm = TRUE)
+          sum(abs(x_finite) > cut, na.rm = TRUE)
       }
     }
 
@@ -293,7 +317,7 @@ DiagnosticsByID <- function(data,
             X = observed,
             FUN = function(var) {
               x <- dat_i[[var]]
-              x <- x[!is.na(x)]
+              x <- x[is.finite(x)]
               sum(abs(x) > cut, na.rm = TRUE)
             },
             FUN.VALUE = integer(1)

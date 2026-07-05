@@ -2,6 +2,9 @@
 #'
 #' The function adds rule-based flags to the output of [DiagnosticsByID()].
 #' It is intended for sensitivity checks before fitting dynamic models.
+#' It flags low observation counts, missingness, duplicate ID-time rows,
+#' non-finite observed values, large time gaps, low variability, and extreme
+#' observed values.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -18,8 +21,9 @@
 #' @param max_median_gap `NULL` or positive number.
 #' Maximum tolerated median observed-row time gap in the units used by
 #' [DiagnosticsByID()].
-#' @param min_sd Non-negative number.
+#' @param min_sd `NULL` or non-negative number.
 #' Minimum tolerated within-ID standard deviation across observed variables.
+#' If `NULL`, low-SD flagging is skipped.
 #' @param extreme_cut Positive number.
 #' Absolute-value cutoff used to flag extreme observations.
 #' @param drop_score_cut Positive integer.
@@ -75,7 +79,9 @@ FlagDiagnosticsByID <- function(x,
     "prop_all_missing",
     "max_obs_gap",
     "median_obs_gap",
-    "min_sd"
+    "min_sd",
+    "n_duplicate_id_time",
+    "n_nonfinite_total"
   )
 
   missing <- setdiff(
@@ -168,17 +174,19 @@ FlagDiagnosticsByID <- function(x,
     }
   }
 
-  if (
-    !is.numeric(min_sd) ||
-      length(min_sd) != 1L ||
-      is.na(min_sd) ||
-      !is.finite(min_sd) ||
-      min_sd < 0
-  ) {
-    stop(
-      "`min_sd` must be a non-negative number.",
-      call. = FALSE
-    )
+  if (!is.null(min_sd)) {
+    if (
+      !is.numeric(min_sd) ||
+        length(min_sd) != 1L ||
+        is.na(min_sd) ||
+        !is.finite(min_sd) ||
+        min_sd < 0
+    ) {
+      stop(
+        "`min_sd` must be `NULL` or a non-negative number.",
+        call. = FALSE
+      )
+    }
   }
 
   if (
@@ -252,7 +260,14 @@ FlagDiagnosticsByID <- function(x,
     x$median_obs_gap > max_median_gap
   }
 
-  x$flag_low_sd <- x$min_sd < min_sd
+  x$flag_low_sd <- if (is.null(min_sd)) {
+    FALSE
+  } else {
+    x$min_sd < min_sd
+  }
+
+  x$flag_duplicate_id_time <- x$n_duplicate_id_time > 0L
+  x$flag_nonfinite <- x$n_nonfinite_total > 0L
   x$flag_extreme <- x[[extreme_col]] > 0L
 
   flag_names <- c(
@@ -262,6 +277,8 @@ FlagDiagnosticsByID <- function(x,
     "flag_large_gap",
     "flag_large_median_gap",
     "flag_low_sd",
+    "flag_duplicate_id_time",
+    "flag_nonfinite",
     "flag_extreme"
   )
 
@@ -321,6 +338,20 @@ FlagDiagnosticsByID <- function(x,
         reason <- c(
           reason,
           paste0("sd_lt_", min_sd)
+        )
+      }
+
+      if (isTRUE(x$flag_duplicate_id_time[i])) {
+        reason <- c(
+          reason,
+          "duplicate_id_time"
+        )
+      }
+
+      if (isTRUE(x$flag_nonfinite[i])) {
+        reason <- c(
+          reason,
+          "nonfinite_observed"
         )
       }
 

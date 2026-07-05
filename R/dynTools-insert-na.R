@@ -1,6 +1,10 @@
 #' Insert NAs for Missing Observations
 #'
 #' The function creates a sequence of time values.
+#' This is a simple helper retained for compatibility. For new workflows,
+#' prefer [RegularizeTimeByID()], which provides explicit global/by-ID grids
+#' and preserve/snap behavior.
+#'
 #' It starts with the smallest time value as the starting point
 #' and the largest time value as the endpoint.
 #' The sequence is incremented by `delta_t`.
@@ -42,7 +46,44 @@ InsertNA <- function(data,
                      observed,
                      covariates = NULL,
                      delta_t) {
-  stopifnot(delta_t > 0)
+  CheckDynData(
+    data = data,
+    id = id,
+    time = time,
+    observed = observed,
+    covariates = covariates,
+    require_unique = FALSE,
+    require_numeric_time = TRUE,
+    require_numeric_observed = FALSE,
+    require_numeric_covariates = FALSE,
+    min_rows = 1L
+  )
+
+  if (
+    !is.numeric(delta_t) ||
+      length(delta_t) != 1L ||
+      is.na(delta_t) ||
+      !is.finite(delta_t) ||
+      delta_t <= 0
+  ) {
+    stop(
+      "`delta_t` must be a positive finite number.",
+      call. = FALSE
+    )
+  }
+
+  key <- paste(
+    data[[id]],
+    data[[time]],
+    sep = "\r"
+  )
+
+  if (anyDuplicated(key)) {
+    stop(
+      "`InsertNA()` requires unique `id`-`time` combinations.",
+      call. = FALSE
+    )
+  }
 
   data <- .DynToolsSelectSort(
     data = data,
@@ -110,12 +151,6 @@ InsertNA <- function(data,
       x = key_data,
       table = key_out
     )
-
-    if (anyDuplicated(key_data)) {
-      stop(
-        "`InsertNA()` requires unique `id`-`time` combinations."
-      )
-    }
 
     out[
       pos,

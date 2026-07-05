@@ -101,7 +101,9 @@ lapply(
             time = "time",
             observed = "y",
             delta_t = 0
-          )
+          ),
+          regexp = "`delta_t` must be a positive finite number",
+          fixed = TRUE
         )
       }
     )
@@ -168,6 +170,35 @@ lapply(
         )
 
         testthat::expect_identical(out, expected)
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "InsertNA",
+        "validates input variables before inserting rows"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L),
+          time = c(1L, 2L),
+          y = c(1, 2)
+        )
+
+        testthat::expect_error(
+          InsertNA(
+            data = data,
+            id = "id",
+            time = "time",
+            observed = "missing_y",
+            delta_t = 1
+          ),
+          regexp = "The following variables are missing from `data`",
+          fixed = TRUE
+        )
       }
     )
   },

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dynTools-initial-na.R
 \name{InitialNA}
 \alias{InitialNA}
-\title{Check for NAs in Initial Row By ID}
+\title{Check for Missing Observed Values in Initial Row by ID}
 \usage{
 InitialNA(data, id, time, observed, covariates = NULL)
 }
@@ -31,12 +31,14 @@ A vector of character strings
 of the names of the covariates in the data.}
 }
 \value{
-Returns a vector of ID numbers
-where the initial row has any missing value.
+Returns a vector of ID values
+where the initial row has any missing observed value.
 }
 \description{
-The function checks if there are missing values
-for the initial row by ID.
+The function checks whether the initial row for each ID has missing values
+in the observed variables. Covariates are retained when selecting and
+sorting the data, but they are not used to determine whether the initial
+row is missing.
 }
 \examples{
 data <- data.frame(
@@ -64,7 +66,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
-\code{\link[=DiagnoseDetrendByID]{DiagnoseDetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
