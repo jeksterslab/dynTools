@@ -104,7 +104,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md),
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

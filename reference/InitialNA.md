@@ -1,7 +1,9 @@
-# Check for NAs in Initial Row By ID
+# Check for Missing Observed Values in Initial Row by ID
 
-The function checks if there are missing values for the initial row by
-ID.
+The function checks whether the initial row for each ID has missing
+values in the observed variables. Covariates are retained when selecting
+and sorting the data, but they are not used to determine whether the
+initial row is missing.
 
 ## Usage
 
@@ -40,8 +42,8 @@ InitialNA(data, id, time, observed, covariates = NULL)
 
 ## Value
 
-Returns a vector of ID numbers where the initial row has any missing
-value.
+Returns a vector of ID values where the initial row has any missing
+observed value.
 
 ## See also
 
@@ -52,7 +54,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

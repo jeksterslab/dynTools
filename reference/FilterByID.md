@@ -1,6 +1,13 @@
 # Filter Dynamic Modeling Data by ID
 
-The function removes IDs that do not satisfy minimum data requirements.
+The function removes IDs that do not satisfy simple minimum data
+requirements. For diagnostic screening and sensitivity-analysis
+decisions, prefer
+[`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
+[`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md),
+[`GetDropID()`](https://github.com/jeksterslab/dynTools/reference/GetDropID.md),
+and
+[`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md).
 
 ## Usage
 
@@ -65,7 +72,8 @@ FilterByID(
 - allow_initial_na:
 
   Logical. If `FALSE`, remove IDs where the initial row contains missing
-  values.
+  observed values. Covariates are not used to determine whether the
+  initial row has missing values.
 
 - allow_all_missing:
 
@@ -84,7 +92,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

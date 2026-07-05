@@ -38,7 +38,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/session.html">dynTools: Session</a></li>
+<li><a class="dropdown-item" href="../articles/diagnosing-dynamic-data.html">Diagnosing Dynamic Data Step by Step</a></li>
+    <li><a class="dropdown-item" href="../articles/session.html">dynTools: Session</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -105,9 +106,9 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; [1] dynTools_0.0.0.9000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt; [1] compiler_4.6.1  cli_3.6.6.9000  tools_4.6.1     otel_0.2.0     </span></span>
-<span><span class="co">#&gt; [5] rProject_0.0.25 knitr_1.51      xfun_0.59       rlang_1.2.0    </span></span>
-<span><span class="co">#&gt; [9] evaluate_1.0.5</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] compiler_4.6.1    cli_3.6.6.9000    tools_4.6.1       otel_0.2.0       </span></span>
+<span><span class="co">#&gt;  [5] rstudioapi_0.19.0 rProject_0.0.25   knitr_1.51        xfun_0.59        </span></span>
+<span><span class="co">#&gt;  [9] rlang_1.2.0       evaluate_1.0.5</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="packages">Packages<a class="anchor" aria-label="anchor" href="#packages"></a>
@@ -281,6 +282,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; colorspace        "colorspace"        "2.1-2"     </span></span>
 <span><span class="co">#&gt; commonmark        "commonmark"        "2.0.0"     </span></span>
 <span><span class="co">#&gt; conflicted        "conflicted"        "1.2.0"     </span></span>
+<span><span class="co">#&gt; coro              "coro"              "1.1.0"     </span></span>
 <span><span class="co">#&gt; corpcor           "corpcor"           "1.6.10"    </span></span>
 <span><span class="co">#&gt; covr              "covr"              "3.6.5"     </span></span>
 <span><span class="co">#&gt; cowplot           "cowplot"           "1.2.0"     </span></span>
@@ -289,7 +291,8 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; credentials       "credentials"       "2.0.3"     </span></span>
 <span><span class="co">#&gt; crosstalk         "crosstalk"         "1.2.2"     </span></span>
 <span><span class="co">#&gt; cTMed             "cTMed"             "1.0.9.9000"</span></span>
-<span><span class="co">#&gt; ctsem             "ctsem"             "3.11.0"    </span></span>
+<span><span class="co">#&gt; ctsem             "ctsem"             "3.10.6"    </span></span>
+<span><span class="co">#&gt; cuda12.8          "cuda12.8"          "1.0.9"     </span></span>
 <span><span class="co">#&gt; curl              "curl"              "7.1.0"     </span></span>
 <span><span class="co">#&gt; data.table        "data.table"        "1.18.4"    </span></span>
 <span><span class="co">#&gt; DBI               "DBI"               "1.3.0"     </span></span>
@@ -304,7 +307,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; diffobj           "diffobj"           "0.3.6"     </span></span>
 <span><span class="co">#&gt; digest            "digest"            "0.6.39"    </span></span>
 <span><span class="co">#&gt; dir.expiry        "dir.expiry"        "1.20.0"    </span></span>
-<span><span class="co">#&gt; distributional    "distributional"    "0.8.1"     </span></span>
+<span><span class="co">#&gt; distributional    "distributional"    "0.8.0"     </span></span>
 <span><span class="co">#&gt; distro            "distro"            "0.1.1"     </span></span>
 <span><span class="co">#&gt; doBy              "doBy"              "4.7.1"     </span></span>
 <span><span class="co">#&gt; docopt            "docopt"            "0.7.2"     </span></span>
@@ -312,7 +315,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; dplyr             "dplyr"             "1.2.1"     </span></span>
 <span><span class="co">#&gt; DT                "DT"                "0.34.0"    </span></span>
 <span><span class="co">#&gt; dtplyr            "dtplyr"            "1.3.3"     </span></span>
-<span><span class="co">#&gt; duckdb            "duckdb"            "1.5.4.1"   </span></span>
+<span><span class="co">#&gt; duckdb            "duckdb"            "1.5.4"     </span></span>
 <span><span class="co">#&gt; dynr              "dynr"              "0.1.16-114"</span></span>
 <span><span class="co">#&gt; dynTools          "dynTools"          "0.0.0.9000"</span></span>
 <span><span class="co">#&gt; dynUtils          "dynUtils"          "0.9.2"     </span></span>
@@ -380,7 +383,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; httr2             "httr2"             "1.2.3"     </span></span>
 <span><span class="co">#&gt; ids               "ids"               "1.0.1"     </span></span>
 <span><span class="co">#&gt; ifaTools          "ifaTools"          "0.23"      </span></span>
-<span><span class="co">#&gt; igraph            "igraph"            "2.3.3"     </span></span>
+<span><span class="co">#&gt; igraph            "igraph"            "2.3.2"     </span></span>
 <span><span class="co">#&gt; infer             "infer"             "1.1.0"     </span></span>
 <span><span class="co">#&gt; ini               "ini"               "0.3.1"     </span></span>
 <span><span class="co">#&gt; inline            "inline"            "0.3.21"    </span></span>
@@ -401,7 +404,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; languageserver    "languageserver"    "0.3.18"    </span></span>
 <span><span class="co">#&gt; later             "later"             "1.4.8"     </span></span>
 <span><span class="co">#&gt; latex2exp         "latex2exp"         "0.9.8"     </span></span>
-<span><span class="co">#&gt; lava              "lava"              "1.9.2"     </span></span>
+<span><span class="co">#&gt; lava              "lava"              "1.9.1"     </span></span>
 <span><span class="co">#&gt; lavaan            "lavaan"            "0.6-21"    </span></span>
 <span><span class="co">#&gt; lazyeval          "lazyeval"          "0.2.3"     </span></span>
 <span><span class="co">#&gt; lbfgs             "lbfgs"             "1.2.1.2"   </span></span>
@@ -415,8 +418,9 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; lmtest            "lmtest"            "0.9-40"    </span></span>
 <span><span class="co">#&gt; locfit            "locfit"            "1.5-9.12"  </span></span>
 <span><span class="co">#&gt; longMI            "longMI"            "1.0.0"     </span></span>
-<span><span class="co">#&gt; loo               "loo"               "2.10.0"    </span></span>
+<span><span class="co">#&gt; loo               "loo"               "2.9.0"     </span></span>
 <span><span class="co">#&gt; lubridate         "lubridate"         "1.9.5"     </span></span>
+<span><span class="co">#&gt; luz               "luz"               "0.5.2"     </span></span>
 <span><span class="co">#&gt; magick            "magick"            "2.9.1"     </span></span>
 <span><span class="co">#&gt; magrittr          "magrittr"          "2.0.5"     </span></span>
 <span><span class="co">#&gt; markdown          "markdown"          "2.0"       </span></span>
@@ -452,9 +456,9 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; ordinal           "ordinal"           "2025.12-29"</span></span>
 <span><span class="co">#&gt; otel              "otel"              "0.2.0"     </span></span>
 <span><span class="co">#&gt; pak               "pak"               "0.10.0"    </span></span>
-<span><span class="co">#&gt; pan               "pan"               "2.0"       </span></span>
+<span><span class="co">#&gt; pan               "pan"               "1.9"       </span></span>
 <span><span class="co">#&gt; pander            "pander"            "0.6.6"     </span></span>
-<span><span class="co">#&gt; parallelly        "parallelly"        "1.48.0"    </span></span>
+<span><span class="co">#&gt; parallelly        "parallelly"        "1.47.0"    </span></span>
 <span><span class="co">#&gt; parsnip           "parsnip"           "1.6.0"     </span></span>
 <span><span class="co">#&gt; patchwork         "patchwork"         "1.3.2"     </span></span>
 <span><span class="co">#&gt; pbapply           "pbapply"           "1.7-4"     </span></span>
@@ -547,6 +551,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; rvest             "rvest"             "1.0.5"     </span></span>
 <span><span class="co">#&gt; Ryacas            "Ryacas"            "1.1.6"     </span></span>
 <span><span class="co">#&gt; S7                "S7"                "0.2.2"     </span></span>
+<span><span class="co">#&gt; safetensors       "safetensors"       "0.2.1"     </span></span>
 <span><span class="co">#&gt; sass              "sass"              "0.4.10"    </span></span>
 <span><span class="co">#&gt; scales            "scales"            "1.4.0"     </span></span>
 <span><span class="co">#&gt; selectr           "selectr"           "0.6-0"     </span></span>
@@ -587,6 +592,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; timechange        "timechange"        "0.4.0"     </span></span>
 <span><span class="co">#&gt; timeDate          "timeDate"          "4052.112"  </span></span>
 <span><span class="co">#&gt; tinytex           "tinytex"           "0.60.1"    </span></span>
+<span><span class="co">#&gt; torch             "torch"             "0.17.0"    </span></span>
 <span><span class="co">#&gt; tune              "tune"              "2.1.0"     </span></span>
 <span><span class="co">#&gt; tzdb              "tzdb"              "0.5.0"     </span></span>
 <span><span class="co">#&gt; ucminf            "ucminf"            "1.2.3"     </span></span>
@@ -615,6 +621,7 @@ Agaloos Pesigan</h4>
 <span><span class="co">#&gt; xtable            "xtable"            "1.8-8"     </span></span>
 <span><span class="co">#&gt; yaml              "yaml"              "2.3.12"    </span></span>
 <span><span class="co">#&gt; yardstick         "yardstick"         "1.4.0"     </span></span>
+<span><span class="co">#&gt; zeallot           "zeallot"           "0.2.0"     </span></span>
 <span><span class="co">#&gt; zip               "zip"               "3.0.0"     </span></span>
 <span><span class="co">#&gt; zoo               "zoo"               "1.8-15"    </span></span>
 <span><span class="co">#&gt; base              "base"              "4.6.1"     </span></span>
@@ -652,56 +659,56 @@ Agaloos Pesigan</h4>
 </h2>
 <pre><code><span><span class="co">#&gt; Architecture:                            x86_64</span></span>
 <span><span class="co">#&gt; CPU op-mode(s):                          32-bit, 64-bit</span></span>
-<span><span class="co">#&gt; Address sizes:                           48 bits physical, 48 bits virtual</span></span>
+<span><span class="co">#&gt; Address sizes:                           39 bits physical, 48 bits virtual</span></span>
 <span><span class="co">#&gt; Byte Order:                              Little Endian</span></span>
-<span><span class="co">#&gt; CPU(s):                                  4</span></span>
-<span><span class="co">#&gt; On-line CPU(s) list:                     0-3</span></span>
-<span><span class="co">#&gt; Vendor ID:                               AuthenticAMD</span></span>
-<span><span class="co">#&gt; Model name:                              AMD EPYC 7763 64-Core Processor</span></span>
-<span><span class="co">#&gt; CPU family:                              25</span></span>
-<span><span class="co">#&gt; Model:                                   1</span></span>
+<span><span class="co">#&gt; CPU(s):                                  8</span></span>
+<span><span class="co">#&gt; On-line CPU(s) list:                     0-7</span></span>
+<span><span class="co">#&gt; Vendor ID:                               GenuineIntel</span></span>
+<span><span class="co">#&gt; Model name:                              Intel(R) Core(TM) i5-8365U CPU @ 1.60GHz</span></span>
+<span><span class="co">#&gt; CPU family:                              6</span></span>
+<span><span class="co">#&gt; Model:                                   142</span></span>
 <span><span class="co">#&gt; Thread(s) per core:                      2</span></span>
-<span><span class="co">#&gt; Core(s) per socket:                      2</span></span>
+<span><span class="co">#&gt; Core(s) per socket:                      4</span></span>
 <span><span class="co">#&gt; Socket(s):                               1</span></span>
-<span><span class="co">#&gt; Stepping:                                1</span></span>
-<span><span class="co">#&gt; BogoMIPS:                                4890.85</span></span>
-<span><span class="co">#&gt; Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm</span></span>
-<span><span class="co">#&gt; Virtualization:                          AMD-V</span></span>
-<span><span class="co">#&gt; Hypervisor vendor:                       Microsoft</span></span>
-<span><span class="co">#&gt; Virtualization type:                     full</span></span>
-<span><span class="co">#&gt; L1d cache:                               64 KiB (2 instances)</span></span>
-<span><span class="co">#&gt; L1i cache:                               64 KiB (2 instances)</span></span>
-<span><span class="co">#&gt; L2 cache:                                1 MiB (2 instances)</span></span>
-<span><span class="co">#&gt; L3 cache:                                32 MiB (1 instance)</span></span>
+<span><span class="co">#&gt; Stepping:                                12</span></span>
+<span><span class="co">#&gt; CPU(s) scaling MHz:                      71%</span></span>
+<span><span class="co">#&gt; CPU max MHz:                             4100.0000</span></span>
+<span><span class="co">#&gt; CPU min MHz:                             400.0000</span></span>
+<span><span class="co">#&gt; BogoMIPS:                                3799.90</span></span>
+<span><span class="co">#&gt; Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi md_clear flush_l1d arch_capabilities</span></span>
+<span><span class="co">#&gt; Virtualization:                          VT-x</span></span>
+<span><span class="co">#&gt; L1d cache:                               128 KiB (4 instances)</span></span>
+<span><span class="co">#&gt; L1i cache:                               128 KiB (4 instances)</span></span>
+<span><span class="co">#&gt; L2 cache:                                1 MiB (4 instances)</span></span>
+<span><span class="co">#&gt; L3 cache:                                6 MiB (1 instance)</span></span>
 <span><span class="co">#&gt; NUMA node(s):                            1</span></span>
-<span><span class="co">#&gt; NUMA node0 CPU(s):                       0-3</span></span>
-<span><span class="co">#&gt; Vulnerability Gather data sampling:      Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Ghostwrite:                Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Indirect target selection: Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Itlb multihit:             Not affected</span></span>
+<span><span class="co">#&gt; NUMA node0 CPU(s):                       0-7</span></span>
+<span><span class="co">#&gt; Vulnerability Gather data sampling:      Mitigation; Microcode</span></span>
+<span><span class="co">#&gt; Vulnerability Indirect target selection: Mitigation; Aligned branch/return thunks</span></span>
+<span><span class="co">#&gt; Vulnerability Itlb multihit:             KVM: Mitigation: Split huge pages</span></span>
 <span><span class="co">#&gt; Vulnerability L1tf:                      Not affected</span></span>
 <span><span class="co">#&gt; Vulnerability Mds:                       Not affected</span></span>
 <span><span class="co">#&gt; Vulnerability Meltdown:                  Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Mmio stale data:           Not affected</span></span>
+<span><span class="co">#&gt; Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable</span></span>
 <span><span class="co">#&gt; Vulnerability Old microcode:             Not affected</span></span>
 <span><span class="co">#&gt; Vulnerability Reg file data sampling:    Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Retbleed:                  Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode</span></span>
-<span><span class="co">#&gt; Vulnerability Spec store bypass:         Vulnerable</span></span>
+<span><span class="co">#&gt; Vulnerability Retbleed:                  Mitigation; Enhanced IBRS</span></span>
+<span><span class="co">#&gt; Vulnerability Spec rstack overflow:      Not affected</span></span>
+<span><span class="co">#&gt; Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl</span></span>
 <span><span class="co">#&gt; Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization</span></span>
-<span><span class="co">#&gt; Vulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Srbds:                     Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Tsa:                       Vulnerable: No microcode</span></span>
-<span><span class="co">#&gt; Vulnerability Tsx async abort:           Not affected</span></span>
-<span><span class="co">#&gt; Vulnerability Vmscape:                   Not affected</span></span></code></pre>
+<span><span class="co">#&gt; Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop</span></span>
+<span><span class="co">#&gt; Vulnerability Srbds:                     Mitigation; Microcode</span></span>
+<span><span class="co">#&gt; Vulnerability Tsa:                       Not affected</span></span>
+<span><span class="co">#&gt; Vulnerability Tsx async abort:           Mitigation; TSX disabled</span></span>
+<span><span class="co">#&gt; Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="memory">Memory<a class="anchor" aria-label="anchor" href="#memory"></a>
 </h2>
 <pre><code><span><span class="co">#&gt;                total        used        free      shared  buff/cache   available</span></span>
-<span><span class="co">#&gt; Mem:            15Gi       1.5Gi       1.1Gi        47Mi        13Gi        14Gi</span></span>
-<span><span class="co">#&gt; Swap:          3.0Gi       4.0Ki       3.0Gi</span></span>
-<span><span class="co">#&gt; Total:          18Gi       1.5Gi       4.1Gi</span></span></code></pre>
+<span><span class="co">#&gt; Mem:            15Gi       6.1Gi       3.6Gi       990Mi       6.7Gi       9.0Gi</span></span>
+<span><span class="co">#&gt; Swap:          7.8Gi          0B       7.8Gi</span></span>
+<span><span class="co">#&gt; Total:          22Gi       6.1Gi        11Gi</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

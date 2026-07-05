@@ -71,8 +71,8 @@ ScreenByID(
 
 - min_nonmissing:
 
-  Positive integer. Minimum number of non-missing observed variables
-  required for a row to count as an observed row.
+  Positive integer. Minimum number of finite observed variables required
+  for a row to count as an observed row.
 
 - extreme_cut:
 
@@ -122,8 +122,9 @@ ScreenByID(
 
 - min_sd:
 
-  Non-negative number. Minimum tolerated within-ID standard deviation
-  across observed variables.
+  `NULL` or non-negative number. Minimum tolerated within-ID standard
+  deviation across observed variables. If `NULL`, low-SD flagging is
+  skipped.
 
 - flag_extreme_cut:
 
@@ -173,7 +174,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),
@@ -224,27 +225,33 @@ ScreenByID(
 #>   id n_rows n_observed_rows n_complete_rows prop_all_missing
 #> 1  1      3               2               1        0.3333333
 #> 2  2      3               3               3        0.0000000
-#>   n_duplicate_id_time min_time max_time max_obs_gap median_obs_gap mean_obs_gap
-#> 1                   0        1        3           2              2            2
-#> 2                   0        1        3           1              1            1
-#>     miss_y1 n_y1    sd_y1 maxabs_y1 n_abs_gt4_y1 n_abs_gt5_y1 n_abs_gt6_y1
-#> 1 0.3333333    2 1.414214         3            0            0            0
-#> 2 0.0000000    3 0.000000         1            0            0            0
-#>     miss_y2 n_y2 sd_y2 maxabs_y2 n_abs_gt4_y2 n_abs_gt5_y2 n_abs_gt6_y2
-#> 1 0.6666667    1    NA         4            0            0            0
-#> 2 0.0000000    3     0         2            0            0            0
-#>     min_sd median_sd min_sd_variable max_abs_any max_abs_variable
-#> 1 1.414214  1.414214              y1           4               y2
-#> 2 0.000000  0.000000              y1           2               y2
-#>   n_var_sd_lt_0_1 n_var_sd_lt_0_05 n_abs_gt4_total n_abs_gt5_total
-#> 1               0                0               0               0
-#> 2               2                2               0               0
-#>   n_abs_gt6_total flag_low_observed_rows flag_low_complete_rows
-#> 1               0                   TRUE                  FALSE
-#> 2               0                  FALSE                  FALSE
-#>   flag_mostly_all_missing flag_large_gap flag_large_median_gap flag_low_sd
-#> 1                   FALSE          FALSE                 FALSE       FALSE
-#> 2                   FALSE          FALSE                 FALSE        TRUE
+#>   n_duplicate_id_time n_nan_total n_inf_total n_nonfinite_total min_time
+#> 1                   0           0           0                 0        1
+#> 2                   0           0           0                 0        1
+#>   max_time max_obs_gap median_obs_gap mean_obs_gap   miss_y1 n_y1 n_finite_y1
+#> 1        3           2              2            2 0.3333333    2           2
+#> 2        3           1              1            1 0.0000000    3           3
+#>   n_nan_y1 n_inf_y1 n_nonfinite_y1    sd_y1 maxabs_y1 n_abs_gt4_y1 n_abs_gt5_y1
+#> 1        0        0              0 1.414214         3            0            0
+#> 2        0        0              0 0.000000         1            0            0
+#>   n_abs_gt6_y1   miss_y2 n_y2 n_finite_y2 n_nan_y2 n_inf_y2 n_nonfinite_y2
+#> 1            0 0.6666667    1           1        0        0              0
+#> 2            0 0.0000000    3           3        0        0              0
+#>   sd_y2 maxabs_y2 n_abs_gt4_y2 n_abs_gt5_y2 n_abs_gt6_y2   min_sd median_sd
+#> 1    NA         4            0            0            0 1.414214  1.414214
+#> 2     0         2            0            0            0 0.000000  0.000000
+#>   min_sd_variable max_abs_any max_abs_variable n_var_sd_lt_0_1 n_var_sd_lt_0_05
+#> 1              y1           4               y2               0                0
+#> 2              y1           2               y2               2                2
+#>   n_abs_gt4_total n_abs_gt5_total n_abs_gt6_total flag_low_observed_rows
+#> 1               0               0               0                   TRUE
+#> 2               0               0               0                  FALSE
+#>   flag_low_complete_rows flag_mostly_all_missing flag_large_gap
+#> 1                  FALSE                   FALSE          FALSE
+#> 2                  FALSE                   FALSE          FALSE
+#>   flag_large_median_gap flag_low_sd flag_duplicate_id_time flag_nonfinite
+#> 1                 FALSE       FALSE                  FALSE          FALSE
+#> 2                 FALSE        TRUE                  FALSE          FALSE
 #>   flag_extreme priority_score flag_any drop_sensitivity_candidate flag_reason
 #> 1        FALSE              1     TRUE                       TRUE  n_obs_lt_3
 #> 2        FALSE              1     TRUE                       TRUE  sd_lt_0.05

@@ -1,15 +1,14 @@
-# Diagnose Detrended Variables by ID
+# Diagnose Scaling by ID
 
-The function computes post-detrending diagnostics by ID for observed
-variables. It is intended to be used after detrending and before
-within-ID scaling. The function reports within-ID variability,
-missingness, non-finite values, and the largest standardized value that
-would be produced by within-ID scaling.
+The function computes ID-variable-level diagnostics before within-ID
+scaling. It reports within-ID variability, missingness, non-finite
+values, and the largest standardized value that would be produced by
+scaling.
 
 ## Usage
 
 ``` r
-DiagnoseDetrendByID(
+DiagnoseScaleByID(
   data,
   id,
   time,
@@ -48,7 +47,8 @@ DiagnoseDetrendByID(
 - sd_min:
 
   Numeric scalar or `NULL`. Minimum acceptable within-ID standard
-  deviation after detrending. If `NULL`, low-SD flagging is skipped.
+  deviation before within-ID scaling. If `NULL`, low-SD flagging is
+  skipped.
 
 - z_cut:
 
@@ -68,12 +68,6 @@ DiagnoseDetrendByID(
 ## Value
 
 Returns a data frame with one row per ID-variable combination.
-
-## Details
-
-This is useful for identifying ID-variable combinations that may produce
-very large standardized values because of outlying detrended
-observations or very small within-ID variability.
 
 ## See also
 
@@ -123,7 +117,7 @@ data <- data.frame(
   y2 = c(5, 4, 3, 2, 1, 1, 1, 1, 1, 2)
 )
 
-DiagnoseDetrendByID(
+DiagnoseScaleByID(
   data = data,
   id = "id",
   time = "time",

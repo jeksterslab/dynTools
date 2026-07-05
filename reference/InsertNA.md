@@ -1,10 +1,9 @@
 # Insert NAs for Missing Observations
 
-The function creates a sequence of time values. It starts with the
-smallest time value as the starting point and the largest time value as
-the endpoint. The sequence is incremented by `delta_t`. This new
-sequence is combined with the existing empirical time values. For any
-specific time value where there are no observations, NAs are inserted.
+The function creates a sequence of time values. This is a simple helper
+retained for compatibility. For new workflows, prefer
+[`RegularizeTimeByID()`](https://github.com/jeksterslab/dynTools/reference/RegularizeTimeByID.md),
+which provides explicit global/by-ID grids and preserve/snap behavior.
 
 ## Usage
 
@@ -49,6 +48,14 @@ InsertNA(data, id, time, observed, covariates = NULL, delta_t)
 
 Returns a data frame.
 
+## Details
+
+It starts with the smallest time value as the starting point and the
+largest time value as the endpoint. The sequence is incremented by
+`delta_t`. This new sequence is combined with the existing empirical
+time values. For any specific time value where there are no
+observations, NAs are inserted.
+
 ## See also
 
 Other Dynamic Modeling Utility Functions:
@@ -58,7 +65,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

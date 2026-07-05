@@ -1,6 +1,11 @@
 # Summarize Dynamic Modeling Data by ID
 
-The function returns a diagnostic table with one row per ID.
+The function returns a simple diagnostic table with one row per ID. For
+model-screening workflows, prefer
+[`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
+[`FlagDiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/FlagDiagnosticsByID.md),
+and
+[`ScreenByID()`](https://github.com/jeksterslab/dynTools/reference/ScreenByID.md).
 
 ## Usage
 
@@ -41,6 +46,12 @@ SummaryByID(data, id, time, observed, covariates = NULL)
 
 Returns a data frame with one row per ID.
 
+## Details
+
+The `initial_na` column is based on the observed variables only.
+Covariates are retained in the input checks and sorted data, but missing
+covariates in the first row do not cause `initial_na = TRUE`.
+
 ## See also
 
 Other Dynamic Modeling Utility Functions:
@@ -50,7 +61,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

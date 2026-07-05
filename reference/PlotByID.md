@@ -1,7 +1,9 @@
 # Plot Observed Variables by ID
 
 The function creates one time-series plot for each observed variable.
-Within each plot, trajectories are overlaid by ID.
+Within each plot, trajectories are overlaid by ID. Non-finite observed
+values, such as `NaN`, `Inf`, and `-Inf`, are treated as missing for
+plotting.
 
 ## Usage
 
@@ -108,7 +110,8 @@ PlotByID(
 - ylim:
 
   Optional numeric vector of length 2. Limits for the y-axis. If `NULL`,
-  limits are computed separately for each observed variable.
+  limits are computed separately for each observed variable using finite
+  observed values only.
 
 - legend:
 
@@ -138,7 +141,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

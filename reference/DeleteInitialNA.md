@@ -1,8 +1,10 @@
-# Delete for NAs in Initial Row By ID
+# Delete Initial Rows With Missing Observed Values by ID
 
-The function removes initial rows by ID if they contain missing values.
-This process is repeated until the first row per ID no longer has
-missing observations.
+The function removes leading rows by ID when the observed variables
+contain missing values. This process is repeated until the first row per
+ID no longer has missing observed values. Covariates are retained when
+selecting and sorting the data, but they are not used to determine
+whether an initial row should be removed.
 
 ## Usage
 
@@ -43,6 +45,13 @@ DeleteInitialNA(data, id, time, observed, covariates = NULL)
 
 Returns a data frame.
 
+## Details
+
+This is a strict helper because the first retained row must be complete
+on all observed variables. For more flexible trimming, prefer
+[`TrimInitialRowsByID()`](https://github.com/jeksterslab/dynTools/reference/TrimInitialRowsByID.md)
+with `min_nonmissing`.
+
 ## See also
 
 Other Dynamic Modeling Utility Functions:
@@ -51,7 +60,7 @@ Other Dynamic Modeling Utility Functions:
 [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md),
 [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md),
 [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md),
-[`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md),
+[`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md),
 [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md),
 [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md),
 [`ElapsedTimeByID()`](https://github.com/jeksterslab/dynTools/reference/ElapsedTimeByID.md),

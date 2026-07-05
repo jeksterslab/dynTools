@@ -7,15 +7,15 @@
 - [`CombineByIDTime()`](https://github.com/jeksterslab/dynTools/reference/CombineByIDTime.md)
   : Combine Data Sets by ID and Time
 - [`DeleteInitialNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteInitialNA.md)
-  : Delete for NAs in Initial Row By ID
+  : Delete Initial Rows With Missing Observed Values by ID
 - [`DeleteObservedAllNA()`](https://github.com/jeksterslab/dynTools/reference/DeleteObservedAllNA.md)
   : Delete Rows With All Observed Variables Missing
 - [`DeltaTByID()`](https://github.com/jeksterslab/dynTools/reference/DeltaTByID.md)
   : Summarize Time Intervals by ID
 - [`DetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DetrendByID.md)
   : Detrend Observed Variables by ID
-- [`DiagnoseDetrendByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseDetrendByID.md)
-  : Diagnose Detrended Variables by ID
+- [`DiagnoseScaleByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnoseScaleByID.md)
+  : Diagnose Scaling by ID
 - [`DiagnosticsByID()`](https://github.com/jeksterslab/dynTools/reference/DiagnosticsByID.md)
   : ID-Level Diagnostics for Dynamic Modeling Data
 - [`DropByID()`](https://github.com/jeksterslab/dynTools/reference/DropByID.md)
@@ -35,7 +35,7 @@
 - [`GetObservedInitial()`](https://github.com/jeksterslab/dynTools/reference/GetObservedInitial.md)
   : Get Observed Initial Means and Covariances
 - [`InitialNA()`](https://github.com/jeksterslab/dynTools/reference/InitialNA.md)
-  : Check for NAs in Initial Row By ID
+  : Check for Missing Observed Values in Initial Row by ID
 - [`InsertNA()`](https://github.com/jeksterslab/dynTools/reference/InsertNA.md)
   : Insert NAs for Missing Observations
 - [`LagByID()`](https://github.com/jeksterslab/dynTools/reference/LagByID.md)
