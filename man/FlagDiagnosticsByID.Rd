@@ -36,8 +36,9 @@ Maximum tolerated observed-row time gap in the units used by
 Maximum tolerated median observed-row time gap in the units used by
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}}.}
 
-\item{min_sd}{Non-negative number.
-Minimum tolerated within-ID standard deviation across observed variables.}
+\item{min_sd}{\code{NULL} or non-negative number.
+Minimum tolerated within-ID standard deviation across observed variables.
+If \code{NULL}, low-SD flagging is skipped.}
 
 \item{extreme_cut}{Positive number.
 Absolute-value cutoff used to flag extreme observations.}
@@ -52,6 +53,9 @@ Returns \code{x} with flag columns appended.
 \description{
 The function adds rule-based flags to the output of \code{\link[=DiagnosticsByID]{DiagnosticsByID()}}.
 It is intended for sensitivity checks before fitting dynamic models.
+It flags low observation counts, missingness, duplicate ID-time rows,
+non-finite observed values, large time gaps, low variability, and extreme
+observed values.
 }
 \examples{
 data <- data.frame(
@@ -83,6 +87,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
@@ -98,6 +103,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
+\code{\link[=ResolveCloseTimeByID]{ResolveCloseTimeByID()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},
 \code{\link[=ScaleByID]{ScaleByID()}},

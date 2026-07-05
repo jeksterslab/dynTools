@@ -96,6 +96,37 @@ lapply(
         )
       }
     )
+
+    testthat::test_that(
+      paste(
+        text,
+        "SummaryByID",
+        "ignores missing covariates in initial_na"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(1, 2, NA, 4),
+          cov = c(NA, 3, NA, 5)
+        )
+
+        out <- SummaryByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          covariates = "cov"
+        )
+
+        testthat::expect_identical(
+          out$initial_na,
+          c(FALSE, TRUE)
+        )
+      }
+    )
   },
   text = "test-dynTools-summary-by-id"
 )

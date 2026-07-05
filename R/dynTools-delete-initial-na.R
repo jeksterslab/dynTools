@@ -1,8 +1,14 @@
-#' Delete for NAs in Initial Row By ID
+#' Delete Initial Rows With Missing Observed Values by ID
 #'
-#' The function removes initial rows by ID if they contain missing values.
-#' This process is repeated until the first row per ID no longer has missing
-#' observations.
+#' The function removes leading rows by ID when the observed variables contain
+#' missing values. This process is repeated until the first row per ID no
+#' longer has missing observed values. Covariates are retained when selecting
+#' and sorting the data, but they are not used to determine whether an initial
+#' row should be removed.
+#'
+#' This is a strict helper because the first retained row must be complete on
+#' all observed variables. For more flexible trimming, prefer
+#' [TrimInitialRowsByID()] with `min_nonmissing`.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -35,6 +41,19 @@ DeleteInitialNA <- function(data,
                             time,
                             observed,
                             covariates = NULL) {
+  CheckDynData(
+    data = data,
+    id = id,
+    time = time,
+    observed = observed,
+    covariates = covariates,
+    require_unique = FALSE,
+    require_numeric_time = FALSE,
+    require_numeric_observed = FALSE,
+    require_numeric_covariates = FALSE,
+    min_rows = 1L
+  )
+
   data <- .DynToolsSelectSort(
     data = data,
     id = id,
@@ -44,7 +63,13 @@ DeleteInitialNA <- function(data,
   )
 
   if (nrow(data) > 0L) {
-    ok <- stats::complete.cases(data)
+    ok <- stats::complete.cases(
+      data[
+        ,
+        observed,
+        drop = FALSE
+      ]
+    )
 
     if (!all(ok)) {
       run <- rle(data[[id]])

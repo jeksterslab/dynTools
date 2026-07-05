@@ -124,6 +124,115 @@ lapply(
       }
     )
 
+
+    testthat::test_that(
+      paste(
+        text,
+        "ScaleByID",
+        "handles one finite value within ID without producing NaN"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L),
+          time = c(1L, 2L),
+          y = c(10, NA)
+        )
+
+        out <- ScaleByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y"
+        )
+
+        testthat::expect_equal(
+          out$y,
+          c(0, NA)
+        )
+
+        testthat::expect_false(
+          any(is.nan(out$y))
+        )
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "ScaleByID",
+        "converts non-finite selected values to NA"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(1, Inf, NaN, NA)
+        )
+
+        out <- ScaleByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y"
+        )
+
+        testthat::expect_equal(
+          out$y,
+          c(0, NA, NA, NA)
+        )
+
+        testthat::expect_false(
+          any(is.infinite(out$y))
+        )
+        testthat::expect_false(
+          any(is.nan(out$y))
+        )
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "ScaleByID",
+        "leaves all non-finite selected values as NA"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(NA, NaN, Inf, -Inf)
+        )
+
+        out <- ScaleByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y"
+        )
+
+        testthat::expect_equal(
+          out$y,
+          rep(NA_real_, 4L)
+        )
+
+        testthat::expect_true(
+          all(is.na(out$y))
+        )
+        testthat::expect_false(
+          any(is.infinite(out$y))
+        )
+        testthat::expect_false(
+          any(is.nan(out$y))
+        )
+      }
+    )
+
     testthat::test_that(
       paste(
         text,

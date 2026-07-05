@@ -1,7 +1,9 @@
 #' Plot Observed Variables by ID
 #'
 #' The function creates one time-series plot for each observed variable.
-#' Within each plot, trajectories are overlaid by ID.
+#' Within each plot, trajectories are overlaid by ID. Non-finite observed
+#' values, such as `NaN`, `Inf`, and `-Inf`, are treated as missing for
+#' plotting.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -39,7 +41,8 @@
 #'   Limits for the x-axis.
 #' @param ylim Optional numeric vector of length 2.
 #'   Limits for the y-axis.
-#'   If `NULL`, limits are computed separately for each observed variable.
+#'   If `NULL`, limits are computed separately for each observed variable
+#'   using finite observed values only.
 #' @param legend Logical.
 #'   If `TRUE`, add a legend identifying IDs.
 #' @param ask Logical.
@@ -158,6 +161,13 @@ PlotByID <- function(data,
     )
   }
 
+  if (!is.numeric(data[[time]])) {
+    stop(
+      "`time` must be numeric.",
+      call. = FALSE
+    )
+  }
+
   is_num <- vapply(
     X = data[observed],
     FUN = is.numeric,
@@ -171,9 +181,11 @@ PlotByID <- function(data,
     )
   }
 
-  if (all(is.na(data[[time]]))) {
+  finite_time <- !is.na(data[[time]]) & is.finite(data[[time]])
+
+  if (!any(finite_time)) {
     stop(
-      "`time` contains only missing values.",
+      "`time` contains no finite values.",
       call. = FALSE
     )
   }
@@ -193,12 +205,31 @@ PlotByID <- function(data,
       )
     }
 
+    if (!is.numeric(times)) {
+      stop(
+        "`times` must be numeric.",
+        call. = FALSE
+      )
+    }
+
+    finite_times <- times[
+      is.finite(times)
+    ]
+
+    if (length(finite_times) < 1) {
+      stop(
+        "`times` must contain at least one finite value.",
+        call. = FALSE
+      )
+    }
+
     times <- range(
-      times,
+      finite_times,
       na.rm = TRUE
     )
 
     keep_time <- !is.na(data[[time]]) &
+      is.finite(data[[time]]) &
       data[[time]] >= times[1] &
       data[[time]] <= times[2]
 
@@ -208,7 +239,9 @@ PlotByID <- function(data,
     ]
   }
 
-  if (nrow(data) == 0) {
+  finite_time <- !is.na(data[[time]]) & is.finite(data[[time]])
+
+  if (nrow(data) == 0 || !any(finite_time)) {
     stop(
       "No rows remain after applying `ids` and `times` filters.",
       call. = FALSE
@@ -294,7 +327,7 @@ PlotByID <- function(data,
 
   if (is.null(xlim)) {
     xlim <- range(
-      data[[time]],
+      data[[time]][finite_time],
       na.rm = TRUE
     )
   }
@@ -322,14 +355,27 @@ PlotByID <- function(data,
 
   graphics::par(ask = ask)
 
+  x_plot <- data[[time]]
+  x_plot[
+    !is.finite(x_plot)
+  ] <- NA_real_
+
   for (i in seq_along(observed)) {
     y_i <- observed[i]
+    y_plot <- data[[y_i]]
+    y_plot[
+      !is.finite(y_plot)
+    ] <- NA_real_
 
-    if (all(is.na(data[[y_i]]))) {
+    finite_y <- y_plot[
+      is.finite(y_plot)
+    ]
+
+    if (length(finite_y) == 0) {
       warning(
         "Skipping `",
         y_i,
-        "` because it contains only missing values.",
+        "` because it contains no finite values.",
         call. = FALSE
       )
       next
@@ -337,7 +383,7 @@ PlotByID <- function(data,
 
     ylim_i <- if (is.null(ylim)) {
       range(
-        data[[y_i]],
+        finite_y,
         na.rm = TRUE
       )
     } else {
@@ -357,8 +403,8 @@ PlotByID <- function(data,
     }
 
     graphics::plot(
-      x = data[[time]],
-      y = data[[y_i]],
+      x = x_plot,
+      y = y_plot,
       xlim = xlim,
       ylim = ylim_i,
       type = "n",
@@ -380,9 +426,19 @@ PlotByID <- function(data,
         drop = FALSE
       ]
 
+      x_j <- subset_data[[time]]
+      x_j[
+        !is.finite(x_j)
+      ] <- NA_real_
+
+      y_j <- subset_data[[y_i]]
+      y_j[
+        !is.finite(y_j)
+      ] <- NA_real_
+
       graphics::lines(
-        x = subset_data[[time]],
-        y = subset_data[[y_i]],
+        x = x_j,
+        y = y_j,
         type = type,
         col = col[j],
         pch = pch[j],

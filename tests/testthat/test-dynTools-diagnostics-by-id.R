@@ -182,6 +182,71 @@ lapply(
       paste(
         text,
         "DiagnosticsByID",
+        "counts non-finite observed values"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 1L, 1L),
+          time = c(1L, 2L, 3L, 4L),
+          y1 = c(1, Inf, NaN, NA),
+          y2 = c(2, -Inf, 3, NaN),
+          stringsAsFactors = FALSE
+        )
+
+        out <- DiagnosticsByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = c("y1", "y2"),
+          extreme_cut = 2,
+          sd_cut = 1
+        )
+
+        testthat::expect_equal(out$n_rows, 4L)
+        testthat::expect_equal(out$n_observed_rows, 2L)
+        testthat::expect_equal(out$n_complete_rows, 1L)
+        testthat::expect_equal(out$prop_all_missing, 2 / 4)
+
+        testthat::expect_equal(out$n_nan_total, 2L)
+        testthat::expect_equal(out$n_inf_total, 2L)
+        testthat::expect_equal(out$n_nonfinite_total, 4L)
+
+        testthat::expect_equal(out$miss_y1, 2 / 4)
+        testthat::expect_equal(out$n_y1, 2L)
+        testthat::expect_equal(out$n_finite_y1, 1L)
+        testthat::expect_equal(out$n_nan_y1, 1L)
+        testthat::expect_equal(out$n_inf_y1, 1L)
+        testthat::expect_equal(out$n_nonfinite_y1, 2L)
+        testthat::expect_true(is.na(out$sd_y1))
+        testthat::expect_equal(out$maxabs_y1, 1)
+
+        testthat::expect_equal(out$miss_y2, 1 / 4)
+        testthat::expect_equal(out$n_y2, 3L)
+        testthat::expect_equal(out$n_finite_y2, 2L)
+        testthat::expect_equal(out$n_nan_y2, 1L)
+        testthat::expect_equal(out$n_inf_y2, 1L)
+        testthat::expect_equal(out$n_nonfinite_y2, 2L)
+        testthat::expect_equal(
+          out$sd_y2,
+          stats::sd(c(2, 3)),
+          tolerance = 1e-12
+        )
+        testthat::expect_equal(out$maxabs_y2, 3)
+
+        testthat::expect_equal(out$n_abs_gt2_y1, 0L)
+        testthat::expect_equal(out$n_abs_gt2_y2, 1L)
+        testthat::expect_equal(out$n_abs_gt2_total, 1L)
+        testthat::expect_equal(out$max_abs_any, 3)
+        testthat::expect_equal(out$max_abs_variable, "y2")
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "DiagnosticsByID",
         "temporarily treats missing codes as missing"
       ),
       {

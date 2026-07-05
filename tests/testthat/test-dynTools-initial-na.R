@@ -45,8 +45,40 @@ lapply(
           observed = "y"
         )
 
-        testthat::expect_identical(with_cov, c(1L, 2L))
+        testthat::expect_identical(with_cov, 1L)
         testthat::expect_identical(without_cov, 1L)
+      }
+    )
+
+
+    testthat::test_that(
+      paste(
+        text,
+        "InitialNA",
+        "ignores missing covariates in the initial row"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(1, 2, 3, 4),
+          cov = c(NA, 5, NA, 6)
+        )
+
+        out <- InitialNA(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          covariates = "cov"
+        )
+
+        testthat::expect_identical(
+          out,
+          integer(0)
+        )
       }
     )
 

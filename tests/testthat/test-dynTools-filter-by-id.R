@@ -117,6 +117,48 @@ lapply(
         )
       }
     )
+
+    testthat::test_that(
+      paste(
+        text,
+        "FilterByID",
+        "ignores missing covariates when checking initial missingness"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(1, 2, NA, 4),
+          cov = c(NA, 3, NA, 5)
+        )
+
+        out <- FilterByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          covariates = "cov",
+          min_rows = 2L,
+          min_complete = 1L,
+          max_prop_missing = 0.50,
+          allow_initial_na = FALSE
+        )
+
+        expected <- data.frame(
+          id = c(1L, 1L),
+          time = c(1L, 2L),
+          y = c(1, 2),
+          cov = c(NA, 3)
+        )
+
+        testthat::expect_identical(
+          out,
+          expected
+        )
+      }
+    )
   },
   text = "test-dynTools-filter-by-id"
 )

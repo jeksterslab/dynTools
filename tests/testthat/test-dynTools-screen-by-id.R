@@ -69,6 +69,8 @@ lapply(
               "max_obs_gap",
               "median_obs_gap",
               "min_sd",
+              "flag_duplicate_id_time",
+              "flag_nonfinite",
               "flag_any",
               "drop_sensitivity_candidate",
               "priority_score",
@@ -441,6 +443,122 @@ lapply(
         testthat::expect_equal(
           out$drop_id,
           1
+        )
+      }
+    )
+
+
+    testthat::test_that(
+      paste(
+        text,
+        "allows min_sd to be NULL"
+      ),
+      {
+        data <- data.frame(
+          id = rep(1:2, each = 4),
+          time = rep(0:3, times = 2),
+          y1 = c(1, 2, 3, 4, 5, 5, 5, 5),
+          y2 = c(1, 2, 3, 4, 1, 2, 3, 4)
+        )
+
+        out <- ScreenByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = c("y1", "y2"),
+          min_observed_rows = 4,
+          min_complete_rows = 4,
+          min_sd = NULL,
+          flag_extreme_cut = 100,
+          drop_score_cut = 2,
+          flagged_only = FALSE
+        )
+
+        diagnostics <- out$diagnostics
+
+        testthat::expect_equal(
+          out$drop_id,
+          numeric(0)
+        )
+        testthat::expect_false(
+          any(diagnostics$flag_low_sd)
+        )
+        testthat::expect_false(
+          any(diagnostics$flag_any)
+        )
+      }
+    )
+
+
+    testthat::test_that(
+      paste(
+        text,
+        "flags duplicate ID-time rows and non-finite observed values"
+      ),
+      {
+        data <- data.frame(
+          id = c(
+            1, 1, 1, 1,
+            2, 2, 2, 2,
+            3, 3, 3, 3
+          ),
+          time = c(
+            0, 1, 2, 3,
+            0, 1, 1, 2,
+            0, 1, 2, 3
+          ),
+          y = c(
+            1, 2, 3, 4,
+            1, 2, 3, 4,
+            1, Inf, NaN, 4
+          )
+        )
+
+        out <- ScreenByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          min_observed_rows = 1,
+          min_complete_rows = NULL,
+          max_prop_all_missing = NULL,
+          max_gap = NULL,
+          max_median_gap = NULL,
+          min_sd = 0,
+          flag_extreme_cut = 100,
+          drop_score_cut = 2,
+          flagged_only = FALSE
+        )
+
+        diagnostics <- out$diagnostics
+
+        testthat::expect_equal(
+          out$drop_id,
+          c(2, 3)
+        )
+        testthat::expect_equal(
+          out$keep_id,
+          1
+        )
+        testthat::expect_true(
+          diagnostics$flag_duplicate_id_time[diagnostics$id == 2]
+        )
+        testthat::expect_false(
+          diagnostics$flag_nonfinite[diagnostics$id == 2]
+        )
+        testthat::expect_false(
+          diagnostics$flag_duplicate_id_time[diagnostics$id == 3]
+        )
+        testthat::expect_true(
+          diagnostics$flag_nonfinite[diagnostics$id == 3]
+        )
+        testthat::expect_equal(
+          diagnostics$flag_reason[diagnostics$id == 2],
+          "duplicate_id_time"
+        )
+        testthat::expect_equal(
+          diagnostics$flag_reason[diagnostics$id == 3],
+          "nonfinite_observed"
         )
       }
     )

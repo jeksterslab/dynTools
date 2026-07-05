@@ -53,6 +53,38 @@ lapply(
       paste(
         text,
         "DeleteInitialNA",
+        "ignores missing covariates in the initial row"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(1L, 2L, 1L, 2L),
+          y = c(1, 2, 3, 4),
+          cov = c(NA, 5, NA, 6)
+        )
+
+        out <- DeleteInitialNA(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          covariates = "cov"
+        )
+
+        testthat::expect_identical(
+          out,
+          data
+        )
+      }
+    )
+
+
+    testthat::test_that(
+      paste(
+        text,
+        "DeleteInitialNA",
         "leaves later missing rows after the first complete row"
       ),
       {

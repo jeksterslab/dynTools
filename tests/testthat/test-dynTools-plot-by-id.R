@@ -22,6 +22,16 @@ lapply(
       {
         testthat::skip_on_cran()
 
+        file <- tempfile(
+          fileext = ".pdf"
+        )
+
+        grDevices::pdf(file)
+        on.exit(
+          grDevices::dev.off(),
+          add = TRUE
+        )
+
         data <- data.frame(
           id = rep(1:4, each = 5),
           time = rep(1:5, times = 4),
@@ -46,7 +56,7 @@ lapply(
         )
         data
 
-        PlotByID(
+        out_all <- PlotByID(
           data = data,
           id = "id",
           time = "time",
@@ -54,7 +64,12 @@ lapply(
           ask = FALSE
         )
 
-        PlotByID(
+        testthat::expect_identical(
+          out_all,
+          1:4
+        )
+
+        out_subset <- PlotByID(
           data = data,
           id = "id",
           time = "time",
@@ -63,6 +78,78 @@ lapply(
           times = c(1, 3),
           legend = TRUE,
           ask = FALSE
+        )
+
+        testthat::expect_identical(
+          out_subset,
+          1:3
+        )
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "treats non-finite observed values as missing for plotting"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        file <- tempfile(
+          fileext = ".pdf"
+        )
+
+        grDevices::pdf(file)
+        on.exit(
+          grDevices::dev.off(),
+          add = TRUE
+        )
+
+        data <- data.frame(
+          id = c(1L, 1L, 2L, 2L),
+          time = c(0, 1, 0, 1),
+          y = c(1, Inf, NaN, 2)
+        )
+
+        out <- PlotByID(
+          data = data,
+          id = "id",
+          time = "time",
+          observed = "y",
+          ask = FALSE
+        )
+
+        testthat::expect_identical(
+          out,
+          1:2
+        )
+      }
+    )
+
+    testthat::test_that(
+      paste(
+        text,
+        "errors when time has no finite values"
+      ),
+      {
+        testthat::skip_on_cran()
+
+        data <- data.frame(
+          id = c(1L, 1L),
+          time = c(Inf, NA),
+          y = c(1, 2)
+        )
+
+        testthat::expect_error(
+          PlotByID(
+            data = data,
+            id = "id",
+            time = "time",
+            observed = "y",
+            ask = FALSE
+          ),
+          "`time` contains no finite values",
+          fixed = TRUE
         )
       }
     )

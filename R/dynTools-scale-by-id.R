@@ -60,6 +60,19 @@ ScaleByID <- function(data,
                       scale = TRUE,
                       obs_skip = NULL,
                       cov_skip = NULL) {
+  CheckDynData(
+    data = data,
+    id = id,
+    time = time,
+    observed = observed,
+    covariates = covariates,
+    require_unique = FALSE,
+    require_numeric_time = FALSE,
+    require_numeric_observed = FALSE,
+    require_numeric_covariates = FALSE,
+    min_rows = 1L
+  )
+
   data <- .DynToolsSelectSort(
     data = data,
     id = id,
@@ -99,6 +112,34 @@ ScaleByID <- function(data,
     covs
   )
 
+  if (length(varnames) > 0L) {
+    numeric <- vapply(
+      X = data[
+        ,
+        varnames,
+        drop = FALSE
+      ],
+      FUN = is.numeric,
+      FUN.VALUE = logical(1)
+    )
+
+    if (!all(numeric)) {
+      bad <- varnames[
+        !numeric
+      ]
+
+      stop(
+        paste0(
+          "Variables selected for centering/scaling must be numeric. ",
+          "Non-numeric: ",
+          paste(bad, collapse = ", "),
+          "."
+        ),
+        call. = FALSE
+      )
+    }
+  }
+
   if (length(varnames) > 0L && nrow(data) > 0L) {
     x <- as.matrix(
       data[
@@ -115,7 +156,7 @@ ScaleByID <- function(data,
       table = unique(data[[id]])
     )
 
-    ok <- !is.na(x)
+    ok <- !is.na(x) & is.finite(x)
 
     count <- rowsum(
       x = ok + 0,
@@ -134,10 +175,18 @@ ScaleByID <- function(data,
 
     mean_x <- sum_x / count
 
+    mean_x[
+      !is.finite(mean_x)
+    ] <- 0
+
     centered <- x - mean_x[
       group, ,
       drop = FALSE
     ]
+
+    centered[
+      !ok
+    ] <- NA_real_
 
     if (scale) {
       centered0 <- centered
@@ -154,13 +203,17 @@ ScaleByID <- function(data,
       )
 
       sd_x[
-        !is.na(sd_x) & sd_x == 0
+        !is.finite(sd_x) | count < 2L | sd_x == 0
       ] <- 1
 
       centered <- centered / sd_x[
         group, ,
         drop = FALSE
       ]
+
+      centered[
+        !ok
+      ] <- NA_real_
     }
 
     centered <- as.data.frame(

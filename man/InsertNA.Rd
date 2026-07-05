@@ -38,6 +38,11 @@ Returns a data frame.
 }
 \description{
 The function creates a sequence of time values.
+This is a simple helper retained for compatibility. For new workflows,
+prefer \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}}, which provides explicit global/by-ID grids
+and preserve/snap behavior.
+}
+\details{
 It starts with the smallest time value as the starting point
 and the largest time value as the endpoint.
 The sequence is incremented by \code{delta_t}.
@@ -71,6 +76,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
@@ -86,6 +92,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
+\code{\link[=ResolveCloseTimeByID]{ResolveCloseTimeByID()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},
 \code{\link[=ScaleByID]{ScaleByID()}},

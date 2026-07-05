@@ -2,7 +2,7 @@
 % Please edit documentation in R/dynTools-delete-initial-na.R
 \name{DeleteInitialNA}
 \alias{DeleteInitialNA}
-\title{Delete for NAs in Initial Row By ID}
+\title{Delete Initial Rows With Missing Observed Values by ID}
 \usage{
 DeleteInitialNA(data, id, time, observed, covariates = NULL)
 }
@@ -34,9 +34,16 @@ of the names of the covariates in the data.}
 Returns a data frame.
 }
 \description{
-The function removes initial rows by ID if they contain missing values.
-This process is repeated until the first row per ID no longer has missing
-observations.
+The function removes leading rows by ID when the observed variables contain
+missing values. This process is repeated until the first row per ID no
+longer has missing observed values. Covariates are retained when selecting
+and sorting the data, but they are not used to determine whether an initial
+row should be removed.
+}
+\details{
+This is a strict helper because the first retained row must be complete on
+all observed variables. For more flexible trimming, prefer
+\code{\link[=TrimInitialRowsByID]{TrimInitialRowsByID()}} with \code{min_nonmissing}.
 }
 \examples{
 data <- data.frame(
@@ -63,6 +70,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
@@ -79,6 +87,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
+\code{\link[=ResolveCloseTimeByID]{ResolveCloseTimeByID()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},
 \code{\link[=ScaleByID]{ScaleByID()}},

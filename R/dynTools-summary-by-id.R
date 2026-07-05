@@ -1,6 +1,12 @@
 #' Summarize Dynamic Modeling Data by ID
 #'
-#' The function returns a diagnostic table with one row per ID.
+#' The function returns a simple diagnostic table with one row per ID.
+#' For model-screening workflows, prefer [DiagnosticsByID()],
+#' [FlagDiagnosticsByID()], and [ScreenByID()].
+#'
+#' The `initial_na` column is based on the observed variables only.
+#' Covariates are retained in the input checks and sorted data, but missing
+#' covariates in the first row do not cause `initial_na = TRUE`.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -92,11 +98,6 @@ SummaryByID <- function(data,
 
   names(out)[1] <- id
 
-  initial_vars <- c(
-    observed,
-    covariates
-  )
-
   for (j in seq_along(start)) {
     index <- seq.int(
       from = start[j],
@@ -135,7 +136,7 @@ SummaryByID <- function(data,
     out$initial_na[j] <- !stats::complete.cases(
       data[
         index[1],
-        initial_vars,
+        observed,
         drop = FALSE
       ]
     )

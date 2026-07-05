@@ -34,7 +34,14 @@ of the names of the covariates in the data.}
 Returns a data frame with one row per ID.
 }
 \description{
-The function returns a diagnostic table with one row per ID.
+The function returns a simple diagnostic table with one row per ID.
+For model-screening workflows, prefer \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
+\code{\link[=FlagDiagnosticsByID]{FlagDiagnosticsByID()}}, and \code{\link[=ScreenByID]{ScreenByID()}}.
+}
+\details{
+The \code{initial_na} column is based on the observed variables only.
+Covariates are retained in the input checks and sorted data, but missing
+covariates in the first row do not cause \code{initial_na = TRUE}.
 }
 \examples{
 data <- data.frame(
@@ -61,6 +68,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=DeleteObservedAllNA]{DeleteObservedAllNA()}},
 \code{\link[=DeltaTByID]{DeltaTByID()}},
 \code{\link[=DetrendByID]{DetrendByID()}},
+\code{\link[=DiagnoseScaleByID]{DiagnoseScaleByID()}},
 \code{\link[=DiagnosticsByID]{DiagnosticsByID()}},
 \code{\link[=DropByID]{DropByID()}},
 \code{\link[=ElapsedTimeByID]{ElapsedTimeByID()}},
@@ -77,6 +85,7 @@ Other Dynamic Modeling Utility Functions:
 \code{\link[=PlotByID]{PlotByID()}},
 \code{\link[=RegularizeTimeByID]{RegularizeTimeByID()}},
 \code{\link[=ReplaceMissingCode]{ReplaceMissingCode()}},
+\code{\link[=ResolveCloseTimeByID]{ResolveCloseTimeByID()}},
 \code{\link[=ResolveDuplicateIDTime]{ResolveDuplicateIDTime()}},
 \code{\link[=RoundClockTime]{RoundClockTime()}},
 \code{\link[=ScaleByID]{ScaleByID()}},
