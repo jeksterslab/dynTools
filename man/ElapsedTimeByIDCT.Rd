@@ -66,18 +66,46 @@ If \code{TRUE}, replace the original \code{time} variable. If \code{FALSE}, appe
 }
 \value{
 Returns a data frame. The returned data frame has an attribute
-named \code{"time_ct_scale"} containing the scaling information.
+named \code{"time_ct_scale"} containing the scaling information, time-scale
+interpretation, and conversion multipliers for drift and diffusion
+parameters.
 }
 \description{
 The function creates an elapsed-time variable within ID and rescales it for
-continuous-time state space modeling. The rescaling divides elapsed time by
+continuous-time state-space modeling. The rescaling divides elapsed time by
 a typical positive consecutive time interval so that the typical \code{delta_t}
 is approximately 1.
 }
 \details{
-This is useful for continuous-time models because the units of time are
-arbitrary, but poorly scaled time can lead to drift parameters that are very
-large or very small.
+This scaling can improve numerical optimization because the drift and
+diffusion parameters are estimated with respect to a better-scaled time
+variable. However, the resulting model parameters are interpreted per
+CT-scaled time unit, not per original time unit.
+
+If the original elapsed time is measured in the requested \code{units} and the
+scaling divisor is \eqn{c}, then
+
+\deqn{
+  t_{\mathrm{ct}} = t_{\mathrm{original}} / c.
+}
+
+Consequently, drift and diffusion covariance parameters estimated using
+\eqn{t_{\mathrm{ct}}} are on the CT-scaled time scale:
+
+\deqn{
+  \Phi_{\mathrm{ct}} = c \Phi_{\mathrm{original}},
+}
+
+and, for a diffusion covariance or intensity matrix,
+
+\deqn{
+  \Sigma_{\mathrm{ct}} = c \Sigma_{\mathrm{original}}.
+}
+
+To express estimates back in the original time units, divide drift and
+diffusion covariance/intensity estimates by the stored \code{scale_value}.
+If the diffusion parameter is a standard deviation or Cholesky factor rather
+than a covariance/intensity matrix, divide by \code{sqrt(scale_value)}.
 
 The minimum positive consecutive interval is reported as a diagnostic but is
 not used as a scaling option. The goal is to make the typical consecutive

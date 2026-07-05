@@ -46,9 +46,9 @@ sessionInfo()
 #> [1] dynTools_0.0.0.9000
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] compiler_4.6.1    cli_3.6.6.9000    tools_4.6.1       otel_0.2.0       
-#>  [5] rstudioapi_0.19.0 rProject_0.0.25   knitr_1.51        xfun_0.59        
-#>  [9] rlang_1.2.0       evaluate_1.0.5
+#> [1] compiler_4.6.1  cli_3.6.6       tools_4.6.1     otel_0.2.0     
+#> [5] rProject_0.0.25 knitr_1.51      xfun_0.59       rlang_1.2.0    
+#> [9] evaluate_1.0.5
 ```
 
 # Packages
@@ -68,7 +68,7 @@ installed.packages()[, c("Package", "Version")]
 #> cachem            "cachem"            "1.1.0"     
 #> callr             "callr"             "3.8.0"     
 #> cffr              "cffr"              "1.4.1"     
-#> cli               "cli"               "3.6.6.9000"
+#> cli               "cli"               "3.6.6"     
 #> clipr             "clipr"             "0.8.1"     
 #> commonmark        "commonmark"        "2.0.0"     
 #> covr              "covr"              "3.6.5"     
@@ -223,7 +223,6 @@ installed.packages()[, c("Package", "Version")]
 #> colorspace        "colorspace"        "2.1-2"     
 #> commonmark        "commonmark"        "2.0.0"     
 #> conflicted        "conflicted"        "1.2.0"     
-#> coro              "coro"              "1.1.0"     
 #> corpcor           "corpcor"           "1.6.10"    
 #> covr              "covr"              "3.6.5"     
 #> cowplot           "cowplot"           "1.2.0"     
@@ -233,7 +232,6 @@ installed.packages()[, c("Package", "Version")]
 #> crosstalk         "crosstalk"         "1.2.2"     
 #> cTMed             "cTMed"             "1.0.9.9000"
 #> ctsem             "ctsem"             "3.10.6"    
-#> cuda12.8          "cuda12.8"          "1.0.9"     
 #> curl              "curl"              "7.1.0"     
 #> data.table        "data.table"        "1.18.4"    
 #> DBI               "DBI"               "1.3.0"     
@@ -361,7 +359,6 @@ installed.packages()[, c("Package", "Version")]
 #> longMI            "longMI"            "1.0.0"     
 #> loo               "loo"               "2.9.0"     
 #> lubridate         "lubridate"         "1.9.5"     
-#> luz               "luz"               "0.5.2"     
 #> magick            "magick"            "2.9.1"     
 #> magrittr          "magrittr"          "2.0.5"     
 #> markdown          "markdown"          "2.0"       
@@ -492,7 +489,6 @@ installed.packages()[, c("Package", "Version")]
 #> rvest             "rvest"             "1.0.5"     
 #> Ryacas            "Ryacas"            "1.1.6"     
 #> S7                "S7"                "0.2.2"     
-#> safetensors       "safetensors"       "0.2.1"     
 #> sass              "sass"              "0.4.10"    
 #> scales            "scales"            "1.4.0"     
 #> selectr           "selectr"           "0.6-0"     
@@ -533,7 +529,6 @@ installed.packages()[, c("Package", "Version")]
 #> timechange        "timechange"        "0.4.0"     
 #> timeDate          "timeDate"          "4052.112"  
 #> tinytex           "tinytex"           "0.60.1"    
-#> torch             "torch"             "0.17.0"    
 #> tune              "tune"              "2.1.0"     
 #> tzdb              "tzdb"              "0.5.0"     
 #> ucminf            "ucminf"            "1.2.3"     
@@ -562,7 +557,6 @@ installed.packages()[, c("Package", "Version")]
 #> xtable            "xtable"            "1.8-8"     
 #> yaml              "yaml"              "2.3.12"    
 #> yardstick         "yardstick"         "1.4.0"     
-#> zeallot           "zeallot"           "0.2.0"     
 #> zip               "zip"               "3.0.0"     
 #> zoo               "zoo"               "1.8-15"    
 #> base              "base"              "4.6.1"     
@@ -614,7 +608,7 @@ installed.packages()[, c("Package", "Version")]
 #> Core(s) per socket:                      4
 #> Socket(s):                               1
 #> Stepping:                                12
-#> CPU(s) scaling MHz:                      71%
+#> CPU(s) scaling MHz:                      56%
 #> CPU max MHz:                             4100.0000
 #> CPU min MHz:                             400.0000
 #> BogoMIPS:                                3799.90
@@ -651,7 +645,7 @@ installed.packages()[, c("Package", "Version")]
 
 ```
 #>                total        used        free      shared  buff/cache   available
-#> Mem:            15Gi       6.1Gi       3.6Gi       990Mi       6.7Gi       9.0Gi
-#> Swap:          7.8Gi          0B       7.8Gi
-#> Total:          22Gi       6.1Gi        11Gi
+#> Mem:            15Gi       8.4Gi       421Mi       889Mi       7.5Gi       6.7Gi
+#> Swap:          7.8Gi       512Ki       7.8Gi
+#> Total:          22Gi       8.4Gi       8.2Gi
 ```
