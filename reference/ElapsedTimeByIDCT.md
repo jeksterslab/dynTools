@@ -1,7 +1,7 @@
 # Create CT-Scaled Elapsed Time by ID
 
 The function creates an elapsed-time variable within ID and rescales it
-for continuous-time state space modeling. The rescaling divides elapsed
+for continuous-time state-space modeling. The rescaling divides elapsed
 time by a typical positive consecutive time interval so that the typical
 `delta_t` is approximately 1.
 
@@ -82,13 +82,36 @@ ElapsedTimeByIDCT(
 ## Value
 
 Returns a data frame. The returned data frame has an attribute named
-`"time_ct_scale"` containing the scaling information.
+`"time_ct_scale"` containing the scaling information, time-scale
+interpretation, and conversion multipliers for drift and diffusion
+parameters.
 
 ## Details
 
-This is useful for continuous-time models because the units of time are
-arbitrary, but poorly scaled time can lead to drift parameters that are
-very large or very small.
+This scaling can improve numerical optimization because the drift and
+diffusion parameters are estimated with respect to a better-scaled time
+variable. However, the resulting model parameters are interpreted per
+CT-scaled time unit, not per original time unit.
+
+If the original elapsed time is measured in the requested `units` and
+the scaling divisor is \\c\\, then
+
+\$\$ t\_{\mathrm{ct}} = t\_{\mathrm{original}} / c. \$\$
+
+Consequently, drift and diffusion covariance parameters estimated using
+\\t\_{\mathrm{ct}}\\ are on the CT-scaled time scale:
+
+\$\$ \Phi\_{\mathrm{ct}} = c \Phi\_{\mathrm{original}}, \$\$
+
+and, for a diffusion covariance or intensity matrix,
+
+\$\$ \Sigma\_{\mathrm{ct}} = c \Sigma\_{\mathrm{original}}. \$\$
+
+To express estimates back in the original time units, divide drift and
+diffusion covariance/intensity estimates by the stored `scale_value`. If
+the diffusion parameter is a standard deviation or Cholesky factor
+rather than a covariance/intensity matrix, divide by
+`sqrt(scale_value)`.
 
 The minimum positive consecutive interval is reported as a diagnostic
 but is not used as a scaling option. The goal is to make the typical
@@ -164,11 +187,20 @@ attr(data_ct, "time_ct_scale")
 #> $original_units
 #> [1] "hours"
 #> 
+#> $origin
+#> [1] "by_id"
+#> 
 #> $scale
+#> [1] "mean_dt"
+#> 
+#> $requested_scale
 #> [1] "mean_dt"
 #> 
 #> $scale_value
 #> [1] 9
+#> 
+#> $scale_value_supplied
+#> [1] FALSE
 #> 
 #> $mean_dt_original_units
 #> [1] 9
@@ -188,7 +220,43 @@ attr(data_ct, "time_ct_scale")
 #> $n_positive_dt
 #> [1] 2
 #> 
+#> $n_nonpositive_dt
+#> [1] 0
+#> 
 #> $interpretation
 #> [1] "1 CT time unit = 9 hours."
+#> 
+#> $time_conversion
+#> [1] "time_ct = elapsed time in hours / 9."
+#> 
+#> $original_time_conversion
+#> [1] "Elapsed time in hours = time_ct * 9."
+#> 
+#> $drift_ct_to_original_multiplier
+#> [1] 0.1111111
+#> 
+#> $drift_original_to_ct_multiplier
+#> [1] 9
+#> 
+#> $diffusion_covariance_ct_to_original_multiplier
+#> [1] 0.1111111
+#> 
+#> $diffusion_covariance_original_to_ct_multiplier
+#> [1] 9
+#> 
+#> $diffusion_sd_ct_to_original_multiplier
+#> [1] 0.3333333
+#> 
+#> $diffusion_sd_original_to_ct_multiplier
+#> [1] 3
+#> 
+#> $drift_conversion
+#> [1] "To convert drift estimates from CT-scaled units back to per hours, multiply by 0.111111. Equivalently, divide by 9."
+#> 
+#> $diffusion_covariance_conversion
+#> [1] "To convert diffusion covariance/intensity estimates from CT-scaled units back to per hours, multiply by 0.111111. Equivalently, divide by 9."
+#> 
+#> $diffusion_sd_conversion
+#> [1] "If diffusion is parameterized as a standard deviation or Cholesky factor, convert from CT-scaled units back to per hours by multiplying by 0.333333. Equivalently, divide by sqrt(9)."
 #> 
 ```
