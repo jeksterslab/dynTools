@@ -77,6 +77,18 @@ a typical positive consecutive time interval so that the typical \code{delta_t}
 is approximately 1.
 }
 \details{
+This scaling is motivated by the continuous-time dynamic structural equation
+modeling recommendation to use a time scale for which the average distance
+between consecutive observations is approximately 1. The goal is numerical
+stability: drift parameters are directly multiplied by time, so poorly
+scaled time can make drift estimates very large or very small.
+
+The \code{mean_dt} option follows this recommendation directly by using the
+empirical mean positive consecutive interval as the time-scaling divisor.
+The \code{median_dt} option is a robust alternative that makes the typical
+consecutive interval, rather than the arithmetic average interval,
+approximately 1.
+
 This scaling can improve numerical optimization because the drift and
 diffusion parameters are estimated with respect to a better-scaled time
 variable. However, the resulting model parameters are interpreted per
@@ -136,6 +148,10 @@ data_ct <- ElapsedTimeByIDCT(
 
 attr(data_ct, "time_ct_scale")
 
+}
+\references{
+Asparouhov, T., & Muthen, B. (2024). Continuous Time Dynamic Structural
+Equation Models. Muthen & Muthen.
 }
 \seealso{
 Other Dynamic Modeling Utility Functions:
