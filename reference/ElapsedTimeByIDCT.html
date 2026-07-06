@@ -147,7 +147,17 @@ parameters.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This scaling can improve numerical optimization because the drift and
+    <p>This scaling is motivated by the continuous-time dynamic structural equation
+modeling recommendation to use a time scale for which the average distance
+between consecutive observations is approximately 1. The goal is numerical
+stability: drift parameters are directly multiplied by time, so poorly
+scaled time can make drift estimates very large or very small.</p>
+<p>The <code>mean_dt</code> option follows this recommendation directly by using the
+empirical mean positive consecutive interval as the time-scaling divisor.
+The <code>median_dt</code> option is a robust alternative that makes the typical
+consecutive interval, rather than the arithmetic average interval,
+approximately 1.</p>
+<p>This scaling can improve numerical optimization because the drift and
 diffusion parameters are estimated with respect to a better-scaled time
 variable. However, the resulting model parameters are interpreted per
 CT-scaled time unit, not per original time unit.</p>
@@ -172,6 +182,11 @@ than a covariance/intensity matrix, divide by <code>sqrt(scale_value)</code>.</p
 <p>The minimum positive consecutive interval is reported as a diagnostic but is
 not used as a scaling option. The goal is to make the typical consecutive
 interval approximately 1, not the smallest interval.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Asparouhov, T., &amp; Muthen, B. (2024). Continuous Time Dynamic Structural
+Equation Models. Muthen &amp; Muthen.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -279,6 +294,12 @@ interval approximately 1, not the smallest interval.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $n_nonpositive_dt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $average_delta_t_ct_units</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $median_delta_t_ct_units</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $interpretation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1 CT time unit = 9 hours."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -314,6 +335,9 @@ interval approximately 1, not the smallest interval.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diffusion_sd_conversion</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "If diffusion is parameterized as a standard deviation or Cholesky factor, convert from CT-scaled units back to per hours by multiplying by 0.333333. Equivalently, divide by sqrt(9)."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $scaling_note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "The time scale was chosen so that the average or typical positive consecutive interval is approximately 1 in CT-scaled units. With scale = 'mean_dt', the average positive consecutive interval is approximately 1. With scale = 'median_dt', the median positive consecutive interval is approximately 1."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

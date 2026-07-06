@@ -88,6 +88,19 @@ parameters.
 
 ## Details
 
+This scaling is motivated by the continuous-time dynamic structural
+equation modeling recommendation to use a time scale for which the
+average distance between consecutive observations is approximately 1.
+The goal is numerical stability: drift parameters are directly
+multiplied by time, so poorly scaled time can make drift estimates very
+large or very small.
+
+The `mean_dt` option follows this recommendation directly by using the
+empirical mean positive consecutive interval as the time-scaling
+divisor. The `median_dt` option is a robust alternative that makes the
+typical consecutive interval, rather than the arithmetic average
+interval, approximately 1.
+
 This scaling can improve numerical optimization because the drift and
 diffusion parameters are estimated with respect to a better-scaled time
 variable. However, the resulting model parameters are interpreted per
@@ -116,6 +129,11 @@ rather than a covariance/intensity matrix, divide by
 The minimum positive consecutive interval is reported as a diagnostic
 but is not used as a scaling option. The goal is to make the typical
 consecutive interval approximately 1, not the smallest interval.
+
+## References
+
+Asparouhov, T., & Muthen, B. (2024). Continuous Time Dynamic Structural
+Equation Models. Muthen & Muthen.
 
 ## See also
 
@@ -223,6 +241,12 @@ attr(data_ct, "time_ct_scale")
 #> $n_nonpositive_dt
 #> [1] 0
 #> 
+#> $average_delta_t_ct_units
+#> [1] 1
+#> 
+#> $median_delta_t_ct_units
+#> [1] 1
+#> 
 #> $interpretation
 #> [1] "1 CT time unit = 9 hours."
 #> 
@@ -258,5 +282,8 @@ attr(data_ct, "time_ct_scale")
 #> 
 #> $diffusion_sd_conversion
 #> [1] "If diffusion is parameterized as a standard deviation or Cholesky factor, convert from CT-scaled units back to per hours by multiplying by 0.333333. Equivalently, divide by sqrt(9)."
+#> 
+#> $scaling_note
+#> [1] "The time scale was chosen so that the average or typical positive consecutive interval is approximately 1 in CT-scaled units. With scale = 'mean_dt', the average positive consecutive interval is approximately 1. With scale = 'median_dt', the median positive consecutive interval is approximately 1."
 #> 
 ```
