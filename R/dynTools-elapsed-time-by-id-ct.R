@@ -5,6 +5,18 @@
 #' a typical positive consecutive time interval so that the typical `delta_t`
 #' is approximately 1.
 #'
+#' This scaling is motivated by the continuous-time dynamic structural equation
+#' modeling recommendation to use a time scale for which the average distance
+#' between consecutive observations is approximately 1. The goal is numerical
+#' stability: drift parameters are directly multiplied by time, so poorly
+#' scaled time can make drift estimates very large or very small.
+#'
+#' The `mean_dt` option follows this recommendation directly by using the
+#' empirical mean positive consecutive interval as the time-scaling divisor.
+#' The `median_dt` option is a robust alternative that makes the typical
+#' consecutive interval, rather than the arithmetic average interval,
+#' approximately 1.
+#'
 #' This scaling can improve numerical optimization because the drift and
 #' diffusion parameters are estimated with respect to a better-scaled time
 #' variable. However, the resulting model parameters are interpreted per
@@ -57,6 +69,10 @@
 #'   named `"time_ct_scale"` containing the scaling information, time-scale
 #'   interpretation, and conversion multipliers for drift and diffusion
 #'   parameters.
+#'
+#' @references
+#' Asparouhov, T., & Muthen, B. (2024). Continuous Time Dynamic Structural
+#' Equation Models. Muthen & Muthen.
 #'
 #' @examples
 #' data <- data.frame(
@@ -276,6 +292,8 @@ ElapsedTimeByIDCT <- function(data,
       n_dt = 0L,
       n_positive_dt = 0L,
       n_nonpositive_dt = 0L,
+      average_delta_t_ct_units = NA_real_,
+      median_delta_t_ct_units = NA_real_,
       interpretation = NA_character_,
       time_conversion = NA_character_,
       original_time_conversion = NA_character_,
@@ -287,7 +305,8 @@ ElapsedTimeByIDCT <- function(data,
       diffusion_sd_original_to_ct_multiplier = NA_real_,
       drift_conversion = NA_character_,
       diffusion_covariance_conversion = NA_character_,
-      diffusion_sd_conversion = NA_character_
+      diffusion_sd_conversion = NA_character_,
+      scaling_note = NA_character_
     )
 
     rownames(data) <- NULL
@@ -366,14 +385,17 @@ ElapsedTimeByIDCT <- function(data,
 
   data[[temp_output]] <- NULL
 
-  drift_ct_to_original_multiplier <- 1 / scale_value
-  drift_original_to_ct_multiplier <- scale_value
+  drift_ct2orig_mult <- 1 / scale_value
+  drift_orig2ct_mult <- scale_value
 
-  diffusion_covariance_ct_to_original_multiplier <- 1 / scale_value
-  diffusion_covariance_original_to_ct_multiplier <- scale_value
+  diff_cov_ct2orig_mult <- 1 / scale_value
+  diff_cov_orig2ct_mult <- scale_value
 
-  diffusion_sd_ct_to_original_multiplier <- 1 / sqrt(scale_value)
-  diffusion_sd_original_to_ct_multiplier <- sqrt(scale_value)
+  diff_sd_ct2orig_mult <- 1 / sqrt(scale_value)
+  diff_sd_orig2ct_mult <- sqrt(scale_value)
+
+  average_delta_t_ct_units <- mean(dt_positive / scale_value)
+  median_delta_t_ct_units <- stats::median(dt_positive / scale_value)
 
   attr(data, "time_ct_scale") <- list(
     variable = time_variable,
@@ -390,6 +412,8 @@ ElapsedTimeByIDCT <- function(data,
     n_dt = length(dt),
     n_positive_dt = length(dt_positive),
     n_nonpositive_dt = length(dt) - length(dt_positive),
+    average_delta_t_ct_units = average_delta_t_ct_units,
+    median_delta_t_ct_units = median_delta_t_ct_units,
     interpretation = paste0(
       "1 CT time unit = ",
       signif(scale_value, 6),
@@ -414,21 +438,21 @@ ElapsedTimeByIDCT <- function(data,
       signif(scale_value, 6),
       "."
     ),
-    drift_ct_to_original_multiplier = drift_ct_to_original_multiplier,
-    drift_original_to_ct_multiplier = drift_original_to_ct_multiplier,
+    drift_ct_to_original_multiplier = drift_ct2orig_mult,
+    drift_original_to_ct_multiplier = drift_orig2ct_mult,
     diffusion_covariance_ct_to_original_multiplier =
-      diffusion_covariance_ct_to_original_multiplier,
+      diff_cov_ct2orig_mult,
     diffusion_covariance_original_to_ct_multiplier =
-      diffusion_covariance_original_to_ct_multiplier,
+      diff_cov_orig2ct_mult,
     diffusion_sd_ct_to_original_multiplier =
-      diffusion_sd_ct_to_original_multiplier,
+      diff_sd_ct2orig_mult,
     diffusion_sd_original_to_ct_multiplier =
-      diffusion_sd_original_to_ct_multiplier,
+      diff_sd_orig2ct_mult,
     drift_conversion = paste0(
       "To convert drift estimates from CT-scaled units back to per ",
       units,
       ", multiply by ",
-      signif(drift_ct_to_original_multiplier, 6),
+      signif(drift_ct2orig_mult, 6),
       ". Equivalently, divide by ",
       signif(scale_value, 6),
       "."
@@ -438,7 +462,7 @@ ElapsedTimeByIDCT <- function(data,
       "units back to per ",
       units,
       ", multiply by ",
-      signif(diffusion_covariance_ct_to_original_multiplier, 6),
+      signif(diff_cov_ct2orig_mult, 6),
       ". Equivalently, divide by ",
       signif(scale_value, 6),
       "."
@@ -448,10 +472,17 @@ ElapsedTimeByIDCT <- function(data,
       "factor, convert from CT-scaled units back to per ",
       units,
       " by multiplying by ",
-      signif(diffusion_sd_ct_to_original_multiplier, 6),
+      signif(diff_sd_ct2orig_mult, 6),
       ". Equivalently, divide by sqrt(",
       signif(scale_value, 6),
       ")."
+    ),
+    scaling_note = paste0(
+      "The time scale was chosen so that the average or typical positive ",
+      "consecutive interval is approximately 1 in CT-scaled units. ",
+      "With scale = 'mean_dt', the average positive consecutive interval is ",
+      "approximately 1. With scale = 'median_dt', the median positive ",
+      "consecutive interval is approximately 1."
     )
   )
 
