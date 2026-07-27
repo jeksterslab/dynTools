@@ -1,4 +1,3 @@
 # License
 
-    YEAR: 2026
-    COPYRIGHT HOLDER: Ivan Jacob Agaloos Pesigan
+YEAR: 2026 COPYRIGHT HOLDER: Ivan Jacob Agaloos Pesigan

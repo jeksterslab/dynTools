@@ -13,9 +13,6 @@ Source:
 Pesigan, I. J. A. (2026). dynTools: Dynamic Modeling Utilities. R
 package version 0.0.0.9000. https://github.com/ijapesigan/dynTools
 
-    @Manual{,
-      author = {Ivan Jacob Agaloos Pesigan},
-      title = {dynTools: Dynamic Modeling Utilities},
-      year = {2026},
-      note = {R package version 0.0.0.9000},
-    }
+@Manual{, author = {Ivan Jacob Agaloos Pesigan}, title = {dynTools:
+Dynamic Modeling Utilities}, year = {2026}, note = {R package version
+0.0.0.9000}, }
